@@ -6,50 +6,65 @@
 <title>Markitt Ramadan Hampers</title>
 <style>
 :root{
-  --primary:#4CAF50; /* light green primary color */
+  --primary:#00401A;   /* Deep Pakistani Green */
+  --accent:#1B5E20;    /* Soft Leaf Green for buttons/icons */
   --whatsapp:#25D366;
-  --footer-bg:#e6f4ea; /* very light green for footer */
+  --footer-bg:#FFFFFF;  /* Clean background for footer */
+  --gold:#C5A059;      /* Luxury accent for Ramadan text */
 }
 
-/* Body with light Pakistan flag watermark */
+/* Body with premium fabric-like blurred background */
 body{
   font-family:Arial, sans-serif;
   margin:0;
-  background:#f0fff4 url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg') no-repeat center center;
+  background:#FFFFFF url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg') no-repeat center center;
   background-size:cover;
   background-attachment:fixed;
-  opacity:0.99; /* keep background subtle */
+  color:#00401A;
 }
 
+/* Top Flag Section */
+.top-flag{
+  width:100%;
+  height:120px;
+  background:linear-gradient(to bottom, rgba(0,64,26,0.8), rgba(27,94,32,0.6)), url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg') no-repeat center center;
+  background-size:cover;
+}
+
+/* Main container */
 .container{
   width:95%;
   max-width:700px;
   margin:20px auto;
-  background:rgba(255,255,255,0.95); /* semi-transparent to show watermark */
+  background:rgba(255,255,255,0.95);
   border-radius:12px;
   box-shadow:0 6px 15px rgba(0,0,0,0.1);
   overflow:hidden;
 }
 
+/* Header */
 .header{
-  background:linear-gradient(90deg,#43a047,#a5d6a7); /* green gradient */
-  color:#fff;
+  background:linear-gradient(90deg,var(--primary),var(--accent));
+  color:#FFFFFF;
   text-align:center;
   padding:20px;
   font-weight:bold;
   font-size:26px;
 }
-
-.logo img{
-  max-width:120px;
+.logo{
+  font-size:28px;
+  font-weight:bold;
+  color:var(--gold);
   margin-bottom:10px;
-  border:none;
 }
 
+/* Slider */
 .slider img{
   width:100%;
+  border-radius:8px;
 }
 
+/* Countdown */
 #countdown{
   text-align:center;
   font-weight:bold;
@@ -70,24 +85,29 @@ body{
 .accordion-header{
   padding:15px;
   cursor:pointer;
-  background:#e8f5e9;
+  background:#F0FFF4;
   display:flex;
   justify-content:space-between;
   font-weight:bold;
+  transition:background .3s, color .3s;
+}
+.accordion-header.active{
+  background:var(--accent);
+  color:#FFFFFF;
 }
 .accordion-body{
   max-height:0;
   overflow:hidden;
   transition:max-height .3s;
-  padding:0 15px;
-  background:#f0fff4;
+  padding:0 15px 10px 15px;
+  background:#FFFFFF;
 }
-.accordion-body ul{list-style:none;padding:0}
+.accordion-body ul{list-style:none;padding:0;margin:0}
 
-/* Buttons */
+/* Buttons / CTA */
 .cta{
   display:inline-block;
-  margin:10px;
+  margin:10px 0;
   padding:12px 25px;
   background:var(--primary);
   color:#fff;
@@ -97,11 +117,11 @@ body{
   cursor:pointer;
   transition:background .3s;
 }
-.cta:hover{background:#388e3c;}
+.cta:hover{background:var(--accent);}
 .whatsapp{background:var(--whatsapp);}
 .whatsapp:hover{background:#1ebe57;}
 
-/* Form */
+/* Forms */
 form{margin:20px;}
 form input,select,textarea,button{
   width:100%;
@@ -117,9 +137,9 @@ form button{
   font-weight:bold;
   cursor:pointer;
 }
-form button:hover{background:#388e3c;}
+form button:hover{background:var(--accent);}
 
-/* Modal */
+/* Modal for images */
 .modal{
   display:none;
   position:fixed;
@@ -174,44 +194,19 @@ form button:hover{background:#388e3c;}
   font-weight:bold;
   transition:all 0.3s;
 }
-.footer-section a:hover{
-  text-decoration:underline;
-}
-.footer-section img{
-  vertical-align:middle;
-  margin-right:5px;
-  transition:all 0.3s;
-}
-.footer-section a.social-whatsapp:hover img{
-  filter: hue-rotate(100deg) brightness(1.2);
-  transform: scale(1.2);
-}
-.footer-section a.social-facebook:hover img{
-  filter: hue-rotate(200deg) brightness(1.2);
-  transform: scale(1.2);
-}
-.footer-section a.social-instagram:hover img{
-  filter: hue-rotate(300deg) brightness(1.2);
-  transform: scale(1.2);
-}
-.footer-bottom{
-  text-align:center;
-  margin-top:15px;
-  font-size:13px;
-  color:#555;
-}
+.footer-section a:hover{text-decoration:underline;}
+.footer-bottom{text-align:center;margin-top:15px;font-size:13px;color:#555;}
 </style>
 </head>
-
 <body>
+
+<div class="top-flag"></div>
 
 <div class="container">
 
   <div class="header">
-    <div class="logo">
-      <img src="Logo.png" alt="Markitt Logo">
-    </div>
-    🌙 Markitt Ramadan Hampers
+    <div class="logo">Markitt.com</div>
+    🌙 <span style="color:var(--gold)">Markitt Ramadan Hampers</span>
   </div>
 
   <div class="slider">
@@ -225,9 +220,10 @@ form button:hover{background:#388e3c;}
   </div>
 
   <div class="accordion">
-
     <div class="accordion-item">
-      <div class="accordion-header hamper1" data-pkr="3240">📦 Hamper 1 – PKR 3,240 <span>▼</span></div>
+      <div class="accordion-header hamper1" data-pkr="3240">
+        📦 Hamper 1 – <span class="price">PKR 3,240</span> <span class="arrow">▼</span>
+      </div>
       <div class="accordion-body">
         <ul>
           <li>Flour – 5 kg</li>
@@ -235,27 +231,33 @@ form button:hover{background:#388e3c;}
           <li>Sugar – 1 kg</li>
           <li>Cooking Oil – 1 pack</li>
         </ul>
+        <button class="cta" onclick="openModal('Hamper_1.jpg')">View Image</button>
       </div>
     </div>
 
     <div class="accordion-item">
-      <div class="accordion-header hamper2" data-pkr="5499">📦 Hamper 2 – PKR 5,499 <span>▼</span></div>
+      <div class="accordion-header hamper2" data-pkr="5499">
+        📦 Hamper 2 – <span class="price">PKR 5,499</span> <span class="arrow">▼</span>
+      </div>
       <div class="accordion-body">
         <ul>
           <li>Extended grocery pack</li>
         </ul>
+        <button class="cta" onclick="openModal('Hamper_2.jpg')">View Image</button>
       </div>
     </div>
 
     <div class="accordion-item">
-      <div class="accordion-header hamper3" data-pkr="6999">📦 Hamper 3 – PKR 6,999 <span>▼</span></div>
+      <div class="accordion-header hamper3" data-pkr="6999">
+        📦 Hamper 3 – <span class="price">PKR 6,999</span> <span class="arrow">▼</span>
+      </div>
       <div class="accordion-body">
         <ul>
           <li>Premium full package</li>
         </ul>
+        <button class="cta" onclick="openModal('Hamper_3.jpg')">View Image</button>
       </div>
     </div>
-
   </div>
 
   <div style="text-align:center;">
@@ -275,7 +277,6 @@ form button:hover{background:#388e3c;}
     <button type="button" onclick="sendWhatsApp()">Submit via WhatsApp</button>
   </form>
 
-  <!-- Footer -->
   <div class="footer">
     <div class="footer-container">
       <div class="footer-section">
@@ -286,21 +287,9 @@ form button:hover{background:#388e3c;}
       </div>
       <div class="footer-section">
         <h4>Follow Us</h4>
-        <a href="https://wa.me/923422088395" target="_blank" class="social-whatsapp">
+        <a href="https://wa.me/923422088395" target="_blank">
           <img src="https://cdn-icons-png.flaticon.com/24/733/733585.png" alt="WhatsApp"> WhatsApp
-        </a><br>
-        <a href="#" target="_blank" class="social-facebook">
-          <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook"> Facebook
-        </a><br>
-        <a href="#" target="_blank" class="social-instagram">
-          <img src="https://cdn-icons-png.flaticon.com/24/733/733614.png" alt="Instagram"> Instagram
         </a>
-      </div>
-      <div class="footer-section">
-        <h4>Quick Links</h4>
-        <a href="#countdown">Countdown</a><br>
-        <a href="#orderForm">Order Now</a><br>
-        <a href="#slider">View Hampers</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -320,59 +309,56 @@ form button:hover{background:#388e3c;}
 const slides=["SLIDE1.jpg","SLIDE2.jpg","SLIDE3.jpg"];
 let i=0;
 setInterval(()=>{
-i=(i+1)%slides.length;
-document.getElementById("slideImg").src=slides[i];
+  i=(i+1)%slides.length;
+  document.getElementById("slideImg").src=slides[i];
 },3000);
 
-// Accordion
-document.querySelectorAll('.accordion-header').forEach(h=>{
-h.addEventListener('click',()=>{
-let body=h.nextElementSibling;
-body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
-});
+// Accordion toggle
+document.querySelectorAll('.accordion-header').forEach(header=>{
+  header.addEventListener('click',()=>{
+    const body = header.nextElementSibling;
+    body.style.maxHeight = body.style.maxHeight ? null : body.scrollHeight + "px";
+    const arrow = header.querySelector('.arrow');
+    arrow.textContent = arrow.textContent === "▼" ? "▲" : "▼";
+    header.classList.toggle("active");
+  });
 });
 
 // Modal
-document.querySelector('.hamper1').onclick=()=>openModal('HAM1.jpg');
-document.querySelector('.hamper2').onclick=()=>openModal('HAM2.jpg');
-document.querySelector('.hamper3').onclick=()=>openModal('HAM3.jpg');
 function openModal(src){
-document.getElementById("imgModal").style.display="block";
-document.getElementById("modalImage").src=src;
+  document.getElementById("imgModal").style.display="block";
+  document.getElementById("modalImage").src=src;
 }
 function closeModal(){document.getElementById("imgModal").style.display="none";}
 
 // Countdown
 const ramadan=new Date("Feb 28, 2026").getTime();
 setInterval(()=>{
-let now=new Date().getTime();
-let gap=ramadan-now;
-let d=Math.floor(gap/(1000*60*60*24));
-let h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
-document.getElementById("countdown").innerHTML=
-"Ramadan Starts In: "+d+"d "+h+"h";
+  let now=new Date().getTime();
+  let gap=ramadan-now;
+  let d=Math.floor(gap/(1000*60*60*24));
+  let h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
+  document.getElementById("countdown").innerHTML=
+  "Ramadan Starts In: "+d+"d "+h+"h";
 },1000);
 
 // Currency toggle
 let inUSD=false;
+const rate=280;
 function toggleCurrency(){
-  const rate=280;
   inUSD = !inUSD;
   document.querySelectorAll('.accordion-header').forEach(h=>{
     let pkr = h.dataset.pkr;
-    if(inUSD){
-      h.innerHTML=`📦 ${h.textContent.split('–')[0].trim()} – $${(pkr/rate).toFixed(2)} <span>▼</span>`;
-    }else{
-      h.innerHTML=`📦 ${h.textContent.split('–')[0].trim()} – PKR ${pkr} <span>▼</span>`;
-    }
+    const priceSpan = h.querySelector('.price');
+    priceSpan.textContent = inUSD ? `$${(pkr/rate).toFixed(2)}` : `PKR ${pkr}`;
   });
 }
 
 // WhatsApp form submit
 function sendWhatsApp(){
-let f=document.getElementById("orderForm");
-let txt=`Name:${f.name.value} Hamper:${f.hamper.value} ${f.message.value}`;
-window.open("https://wa.me/923422088395?text="+encodeURIComponent(txt));
+  let f=document.getElementById("orderForm");
+  let txt=`Name: ${f.name.value} Hamper: ${f.hamper.value} Message: ${f.message.value}`;
+  window.open("https://wa.me/923422088395?text="+encodeURIComponent(txt));
 }
 </script>
 
