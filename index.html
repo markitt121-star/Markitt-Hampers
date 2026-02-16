@@ -40,7 +40,7 @@ body{
   overflow:hidden;
 }
 
-/* PROFESSIONAL SEAMLESS DIAGONAL WATERMARK */
+/* ULTRA-PROFESSIONAL FADED DIAGONAL WATERMARK */
 .header::before{
   content:"";
   position:absolute;
@@ -51,10 +51,20 @@ body{
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg");
   background-repeat: repeat;
   background-size: 120px 120px;
-  opacity:0.06; /* subtle watermark */
   transform: rotate(-25deg); /* diagonal */
+  opacity: 0.06; /* subtle watermark */
   pointer-events: none;
-  z-index:1;
+  z-index: 1;
+
+  /* fade edges */
+  -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: cover;
+  mask-image: radial-gradient(circle, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: cover;
 }
 
 /* HEADER CONTENT ABOVE WATERMARK */
