@@ -15,16 +15,7 @@
 body{
   font-family:Arial, sans-serif;
   margin:0;
-  background:#f0fff4 url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg') no-repeat center center;
-  background-size:cover;
-  background-attachment:fixed;
-  opacity:0.99;
-}
-.top-flag{
-  width:100%;
-  background:url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg') no-repeat center center;
-  background-size:cover;
-  height:120px;
+  background:#f0fff4;
 }
 .container{
   width:95%;
@@ -42,12 +33,20 @@ body{
   padding:20px;
   font-weight:bold;
   font-size:26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:15px;
+  border-radius:12px 12px 0 0;
+}
+.header img{
+  width:60px;
+  border-radius:8px;
 }
 .logo{
   font-size:28px;
   font-weight:bold;
   color:#fff;
-  margin-bottom:10px;
 }
 .slider img{
   width:100%;
@@ -182,13 +181,14 @@ form button:hover{background:var(--accent);}
 </head>
 <body>
 
-<div class="top-flag"></div>
-
 <div class="container">
 
   <div class="header">
-    <div class="logo">Markitt.com</div>
-    🌙 Markitt Ramadan Hampers
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg" alt="Pakistan Flag">
+    <div>
+      <div class="logo">Markitt.com</div>
+      🌙 Markitt Ramadan Hampers
+    </div>
   </div>
 
   <div class="slider">
@@ -300,13 +300,10 @@ document.querySelectorAll('.accordion-header').forEach(header=>{
     const body = header.nextElementSibling;
     body.style.maxHeight = body.style.maxHeight ? null : body.scrollHeight + "px";
 
-    // Rotate arrow
     const arrow = header.querySelector('.arrow');
     arrow.textContent = arrow.textContent === "▼" ? "▲" : "▼";
-
     header.classList.toggle("active");
 
-    // Show corresponding hamper image
     const imgSrc = header.classList.contains('hamper1') ? 'Hamper_1.jpg' :
                    header.classList.contains('hamper2') ? 'Hamper_2.jpg' :
                    header.classList.contains('hamper3') ? 'Hamper_3.jpg' : null;
