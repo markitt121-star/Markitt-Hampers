@@ -4,146 +4,183 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Markitt Ramadan Hampers</title>
-
 <style>
 :root{
-    --primary:#4CAF50;        /* Light Green main */
-    --primary-light:#8BC34A;  /* Softer green */
-    --whatsapp:#25D366;
+  --primary:#ff5722;
+  --whatsapp:#25D366;
+  --bg:#fdf6f0;
+  --header-gradient:linear-gradient(90deg,#ff6f61,#ffb347);
 }
 
 body{
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f3fbf4; /* very light green */
+  font-family:'Arial',sans-serif;
+  margin:0;
+  background:var(--bg);
+  color:#333;
 }
 
 .container{
-    width: 95%;
-    max-width: 700px;
-    margin: 20px auto;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    overflow: hidden;
+  width:95%;
+  max-width:700px;
+  margin:30px auto;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.1);
+  overflow:hidden;
 }
 
 .header{
-    background: linear-gradient(90deg,#4CAF50,#8BC34A);
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-    font-weight: bold;
-    font-size: 26px;
+  background:var(--header-gradient);
+  color:#fff;
+  text-align:center;
+  padding:20px;
+  font-weight:bold;
+  font-size:26px;
+  border-bottom:2px solid rgba(255,255,255,0.5);
 }
 
 .logo img{
-    max-width: 120px;
-    margin-bottom: 10px;
+  max-width:120px;
+  margin-bottom:10px;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  border:none;
 }
 
 .slider img{
-    width: 100%;
+  width:100%;
+  display:block;
+  border-bottom:2px solid #eee;
 }
 
 #countdown{
-    text-align: center;
-    font-weight: bold;
-    color: var(--primary);
-    padding: 10px;
+  text-align:center;
+  font-weight:bold;
+  color:var(--primary);
+  padding:15px;
+  font-size:18px;
 }
 
 /* Accordion */
 .accordion{
-    margin: 20px;
-    border: 1px solid #c8e6c9;
-    border-radius: 10px;
+  margin:20px;
+  border-radius:10px;
+  overflow:hidden;
 }
 .accordion-item{
-    border-bottom: 1px solid #c8e6c9;
-    transition: transform .3s, box-shadow .3s;
+  border-bottom:1px solid #ddd;
+  transition:transform .3s, box-shadow .3s;
 }
 .accordion-item:hover{
-    transform: translateY(-5px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+  transform:translateY(-3px);
+  box-shadow:0 6px 12px rgba(0,0,0,0.1);
 }
 .accordion-header{
-    padding: 15px;
-    cursor: pointer;
-    background: #e8f5e9;
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
+  padding:15px;
+  cursor:pointer;
+  background:#fafafa;
+  display:flex;
+  justify-content:space-between;
+  font-weight:bold;
+  font-size:16px;
+  border-left:4px solid var(--primary);
+  border-radius:0;
 }
 .accordion-body{
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .3s;
-    padding: 0 15px;
-    background: #f3fbf4;
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .3s;
+  padding:0 15px;
+  background:#fefaf6;
 }
-.accordion-body ul{list-style:none;padding:0}
+.accordion-body ul{
+  list-style:none;
+  padding:10px 0;
+  margin:0;
+}
+.accordion-body li{
+  padding:5px 0;
+  border-bottom:1px dashed #ddd;
+  font-size:15px;
+}
 
 /* Buttons */
 .cta{
-    display: inline-block;
-    margin: 10px;
-    padding: 12px 25px;
-    background: var(--primary);
-    color: #fff;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
+  display:inline-block;
+  margin:10px 5px;
+  padding:12px 25px;
+  background:var(--primary);
+  color:#fff;
+  text-decoration:none;
+  border-radius:8px;
+  font-weight:bold;
+  transition:background .3s;
 }
-.cta:hover{
-    background: var(--primary-light);
-}
-.whatsapp{background: var(--whatsapp);}
+.cta:hover{background:#e64a19;}
+.whatsapp{background:var(--whatsapp);}
+.whatsapp:hover{background:#1ebe57;}
 
 /* Form */
 form{margin:20px;}
-form input,select,textarea,button{
-    width:100%;
-    padding:10px;
-    margin-bottom:10px;
-    border-radius:5px;
-    border:1px solid #ccc;
+form input, select, textarea, button{
+  width:100%;
+  padding:10px;
+  margin-bottom:10px;
+  border-radius:5px;
+  border:1px solid #ccc;
+  font-size:15px;
 }
 form button{
-    background: var(--primary);
-    color:#fff;
-    border:none;
-    font-weight:bold;
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+  transition:background .3s;
 }
+form button:hover{background:#e64a19;}
 
 /* Modal */
 .modal{
-    display: none;
-    position: fixed;
-    top:0; left:0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.8);
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.8);
+  z-index:1000;
 }
 .modal-content{
-    margin:auto;
-    display:block;
-    max-width:90%;
-    margin-top:60px;
+  margin:auto;
+  display:block;
+  max-width:90%;
+  margin-top:60px;
+  border-radius:10px;
 }
 .close{
-    position:absolute;
-    right:30px;
-    top:20px;
-    font-size:30px;
-    color:#fff;
-    cursor:pointer;
+  position:absolute;
+  right:30px;
+  top:20px;
+  font-size:30px;
+  color:#fff;
+  cursor:pointer;
 }
 
+/* Footer */
 .footer{
-    background:#e8f5e9;
-    padding:15px;
-    text-align:center;
-    font-size:14px;
+  background:#f5f5f5;
+  padding:20px 15px;
+  text-align:center;
+  font-size:14px;
+  color:#555;
+  border-top:1px solid #ddd;
+}
+.footer a{
+  color:var(--primary);
+  text-decoration:none;
+}
+.footer a:hover{
+  text-decoration:underline;
 }
 </style>
 </head>
@@ -152,134 +189,145 @@ form button{
 
 <div class="container">
 
-<div class="header">
+  <div class="header">
     <div class="logo">
-        <img src="Logo.png" alt="Markitt Logo">
+      <img src="YOUR-LOGO-URL.png" alt="Markitt Logo">
     </div>
     🌙 Markitt Ramadan Hampers
-</div>
+  </div>
 
-<div class="slider">
+  <div class="slider">
     <img id="slideImg" src="SLIDE1.jpg">
-</div>
+  </div>
 
-<div id="countdown"></div>
+  <div id="countdown"></div>
 
-<div style="text-align:center;">
-    <button class="cta" onclick="convertCurrency()">Show Prices in USD</button>
-</div>
+  <div style="text-align:center;">
+    <button class="cta" onclick="toggleCurrency()">Show Prices in USD</button>
+  </div>
 
-<div class="accordion">
+  <div class="accordion">
 
     <div class="accordion-item">
-        <div class="accordion-header hamper1">📦 Hamper 1 – PKR 3,240 <span>▼</span></div>
-        <div class="accordion-body">
-            <ul>
-                <li>Flour – 5 kg</li>
-                <li>Basmati Rice – 1 kg</li>
-                <li>Sugar – 1 kg</li>
-                <li>Cooking Oil – 1 pack</li>
-            </ul>
-        </div>
+      <div class="accordion-header hamper1" data-pkr="3240" data-usd="11.57">📦 Hamper 1 – PKR 3,240 <span>▼</span></div>
+      <div class="accordion-body">
+        <ul>
+          <li>Flour – 5 kg</li>
+          <li>Basmati Rice – 1 kg</li>
+          <li>Sugar – 1 kg</li>
+          <li>Cooking Oil – 1 pack</li>
+        </ul>
+      </div>
     </div>
 
     <div class="accordion-item">
-        <div class="accordion-header hamper2">📦 Hamper 2 – PKR 5,499 <span>▼</span></div>
-        <div class="accordion-body">
-            <ul>
-                <li>Extended grocery pack</li>
-            </ul>
-        </div>
+      <div class="accordion-header hamper2" data-pkr="5499" data-usd="19.64">📦 Hamper 2 – PKR 5,499 <span>▼</span></div>
+      <div class="accordion-body">
+        <ul>
+          <li>Extended grocery pack</li>
+        </ul>
+      </div>
     </div>
 
     <div class="accordion-item">
-        <div class="accordion-header hamper3">📦 Hamper 3 – PKR 6,999 <span>▼</span></div>
-        <div class="accordion-body">
-            <ul>
-                <li>Premium full package</li>
-            </ul>
-        </div>
+      <div class="accordion-header hamper3" data-pkr="6999" data-usd="24.99">📦 Hamper 3 – PKR 6,999 <span>▼</span></div>
+      <div class="accordion-body">
+        <ul>
+          <li>Premium full package</li>
+        </ul>
+      </div>
     </div>
 
-</div>
+  </div>
 
-<div style="text-align:center;">
+  <div style="text-align:center;">
     <a href="mailto:markitt121@gmail.com" class="cta">Order via Email</a>
     <a href="https://wa.me/923422088395" class="cta whatsapp">WhatsApp Order</a>
-</div>
+  </div>
 
-<form id="orderForm">
+  <form id="orderForm">
     <input name="name" placeholder="Name">
     <input name="phone" placeholder="Phone">
     <select name="hamper">
-        <option>Hamper 1</option>
-        <option>Hamper 2</option>
-        <option>Hamper 3</option>
+      <option>Hamper 1</option>
+      <option>Hamper 2</option>
+      <option>Hamper 3</option>
     </select>
     <textarea name="message" placeholder="Message"></textarea>
     <button type="button" onclick="sendWhatsApp()">Submit via WhatsApp</button>
-</form>
+  </form>
 
-<div class="footer">
-Muhammad Shoaib Ashraf | Markitt<br>
-markitt121@gmail.com | +92-342-2088395
-</div>
+  <div class="footer">
+    Muhammad Shoaib Ashraf | Markitt<br>
+    <a href="mailto:markitt121@gmail.com">markitt121@gmail.com</a> | +92-342-2088395
+  </div>
 
 </div>
 
 <div id="imgModal" class="modal">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <img id="modalImage" class="modal-content">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img id="modalImage" class="modal-content">
 </div>
 
 <script>
 const slides=["SLIDE1.jpg","SLIDE2.jpg","SLIDE3.jpg"];
 let i=0;
 setInterval(()=>{
-    i=(i+1)%slides.length;
-    document.getElementById("slideImg").src=slides[i];
+  i=(i+1)%slides.length;
+  document.getElementById("slideImg").src=slides[i];
 },3000);
 
+// Accordion toggle
 document.querySelectorAll('.accordion-header').forEach(h=>{
-    h.addEventListener('click',()=>{
-        let body=h.nextElementSibling;
-        body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
-    });
+  h.addEventListener('click',()=>{
+    let body=h.nextElementSibling;
+    body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
+  });
 });
 
+// Modal
 document.querySelector('.hamper1').onclick=()=>openModal('HAM1.jpg');
 document.querySelector('.hamper2').onclick=()=>openModal('HAM2.jpg');
 document.querySelector('.hamper3').onclick=()=>openModal('HAM3.jpg');
 
 function openModal(src){
-    document.getElementById("imgModal").style.display="block";
-    document.getElementById("modalImage").src=src;
+  document.getElementById("imgModal").style.display="block";
+  document.getElementById("modalImage").src=src;
 }
 function closeModal(){
-    document.getElementById("imgModal").style.display="none";
+  document.getElementById("imgModal").style.display="none";
 }
 
+// Countdown
 const ramadan=new Date("Feb 28, 2026").getTime();
 setInterval(()=>{
-    let now=new Date().getTime();
-    let gap=ramadan-now;
-    let d=Math.floor(gap/(1000*60*60*24));
-    let h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
-    document.getElementById("countdown").innerHTML=
-        "Ramadan Starts In: "+d+"d "+h+"h";
+  let now=new Date().getTime();
+  let gap=ramadan-now;
+  let d=Math.floor(gap/(1000*60*60*24));
+  let h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
+  document.getElementById("countdown").innerHTML=
+  "Ramadan Starts In: "+d+"d "+h+"h";
 },1000);
 
-function convertCurrency(){
-    let rate=280;
-    document.querySelector('.hamper1').innerHTML="📦 Hamper 1 – $"+(3240/rate).toFixed(2);
-    document.querySelector('.hamper2').innerHTML="📦 Hamper 2 – $"+(5499/rate).toFixed(2);
-    document.querySelector('.hamper3').innerHTML="📦 Hamper 3 – $"+(6999/rate).toFixed(2);
+// Currency toggle
+let inUSD=false;
+function toggleCurrency(){
+  const rate=280;
+  inUSD=!inUSD;
+  document.querySelectorAll('.accordion-header').forEach(h=>{
+    if(inUSD){
+      h.innerHTML=`📦 ${h.textContent.split('–')[0].trim()} – $${(h.dataset.pkr/rate).toFixed(2)} <span>▼</span>`;
+    } else {
+      h.innerHTML=`📦 ${h.textContent.split('–')[0].trim()} – PKR ${h.dataset.pkr} <span>▼</span>`;
+    }
+  });
 }
 
+// WhatsApp form submit
 function sendWhatsApp(){
-    let f=document.getElementById("orderForm");
-    let txt=`Name:${f.name.value} Phone:${f.phone.value} Hamper:${f.hamper.value} ${f.message.value}`;
-    window.open("https://wa.me/923422088395?text="+encodeURIComponent(txt));
+  let f=document.getElementById("orderForm");
+  let txt=`Name: ${f.name.value} Hamper: ${f.hamper.value} Message: ${f.message.value}`;
+  window.open("https://wa.me/923422088395?text="+encodeURIComponent(txt));
 }
 </script>
 
