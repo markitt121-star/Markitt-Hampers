@@ -40,22 +40,24 @@ body{
   overflow:hidden;
 }
 
-/* DIAGONAL PROFESSIONAL WATERMARK */
+/* PROFESSIONAL SEAMLESS DIAGONAL WATERMARK */
 .header::before{
   content:"";
   position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%) rotate(-25deg); /* diagonal */
-  width:220px;    /* professional size */
-  height:220px;
-  background:url("https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg") center/contain no-repeat;
-  opacity:0.12;   /* semi-transparent watermark */
+  top:-50%;
+  left:-50%;
+  width:200%;
+  height:200%;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg");
+  background-repeat: repeat;
+  background-size: 120px 120px;
+  opacity:0.06; /* subtle watermark */
+  transform: rotate(-25deg); /* diagonal */
+  pointer-events: none;
   z-index:1;
-  pointer-events:none;
 }
 
-/* HEADER CONTENT ABOVE FLAG */
+/* HEADER CONTENT ABOVE WATERMARK */
 .header-content{
   position:relative;
   z-index:2;
