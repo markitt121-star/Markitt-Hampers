@@ -8,7 +8,7 @@
 :root{
   --primary:#ff5722;
   --whatsapp:#25D366;
-  --footer-bg:#ffebd8; /* Highlighted footer background */
+  --footer-bg:#ffebd8;
 }
 
 body{
@@ -168,12 +168,27 @@ form button:hover{background:#e64a19;}
   color:var(--primary);
   text-decoration:none;
   font-weight:bold;
+  transition:all 0.3s;
 }
 .footer-section a:hover{
   text-decoration:underline;
 }
-.footer-section p, .footer-section a{
-  margin:3px 0;
+.footer-section img{
+  vertical-align:middle;
+  margin-right:5px;
+  transition:all 0.3s;
+}
+.footer-section a.social-whatsapp:hover img{
+  filter: hue-rotate(100deg) brightness(1.2); /* WhatsApp green effect */
+  transform: scale(1.2);
+}
+.footer-section a.social-facebook:hover img{
+  filter: hue-rotate(200deg) brightness(1.2); /* Facebook blue effect */
+  transform: scale(1.2);
+}
+.footer-section a.social-instagram:hover img{
+  filter: hue-rotate(300deg) brightness(1.2); /* Instagram effect */
+  transform: scale(1.2);
 }
 .footer-bottom{
   text-align:center;
@@ -270,13 +285,13 @@ form button:hover{background:#e64a19;}
       <!-- Social Media -->
       <div class="footer-section">
         <h4>Follow Us</h4>
-        <a href="https://wa.me/923422088395" target="_blank">
+        <a href="https://wa.me/923422088395" target="_blank" class="social-whatsapp">
           <img src="https://cdn-icons-png.flaticon.com/24/733/733585.png" alt="WhatsApp"> WhatsApp
         </a><br>
-        <a href="#" target="_blank">
+        <a href="#" target="_blank" class="social-facebook">
           <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook"> Facebook
         </a><br>
-        <a href="#" target="_blank">
+        <a href="#" target="_blank" class="social-instagram">
           <img src="https://cdn-icons-png.flaticon.com/24/733/733614.png" alt="Instagram"> Instagram
         </a>
       </div>
@@ -302,6 +317,7 @@ form button:hover{background:#e64a19;}
 </div>
 
 <script>
+// Slider
 const slides=["SLIDE1.jpg","SLIDE2.jpg","SLIDE3.jpg"];
 let i=0;
 setInterval(()=>{
@@ -309,6 +325,7 @@ i=(i+1)%slides.length;
 document.getElementById("slideImg").src=slides[i];
 },3000);
 
+// Accordion
 document.querySelectorAll('.accordion-header').forEach(h=>{
 h.addEventListener('click',()=>{
 let body=h.nextElementSibling;
@@ -316,17 +333,15 @@ body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
 });
 });
 
+// Modal
 document.querySelector('.hamper1').onclick=()=>openModal('HAM1.jpg');
 document.querySelector('.hamper2').onclick=()=>openModal('HAM2.jpg');
 document.querySelector('.hamper3').onclick=()=>openModal('HAM3.jpg');
-
 function openModal(src){
 document.getElementById("imgModal").style.display="block";
 document.getElementById("modalImage").src=src;
 }
-function closeModal(){
-document.getElementById("imgModal").style.display="none";
-}
+function closeModal(){document.getElementById("imgModal").style.display="none";}
 
 // Countdown
 const ramadan=new Date("Feb 28, 2026").getTime();
@@ -342,7 +357,7 @@ document.getElementById("countdown").innerHTML=
 // Currency toggle
 let inUSD=false;
 function toggleCurrency(){
-  const rate=280; // 1 USD = 280 PKR
+  const rate=280;
   inUSD = !inUSD;
   document.querySelectorAll('.accordion-header').forEach(h=>{
     let pkr = h.dataset.pkr;
