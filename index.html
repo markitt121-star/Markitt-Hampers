@@ -11,16 +11,25 @@
   --footer-bg:#e6f4ea; /* very light green for footer */
 }
 
-/* Body with light Pakistan flag watermark */
+/* Body with subtle Pakistan flag watermark */
 body{
   font-family:Arial, sans-serif;
   margin:0;
   background:#f0fff4 url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg') no-repeat center center;
   background-size:cover;
   background-attachment:fixed;
-  opacity:0.99; /* keep background subtle */
+  opacity:0.99;
 }
 
+/* Top Banner Flag */
+.top-flag{
+  width:100%;
+  background:url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg') no-repeat center center;
+  background-size:cover;
+  height:120px;
+}
+
+/* Container */
 .container{
   width:95%;
   max-width:700px;
@@ -31,8 +40,9 @@ body{
   overflow:hidden;
 }
 
+/* Header */
 .header{
-  background:linear-gradient(90deg,#43a047,#a5d6a7); /* green gradient */
+  background:linear-gradient(90deg,#43a047,#a5d6a7);
   color:#fff;
   text-align:center;
   padding:20px;
@@ -40,16 +50,20 @@ body{
   font-size:26px;
 }
 
-.logo img{
-  max-width:120px;
+/* Logo replaced with Markitt.com name */
+.logo{
+  font-size:28px;
+  font-weight:bold;
+  color:#fff;
   margin-bottom:10px;
-  border:none;
 }
 
+/* Slider */
 .slider img{
   width:100%;
 }
 
+/* Countdown */
 #countdown{
   text-align:center;
   font-weight:bold;
@@ -205,12 +219,13 @@ form button:hover{background:#388e3c;}
 
 <body>
 
+<!-- Top Pakistan Flag -->
+<div class="top-flag"></div>
+
 <div class="container">
 
   <div class="header">
-    <div class="logo">
-      <img src="Logo.png" alt="Markitt Logo">
-    </div>
+    <div class="logo">Markitt.com</div>
     🌙 Markitt Ramadan Hampers
   </div>
 
@@ -281,7 +296,7 @@ form button:hover{background:#388e3c;}
       <div class="footer-section">
         <h4>Contact Us</h4>
         <p>Muhammad Shoaib Ashraf | Markitt</p>
-        <p><a href="markitt121@gmail.com">markitt121@gmail.com</a></p>
+        <p><a href="mailto:markitt121@gmail.com">markitt121@gmail.com</a></p>
         <p>+92-342-2088395</p>
       </div>
       <div class="footer-section">
@@ -310,6 +325,7 @@ form button:hover{background:#388e3c;}
 
 </div>
 
+<!-- Modal -->
 <div id="imgModal" class="modal">
   <span class="close" onclick="closeModal()">&times;</span>
   <img id="modalImage" class="modal-content">
@@ -320,37 +336,38 @@ form button:hover{background:#388e3c;}
 const slides=["SLIDE1.jpg","SLIDE2.jpg","SLIDE3.jpg"];
 let i=0;
 setInterval(()=>{
-i=(i+1)%slides.length;
-document.getElementById("slideImg").src=slides[i];
+  i=(i+1)%slides.length;
+  document.getElementById("slideImg").src=slides[i];
 },3000);
 
-// Accordion
+// Accordion toggle
 document.querySelectorAll('.accordion-header').forEach(h=>{
-h.addEventListener('click',()=>{
-let body=h.nextElementSibling;
-body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
-});
+  h.addEventListener('click',()=>{
+    let body=h.nextElementSibling;
+    body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
+  });
 });
 
-// Modal
-document.querySelector('.hamper1').onclick=()=>openModal('HAM1.jpg');
-document.querySelector('.hamper2').onclick=()=>openModal('HAM2.jpg');
-document.querySelector('.hamper3').onclick=()=>openModal('HAM3.jpg');
+// Open modal for hampers
+document.querySelector('.hamper1').onclick=()=>openModal('Hamper_1.jpg');
+document.querySelector('.hamper2').onclick=()=>openModal('Hamper_2.jpg');
+document.querySelector('.hamper3').onclick=()=>openModal('Hamper_3.jpg');
+
 function openModal(src){
-document.getElementById("imgModal").style.display="block";
-document.getElementById("modalImage").src=src;
+  document.getElementById("imgModal").style.display="block";
+  document.getElementById("modalImage").src=src;
 }
 function closeModal(){document.getElementById("imgModal").style.display="none";}
 
 // Countdown
 const ramadan=new Date("Feb 28, 2026").getTime();
 setInterval(()=>{
-let now=new Date().getTime();
-let gap=ramadan-now;
-let d=Math.floor(gap/(1000*60*60*24));
-let h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
-document.getElementById("countdown").innerHTML=
-"Ramadan Starts In: "+d+"d "+h+"h";
+  let now=new Date().getTime();
+  let gap=ramadan-now;
+  let d=Math.floor(gap/(1000*60*60*24));
+  let h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
+  document.getElementById("countdown").innerHTML=
+  "Ramadan Starts In: "+d+"d "+h+"h";
 },1000);
 
 // Currency toggle
@@ -370,9 +387,9 @@ function toggleCurrency(){
 
 // WhatsApp form submit
 function sendWhatsApp(){
-let f=document.getElementById("orderForm");
-let txt=`Name:${f.name.value} Hamper:${f.hamper.value} ${f.message.value}`;
-window.open("https://wa.me/923422088395?text="+encodeURIComponent(txt));
+  let f=document.getElementById("orderForm");
+  let txt=`Name: ${f.name.value} Hamper: ${f.hamper.value} Message: ${f.message.value}`;
+  window.open("https://wa.me/923422088395?text="+encodeURIComponent(txt));
 }
 </script>
 
