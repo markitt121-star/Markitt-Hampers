@@ -4,19 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Markitt Ramadan Hampers</title>
-
 <style>
 :root{
-  --primary:#66BB6A;
-  --accent:#1B5E20;
-  --whatsapp:#25D366;
+  --header-bg:#66BB6A;
   --gold:#C5A059;
+  --whatsapp:#25D366;
+  --footer-bg:#B2E0A9; /* Light green footer */
 }
 
 /* BODY */
 body{
-  font-family:Arial, sans-serif;
   margin:0;
+  font-family:Arial, sans-serif;
   background:#f0fff4;
 }
 
@@ -24,44 +23,67 @@ body{
 .container{
   width:95%;
   max-width:700px;
-  margin:20px auto;
+  margin:0 auto;
   background:#fff;
   border-radius:12px;
-  box-shadow:0 6px 15px rgba(0,0,0,0.1);
   overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
 }
 
 /* HEADER */
 .header{
-  background:#e8f5e9;
+  position:relative;
   text-align:center;
-  padding:30px 15px;
-  border-bottom:3px solid var(--primary);
+  padding:50px 20px 25px 20px;
+  background:var(--header-bg);
+  border-radius:12px 12px 0 0;
+  overflow:hidden;
 }
 
-.logo-text{
-  font-size:42px;
-  font-weight:300;
-  letter-spacing:2px;
-  color:#000;     /* BLACK */
+/* FLAG WATERMARK IMAGE */
+.header::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  right:20px; /* flag on right side */
+  transform:translateY(-50%);
+  width:120px;
+  height:120px;
+  background:url("https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg") center/contain no-repeat;
+  opacity:0.2;
+  z-index:1;
+  pointer-events:none;
 }
 
-.hamper-title{
-  font-size:20px;
+/* HEADER CONTENT ABOVE FLAG */
+.header-content{
+  position:relative;
+  z-index:2;
+}
+
+.header .logo-text{
+  font-size:36px;
+  font-weight:700;
+  color:#fff;
+}
+
+.header .hamper-title{
+  font-size:18px;
   margin-top:5px;
-  color:#000;     /* BLACK */
+  color:var(--gold);
 }
 
 /* SLIDER */
 .slider img{
   width:100%;
+  border-radius:0;
 }
 
 /* COUNTDOWN */
 #countdown{
   text-align:center;
   font-weight:bold;
-  color:var(--accent);
+  color:#1B5E20;
   padding:10px;
   font-size:18px;
 }
@@ -69,16 +91,22 @@ body{
 /* ACCORDION */
 .accordion{
   margin:20px;
+  border-radius:10px;
+}
+
+.accordion-item{
   border:1px solid #ccc;
   border-radius:10px;
+  margin-bottom:10px;
 }
 
 .accordion-header{
   padding:15px;
-  cursor:pointer;
-  background:#e8f5e9;
   display:flex;
   justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  background:#e8f5e9;
   font-weight:bold;
 }
 
@@ -89,54 +117,66 @@ body{
 .accordion-body{
   max-height:0;
   overflow:hidden;
-  transition:max-height .3s ease;
+  transition:max-height 0.3s ease;
   padding:0 15px 10px 15px;
   background:#f0fff4;
+}
+
+/* ARROW */
+.arrow{
+  font-size:18px;
+  transition:0.3s;
 }
 
 /* BUTTONS */
 .cta{
   display:inline-block;
-  margin:10px 0;
+  margin:10px 5px;
   padding:12px 25px;
-  background:var(--primary);
+  background:var(--header-bg);
   color:#fff;
   text-decoration:none;
   border-radius:8px;
   font-weight:bold;
   cursor:pointer;
 }
-
 .whatsapp{background:var(--whatsapp);}
 
-/* FORM */
-form{margin:20px;}
-form input,select,textarea,button{
-  width:100%;
-  padding:10px;
-  margin-bottom:10px;
-  border-radius:5px;
-  border:1px solid #ccc;
-}
-form button{
-  background:var(--primary);
-  color:#fff;
-  border:none;
+/* FOOTER */
+.footer{
+  background:var(--footer-bg);
+  padding:25px 20px;
+  text-align:center;
+  border-radius:0 0 12px 12px;
 }
 
-/* MODAL IMAGE */
+.footer h3{
+  color:#fff;
+  font-size:24px;
+  margin:5px 0;
+}
+
+.footer p{
+  font-size:14px;
+  margin:5px 0;
+}
+
+/* MODAL */
 .modal{
   display:none;
   position:fixed;
   inset:0;
   background:rgba(0,0,0,0.8);
 }
+
 .modal-content{
   margin:auto;
   display:block;
   max-width:90%;
   margin-top:60px;
+  border-radius:8px;
 }
+
 .close{
   position:absolute;
   right:30px;
@@ -145,48 +185,29 @@ form button{
   color:#fff;
   cursor:pointer;
 }
-
-/* FOOTER */
-.footer{
-  background:#1B5E20;
-  color:#fff;
-  padding:30px 20px;
-  text-align:center;
-}
-
-.footer h3{
-  font-size:24px;
-  margin-bottom:10px;
-}
-
-.footer p{
-  font-size:14px;
-  margin:6px 0;
-}
-
-.footer a{
-  color:#C5A059;
-  text-decoration:none;
-}
 </style>
 </head>
-
 <body>
 
 <div class="container">
 
 <!-- HEADER -->
 <div class="header">
-  <div class="logo-text">Markitt.com</div>
-  <div class="hamper-title">🌙 Ramadan Hamper Services</div>
+  <div class="header-content">
+    <div class="logo-text">Markitt.com</div>
+    <div class="hamper-title">🌙 Markitt Ramadan Hampers</div>
+  </div>
 </div>
 
+<!-- SLIDER -->
 <div class="slider">
   <img id="slideImg" src="SLIDE1.jpg">
 </div>
 
+<!-- COUNTDOWN -->
 <div id="countdown"></div>
 
+<!-- CURRENCY BUTTON -->
 <div style="text-align:center;">
 <button class="cta" onclick="toggleCurrency()">Toggle PKR / USD</button>
 </div>
@@ -232,37 +253,17 @@ form button{
 
 </div>
 
+<!-- ORDER BUTTONS -->
 <div style="text-align:center;">
 <a href="mailto:markitt121@gmail.com" class="cta">Order via Email</a>
 <a href="https://wa.me/923422088395" class="cta whatsapp">WhatsApp Order</a>
 </div>
 
-<form id="orderForm">
-<input name="name" placeholder="Name">
-<input name="phone" placeholder="Phone">
-<select name="hamper">
-<option>Hamper 1</option>
-<option>Hamper 2</option>
-<option>Hamper 3</option>
-</select>
-<textarea name="message" placeholder="Message"></textarea>
-<button type="button" onclick="sendWhatsApp()">Submit via WhatsApp</button>
-</form>
-
 <!-- FOOTER -->
 <div class="footer">
 <h3>Markitt.com</h3>
-<p>
-Premium Ramadan Hampers delivered across Pakistan.  
-Quality groceries • Elegant packing • Reliable service
-</p>
-
-<p>
-📍 Karachi, Pakistan <br>
-📞 WhatsApp: +92 342 2088395 <br>
-✉ support@markitt.com
-</p>
-
+<p>Premium Ramadan Hampers delivered across Pakistan.<br>Quality groceries • Elegant packing • Reliable service</p>
+<p>📍 Karachi, Pakistan <br>📞 WhatsApp: +92 342 2088395 <br>✉ support@markitt.com</p>
 <p>© 2026 Markitt — All Rights Reserved</p>
 </div>
 
@@ -275,8 +276,7 @@ Quality groceries • Elegant packing • Reliable service
 </div>
 
 <script>
-
-/* SLIDER */
+// Slider
 const slides=["SLIDE1.jpg","SLIDE2.jpg","SLIDE3.jpg"];
 let i=0;
 setInterval(()=>{
@@ -284,28 +284,40 @@ i=(i+1)%slides.length;
 document.getElementById("slideImg").src=slides[i];
 },3000);
 
-/* ACCORDION + IMAGE ON CLICK */
+// Accordion + Arrow + Modal
 document.querySelectorAll('.accordion-header').forEach(header=>{
 header.addEventListener('click',()=>{
-const body=header.nextElementSibling;
-body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
+const body = header.nextElementSibling;
+const arrow = header.querySelector('.arrow');
+if(body.style.maxHeight){
+  body.style.maxHeight = null;
+  arrow.textContent = "▼";
+  closeModal();
+}else{
+  // Close others
+  document.querySelectorAll('.accordion-body').forEach(b=>b.style.maxHeight=null);
+  document.querySelectorAll('.arrow').forEach(a=>a.textContent="▼");
+
+  body.style.maxHeight = body.scrollHeight+"px";
+  arrow.textContent="▲";
+  openModal("Hamper_1.jpg"); // Show image for Hamper 1
+}
 header.classList.toggle("active");
-
-/* OPEN IMAGE */
-openModal("Hamper_1.jpg");
 });
 });
 
-/* MODAL */
+// Modal
 function openModal(src){
 document.getElementById("imgModal").style.display="block";
 document.getElementById("modalImage").src=src;
 }
 function closeModal(){
 document.getElementById("imgModal").style.display="none";
+document.querySelectorAll('.arrow').forEach(a=>a.textContent="▼");
+document.querySelectorAll('.accordion-body').forEach(b=>b.style.maxHeight=null);
 }
 
-/* COUNTDOWN */
+// Countdown
 const ramadan=new Date("Feb 28, 2026").getTime();
 setInterval(()=>{
 let now=new Date().getTime();
@@ -315,7 +327,7 @@ let h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
 document.getElementById("countdown").innerHTML="Ramadan Starts In: "+d+"d "+h+"h";
 },1000);
 
-/* CURRENCY TOGGLE */
+// Currency toggle
 let inUSD=false;
 const rate=280;
 function toggleCurrency(){
@@ -327,7 +339,7 @@ priceSpan.textContent=inUSD?`$${(pkr/rate).toFixed(2)}`:`PKR ${pkr}`;
 });
 }
 
-/* WHATSAPP */
+// WhatsApp Submit
 function sendWhatsApp(){
 let f=document.getElementById("orderForm");
 let txt=`Name: ${f.name.value} Hamper: ${f.hamper.value} Message: ${f.message.value}`;
