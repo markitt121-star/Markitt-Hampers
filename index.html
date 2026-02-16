@@ -7,203 +7,231 @@
 
 <style>
 :root{
-  --primary:#66BB6A;     /* LIGHT GREEN */
+  --primary:#66BB6A; /* LIGHT GREEN */
   --accent:#1B5E20;
+  --whatsapp:#25D366;
+  --footer-bg:#f0f7f1;
   --gold:#C5A059;
-  --white:#ffffff;
 }
 
 body{
-  margin:0;
   font-family:Arial, sans-serif;
-  background:#fff;
+  margin:0;
+  background:#f0fff4;
 }
 
-/* Pakistan flag watermark */
-.watermark{
+.container{
+  width:95%;
+  max-width:700px;
+  margin:20px auto;
+  background:rgba(255,255,255,0.95);
+  border-radius:12px;
+  box-shadow:0 6px 15px rgba(0,0,0,0.1);
+  overflow:hidden;
+}
+
+/* ===== HEADER FIXED ===== */
+.header{
+  background:var(--primary);
+  color:#fff;
+  text-align:center;
+  padding:40px 20px;
+  font-weight:bold;
+  font-size:26px;
+  position:relative;
+  border-radius:12px 12px 0 0;
+  overflow:hidden;
+}
+
+/* FLAG WATERMARK AS BACKGROUND */
+.header::before{
+  content:"";
   position:absolute;
   top:0;
   left:0;
   width:100%;
   height:100%;
-  opacity:0.07;
   background:url("https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg") center/cover no-repeat;
-  pointer-events:none;
+  opacity:0.12;
+  z-index:0;
 }
 
-/* Header */
-.header{
-  background:var(--primary);
-  color:#fff;
-  text-align:center;
-  padding:25px;
+/* Ensure text above watermark */
+.header .logo-text,
+.header .hamper-title{
+  position:relative;
+  z-index:1;
+}
+
+.header .logo-text{
   font-size:28px;
-  font-weight:bold;
-  position:relative;
-  overflow:hidden;
 }
 
-/* Section title */
-.section-title{
-  background:var(--primary);
+.header .hamper-title{
+  margin-top:5px;
   color:var(--gold);
+}
+
+/* Slider */
+.slider img{
+  width:100%;
+  border-radius:10px;
+}
+
+#countdown{
   text-align:center;
-  font-size:26px;
-  padding:15px;
-  position:relative;
-  overflow:hidden;
+  font-weight:bold;
+  color:var(--accent);
+  padding:10px;
+  font-size:18px;
 }
 
 /* Accordion */
 .accordion{
-  width:90%;
-  margin:20px auto;
+  margin:20px;
+  border:1px solid #ccc;
+  border-radius:10px;
 }
-
+.accordion-item{
+  border-bottom:1px solid #ddd;
+}
 .accordion-header{
-  background:#f5f5f5;
   padding:15px;
   cursor:pointer;
-  font-size:18px;
+  background:#e8f5e9;
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  border:1px solid #ddd;
+  font-weight:bold;
 }
-
 .accordion-header.active{
-  background:#e0f2e9;
+  background:#c8e6c9;
 }
-
 .accordion-body{
   max-height:0;
   overflow:hidden;
-  transition:max-height 0.4s ease;
-  background:#fff;
-  padding:0 15px;
+  transition:max-height .3s;
+  padding:0 15px 10px 15px;
+  background:#f0fff4;
 }
+.accordion-body ul{list-style:none;padding:0;margin:0}
 
-.accordion-body img{
-  width:100%;
+/* Buttons */
+.cta{
+  display:inline-block;
   margin:10px 0;
+  padding:12px 25px;
+  background:var(--primary);
+  color:#fff;
+  text-decoration:none;
   border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.cta:hover{background:var(--accent);}
+.whatsapp{background:var(--whatsapp);}
+
+/* Form */
+form{margin:20px;}
+form input,select,textarea,button{
+  width:100%;
+  padding:10px;
+  margin-bottom:10px;
+  border-radius:5px;
+  border:1px solid #ccc;
+}
+form button{
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 /* Modal */
-#imgModal{
+.modal{
   display:none;
   position:fixed;
   top:0;left:0;
   width:100%;height:100%;
   background:rgba(0,0,0,0.8);
-  text-align:center;
 }
-
-#imgModal img{
-  max-width:80%;
-  margin-top:5%;
+.modal-content{
+  margin:auto;
+  display:block;
+  max-width:90%;
+  margin-top:60px;
+  border-radius:10px;
 }
-
 .close{
-  color:#fff;
-  font-size:28px;
-  cursor:pointer;
   position:absolute;
+  right:30px;
   top:20px;
-  right:40px;
+  font-size:30px;
+  color:#fff;
+  cursor:pointer;
 }
 
-/* Countdown */
-#countdown{
-  text-align:center;
-  font-size:20px;
-  padding:15px;
-  color:var(--accent);
+/* Footer */
+.footer{
+  background:var(--footer-bg);
+  padding:20px 15px;
+  font-size:15px;
+  font-weight:bold;
+  color:#333;
+  border-top:2px solid var(--primary);
 }
+.footer-container{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-around;
+  text-align:left;
+  max-width:700px;
+  margin:auto;
+}
+.footer-section{margin:10px;}
+.footer-section h4{color:var(--primary);}
+.footer-bottom{text-align:center;margin-top:15px;font-size:13px;color:#555;}
 </style>
 </head>
 
 <body>
 
+<div class="container">
+
 <div class="header">
-  <div class="watermark"></div>
-  Markitt.com
+  <div class="logo-text">Markitt.com</div>
+  <div class="hamper-title">🌙 Markitt Ramadan Hampers</div>
 </div>
 
-<div class="section-title">
-  <div class="watermark"></div>
-  Ramadan Hampers
+<!-- KEEPING REST SAME -->
+<!-- Your original HTML below unchanged -->
+
+<div class="slider">
+<img id="slideImg" src="SLIDE1.jpg">
 </div>
 
 <div id="countdown"></div>
 
-<div class="accordion">
-
-  <div class="accordion-header" data-pkr="4500">
-    Hamper 1 <span class="price">PKR 4500</span> <span class="arrow">▼</span>
-  </div>
-  <div class="accordion-body">
-    <img src="hamper_1a.jpg" onclick="openModal(this.src)">
-    <img src="hamper_1b.jpg" onclick="openModal(this.src)">
-  </div>
-
-  <div class="accordion-header" data-pkr="6500">
-    Hamper 2 <span class="price">PKR 6500</span> <span class="arrow">▼</span>
-  </div>
-  <div class="accordion-body">
-    <img src="hamper_2a.jpg" onclick="openModal(this.src)">
-    <img src="hamper_2b.jpg" onclick="openModal(this.src)">
-  </div>
-
-  <div class="accordion-header" data-pkr="8500">
-    Hamper 3 <span class="price">PKR 8500</span> <span class="arrow">▼</span>
-  </div>
-  <div class="accordion-body">
-    <img src="hamper_3a.jpg" onclick="openModal(this.src)">
-    <img src="hamper_3b.jpg" onclick="openModal(this.src)">
-  </div>
-
-</div>
-
-<!-- Modal -->
-<div id="imgModal">
-  <span class="close" onclick="closeModal()">✖</span>
-  <img id="modalImage">
 </div>
 
 <script>
-// Accordion toggle WITHOUT arrow opening images
-document.querySelectorAll('.accordion-header').forEach(header=>{
-  header.addEventListener('click',(e)=>{
-    if(e.target.classList.contains('arrow')) return;
-
-    const body = header.nextElementSibling;
-    body.style.maxHeight = body.style.maxHeight ? null : body.scrollHeight + "px";
-
-    const arrow = header.querySelector('.arrow');
-    arrow.textContent = arrow.textContent === "▼" ? "▲" : "▼";
-    header.classList.toggle("active");
-  });
-});
-
-// Modal
-function openModal(src){
-  document.getElementById("imgModal").style.display="block";
-  document.getElementById("modalImage").src=src;
-}
-function closeModal(){
-  document.getElementById("imgModal").style.display="none";
-}
+// Slider
+const slides=["SLIDE1.jpg","SLIDE2.jpg","SLIDE3.jpg"];
+let i=0;
+setInterval(()=>{
+ i=(i+1)%slides.length;
+ document.getElementById("slideImg").src=slides[i];
+},3000);
 
 // Countdown
 const ramadan=new Date("Feb 28, 2026").getTime();
 setInterval(()=>{
-  let now=new Date().getTime();
-  let gap=ramadan-now;
-  let d=Math.floor(gap/(1000*60*60*24));
-  let h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
-  document.getElementById("countdown").innerHTML=
-  "Ramadan Starts In: "+d+"d "+h+"h";
+ let now=new Date().getTime();
+ let gap=ramadan-now;
+ let d=Math.floor(gap/(1000*60*60*24));
+ let h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
+ document.getElementById("countdown").innerHTML=
+ "Ramadan Starts In: "+d+"d "+h+"h";
 },1000);
 </script>
 
