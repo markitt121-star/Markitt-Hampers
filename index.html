@@ -36,44 +36,46 @@ body{
 .header{
   position:relative;
   text-align:center;
-  padding:45px 15px;
+  padding:50px 15px;
   background:#c8f2cc; /* LIGHT GREEN */
   overflow:hidden;
 }
 
-/* FLAG IMAGE WATERMARK */
-.flag-bg{
+/* FLAG WATERMARK PATTERN */
+.header::before{
+  content:"";
   position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  width:80%;
-  opacity:0.35;
+  inset:0;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg");
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 60px 40px; /* smaller, repeating */
+  opacity:0.15; /* subtle watermark */
   z-index:1;
   pointer-events:none;
 }
 
-/* CONTENT ABOVE FLAG */
+/* CONTENT ABOVE WATERMARK */
 .header-content{
   position:relative;
   z-index:2;
 }
 
 .logo-text{
-  font-size:44px;
+  font-size:48px;
   font-weight:300;
   letter-spacing:2px;
   color:#000;
 }
 
 .hamper-title{
-  font-size:20px;
-  margin-top:5px;
+  font-size:22px;
+  margin-top:8px;
   color:#000;
 }
 
 /* SLIDER */
-.slider img{width:100%;}
+.slider img{width:100%; border-radius:8px;}
 
 /* COUNTDOWN */
 #countdown{
@@ -150,6 +152,7 @@ form button{
   display:block;
   max-width:90%;
   margin-top:60px;
+  border-radius:8px;
 }
 .close{
   position:absolute;
@@ -188,23 +191,21 @@ form button{
 
 <!-- HEADER -->
 <div class="header">
-
-    <!-- FLAG WATERMARK -->
-    <img class="flag-bg" src="https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg" alt="Pakistan Flag">
-
     <div class="header-content">
         <div class="logo-text">Markitt.com</div>
         <div class="hamper-title">🌙 Ramadan Hamper Services</div>
     </div>
-
 </div>
 
+<!-- SLIDER -->
 <div class="slider">
   <img id="slideImg" src="SLIDE1.jpg">
 </div>
 
+<!-- COUNTDOWN -->
 <div id="countdown"></div>
 
+<!-- CURRENCY TOGGLE -->
 <div style="text-align:center;">
 <button class="cta" onclick="toggleCurrency()">Toggle PKR / USD</button>
 </div>
@@ -250,11 +251,13 @@ form button{
 
 </div>
 
+<!-- ORDER BUTTONS -->
 <div style="text-align:center;">
 <a href="mailto:markitt121@gmail.com" class="cta">Order via Email</a>
 <a href="https://wa.me/923422088395" class="cta whatsapp">WhatsApp Order</a>
 </div>
 
+<!-- ORDER FORM -->
 <form id="orderForm">
 <input name="name" placeholder="Name">
 <input name="phone" placeholder="Phone">
@@ -302,14 +305,14 @@ i=(i+1)%slides.length;
 document.getElementById("slideImg").src=slides[i];
 },3000);
 
-/* ACCORDION + IMAGE ON CLICK */
+/* ACCORDION + IMAGE MODAL */
 document.querySelectorAll('.accordion-header').forEach(header=>{
 header.addEventListener('click',()=>{
 const body=header.nextElementSibling;
 body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
 header.classList.toggle("active");
 
-/* OPEN IMAGE MODAL */
+/* Open Hamper_1 image modal */
 openModal("Hamper_1.jpg");
 });
 });
