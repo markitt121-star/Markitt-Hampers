@@ -30,23 +30,35 @@ body{
   background:linear-gradient(90deg,var(--primary),var(--accent));
   color:#fff;
   text-align:center;
-  padding:20px;
+  padding:40px 20px 20px 20px;
   font-weight:bold;
   font-size:26px;
+  position:relative;
+  border-radius:12px 12px 0 0;
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:15px;
-  border-radius:12px 12px 0 0;
 }
-.header img{
-  width:60px;
-  border-radius:8px;
+.header .flag-watermark{
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:120px;
+  opacity:0.15;
+  z-index:0;
 }
-.logo{
+.header .logo-text{
+  position:relative;
+  z-index:1;
   font-size:28px;
   font-weight:bold;
-  color:#fff;
+}
+.header .hamper-title{
+  position:relative;
+  z-index:1;
+  margin-top:5px;
 }
 .slider img{
   width:100%;
@@ -184,11 +196,11 @@ form button:hover{background:var(--accent);}
 <div class="container">
 
   <div class="header">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg" alt="Pakistan Flag">
-    <div>
-      <div class="logo">Markitt.com</div>
-      🌙 Markitt Ramadan Hampers
-    </div>
+    <!-- Watermark Flag -->
+    <img class="flag-watermark" src="https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg" alt="Pakistan Flag">
+    
+    <div class="logo-text">Markitt.com</div>
+    <div class="hamper-title">🌙 Markitt Ramadan Hampers</div>
   </div>
 
   <div class="slider">
