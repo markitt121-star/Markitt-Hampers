@@ -6,32 +6,40 @@
 <title>Markitt Ramadan Hampers</title>
 <style>
 :root{
-  --primary:#00401A;   /* Deep Pakistani Green */
-  --accent:#1B5E20;    /* Soft Leaf Green for buttons/icons */
-  --whatsapp:#25D366;
-  --footer-bg:#FFFFFF;  /* Clean background for footer */
-  --gold:#C5A059;      /* Luxury accent for Ramadan text */
+  --primary:#00401A;      /* Pakistani Green */
+  --accent:#1B5E20;       /* Accent Green for buttons/icons */
+  --gold:#C5A059;         /* Gold for Ramadan text */
+  --whatsapp:#25D366;     /* WhatsApp green */
+  --footer-bg:#e6f4ea;
+  --text:#FFFFFF;          /* White text */
 }
 
-/* Body with premium fabric-like blurred background */
 body{
-  font-family:Arial, sans-serif;
-  margin:0;
-  background:#FFFFFF url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg') no-repeat center center;
-  background-size:cover;
-  background-attachment:fixed;
-  color:#00401A;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  
+  /* Base Pakistani Green */
+  background-color: var(--primary);
+  
+  /* Watermark flag */
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50%;
+  background-attachment: fixed;
+  
+  /* Blend for subtle effect */
+  background-blend-mode: lighten;
+  color: var(--text);
 }
 
-/* Top Flag Section */
 .top-flag{
   width:100%;
-  height:120px;
-  background:linear-gradient(to bottom, rgba(0,64,26,0.8), rgba(27,94,32,0.6)), url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg') no-repeat center center;
+  background:url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg') no-repeat center center;
   background-size:cover;
+  height:120px;
 }
 
-/* Main container */
 .container{
   width:95%;
   max-width:700px;
@@ -42,74 +50,82 @@ body{
   overflow:hidden;
 }
 
-/* Header */
 .header{
-  background:linear-gradient(90deg,var(--primary),var(--accent));
-  color:#FFFFFF;
+  background: linear-gradient(90deg, var(--accent), #A5D6A7);
+  color: var(--text);
   text-align:center;
   padding:20px;
   font-weight:bold;
   font-size:26px;
 }
+
 .logo{
   font-size:28px;
   font-weight:bold;
-  color:var(--gold);
+  color: var(--text);
   margin-bottom:10px;
 }
 
-/* Slider */
 .slider img{
   width:100%;
-  border-radius:8px;
 }
 
-/* Countdown */
 #countdown{
   text-align:center;
   font-weight:bold;
-  color:var(--primary);
+  color: var(--primary);
   padding:10px;
 }
 
-/* Accordion */
-.accordion{margin:20px;border:1px solid #ccc;border-radius:10px;}
+.accordion{
+  margin:20px;
+  border:1px solid #ccc;
+  border-radius:10px;
+}
+
 .accordion-item{
   border-bottom:1px solid #ddd;
-  transition:transform .3s, box-shadow .3s;
+  transition: transform .3s, box-shadow .3s;
 }
+
 .accordion-item:hover{
-  transform:translateY(-5px);
+  transform: translateY(-5px);
   box-shadow:0 8px 18px rgba(0,0,0,0.15);
 }
+
 .accordion-header{
   padding:15px;
   cursor:pointer;
-  background:#F0FFF4;
+  background:#e8f5e9;
   display:flex;
   justify-content:space-between;
   font-weight:bold;
-  transition:background .3s, color .3s;
+  transition:background .3s;
 }
+
 .accordion-header.active{
-  background:var(--accent);
-  color:#FFFFFF;
+  background:#c8e6c9;
 }
+
 .accordion-body{
   max-height:0;
   overflow:hidden;
   transition:max-height .3s;
   padding:0 15px 10px 15px;
-  background:#FFFFFF;
+  background:#f0fff4;
 }
-.accordion-body ul{list-style:none;padding:0;margin:0}
 
-/* Buttons / CTA */
+.accordion-body ul{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
 .cta{
   display:inline-block;
   margin:10px 0;
   padding:12px 25px;
-  background:var(--primary);
+  background: var(--accent);
   color:#fff;
   text-decoration:none;
   border-radius:8px;
@@ -117,37 +133,42 @@ body{
   cursor:pointer;
   transition:background .3s;
 }
-.cta:hover{background:var(--accent);}
-.whatsapp{background:var(--whatsapp);}
+
+.cta:hover{background:#1B3E17;}
+.whatsapp{background: var(--whatsapp);}
 .whatsapp:hover{background:#1ebe57;}
 
-/* Forms */
-form{margin:20px;}
-form input,select,textarea,button{
+form{
+  margin:20px;
+}
+
+form input, select, textarea, button{
   width:100%;
   padding:10px;
   margin-bottom:10px;
   border-radius:5px;
   border:1px solid #ccc;
 }
+
 form button{
-  background:var(--primary);
+  background: var(--accent);
   color:#fff;
   border:none;
   font-weight:bold;
   cursor:pointer;
 }
-form button:hover{background:var(--accent);}
 
-/* Modal for images */
+form button:hover{background:#1B3E17;}
+
 .modal{
   display:none;
   position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:rgba(0,0,0,0.8);
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.8);
   z-index:1000;
 }
+
 .modal-content{
   margin:auto;
   display:block;
@@ -155,6 +176,7 @@ form button:hover{background:var(--accent);}
   margin-top:60px;
   border-radius:10px;
 }
+
 .close{
   position:absolute;
   right:30px;
@@ -164,15 +186,15 @@ form button:hover{background:var(--accent);}
   cursor:pointer;
 }
 
-/* Footer */
 .footer{
-  background:var(--footer-bg);
+  background: var(--footer-bg);
   padding:20px 15px;
   font-size:15px;
   font-weight:bold;
   color:#333;
   border-top:2px solid var(--primary);
 }
+
 .footer-container{
   display:flex;
   flex-wrap:wrap;
@@ -181,21 +203,36 @@ form button:hover{background:var(--accent);}
   max-width:700px;
   margin:auto;
 }
+
 .footer-section{
   margin:10px;
 }
+
 .footer-section h4{
   margin-bottom:8px;
-  color:var(--primary);
+  color: var(--primary);
 }
+
 .footer-section a{
-  color:var(--primary);
+  color: var(--primary);
   text-decoration:none;
   font-weight:bold;
   transition:all 0.3s;
 }
+
 .footer-section a:hover{text-decoration:underline;}
-.footer-bottom{text-align:center;margin-top:15px;font-size:13px;color:#555;}
+
+.footer-bottom{
+  text-align:center;
+  margin-top:15px;
+  font-size:13px;
+  color:#555;
+}
+
+.gold-text{
+  color: var(--gold);
+  font-weight:bold;
+}
 </style>
 </head>
 <body>
@@ -206,7 +243,7 @@ form button:hover{background:var(--accent);}
 
   <div class="header">
     <div class="logo">Markitt.com</div>
-    🌙 <span style="color:var(--gold)">Markitt Ramadan Hampers</span>
+    🌙 <span class="gold-text">Markitt Ramadan Hampers</span>
   </div>
 
   <div class="slider">
@@ -220,6 +257,7 @@ form button:hover{background:var(--accent);}
   </div>
 
   <div class="accordion">
+
     <div class="accordion-item">
       <div class="accordion-header hamper1" data-pkr="3240">
         📦 Hamper 1 – <span class="price">PKR 3,240</span> <span class="arrow">▼</span>
@@ -258,6 +296,7 @@ form button:hover{background:var(--accent);}
         <button class="cta" onclick="openModal('Hamper_3.jpg')">View Image</button>
       </div>
     </div>
+
   </div>
 
   <div style="text-align:center;">
@@ -313,13 +352,16 @@ setInterval(()=>{
   document.getElementById("slideImg").src=slides[i];
 },3000);
 
-// Accordion toggle
+// Accordion toggle + arrow rotation
 document.querySelectorAll('.accordion-header').forEach(header=>{
   header.addEventListener('click',()=>{
     const body = header.nextElementSibling;
     body.style.maxHeight = body.style.maxHeight ? null : body.scrollHeight + "px";
+
+    // Rotate arrow
     const arrow = header.querySelector('.arrow');
     arrow.textContent = arrow.textContent === "▼" ? "▲" : "▼";
+
     header.classList.toggle("active");
   });
 });
