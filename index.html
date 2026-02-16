@@ -10,6 +10,8 @@
   --gold:#C5A059;
   --whatsapp:#25D366;
   --footer-bg:#B2E0A9; /* Light green footer */
+  --watermark-scale: 1;
+  --watermark-opacity: 0.06;
 }
 
 /* BODY */
@@ -40,7 +42,7 @@ body{
   overflow:hidden;
 }
 
-/* ULTRA-PROFESSIONAL FADED & ANIMATED DIAGONAL WATERMARK */
+/* WATERMARK */
 .header::before{
   content:"";
   position:absolute;
@@ -51,8 +53,8 @@ body{
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg");
   background-repeat: repeat;
   background-size: 120px 120px;
-  transform: rotate(-25deg);
-  opacity: 0.06;
+  transform: rotate(-25deg) scale(var(--watermark-scale));
+  opacity: var(--watermark-opacity);
   pointer-events: none;
   z-index:1;
 
@@ -68,22 +70,29 @@ body{
 
   /* subtle movement animation */
   animation: watermarkMove 12s linear infinite alternate;
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
-/* Keyframes for movement + opacity shift */
+/* Keyframes for subtle movement + opacity */
 @keyframes watermarkMove {
   0% {
-    transform: rotate(-25deg) translate(0px, 0px);
+    transform: rotate(-25deg) scale(1);
     opacity: 0.05;
   }
   50% {
-    transform: rotate(-25deg) translate(10px, 5px);
+    transform: rotate(-25deg) translate(10px,5px) scale(1.02);
     opacity: 0.08;
   }
   100% {
-    transform: rotate(-25deg) translate(0px, 0px);
+    transform: rotate(-25deg) scale(1);
     opacity: 0.06;
   }
+}
+
+/* HOVER EFFECT */
+.header:hover::before {
+  transform: rotate(-25deg) scale(1.05);
+  opacity: 0.09;
 }
 
 /* HEADER CONTENT ABOVE WATERMARK */
@@ -370,12 +379,14 @@ priceSpan.textContent=inUSD?`$${(pkr/rate).toFixed(2)}`:`PKR ${pkr}`;
 });
 }
 
-// WhatsApp Submit
-function sendWhatsApp(){
-let f=document.getElementById("orderForm");
-let txt=`Name: ${f.name.value} Hamper: ${f.hamper.value} Message: ${f.message.value}`;
-window.open("https://wa.me/923422088395?text="+encodeURIComponent(txt));
-}
+// Scroll effect for watermark
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const scale = 1 + scrollY/1000;
+  const opacity = 0.06 + scrollY/2000;
+  document.documentElement.style.setProperty('--watermark-scale', scale);
+  document.documentElement.style.setProperty('--watermark-opacity', opacity);
+});
 </script>
 
 </body>
