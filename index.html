@@ -196,7 +196,7 @@ form button:hover{background:var(--accent);}
 <div class="container">
 
   <div class="header">
-    <!-- Watermark Flag -->
+    <!-- Flag watermark -->
     <img class="flag-watermark" src="https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg" alt="Pakistan Flag">
     
     <div class="logo-text">Markitt.com</div>
@@ -226,6 +226,7 @@ form button:hover{background:var(--accent);}
           <li>Sugar – 1 kg</li>
           <li>Cooking Oil – 1 pack</li>
         </ul>
+        <button class="cta" onclick="openModal('Hamper_1.jpg')">View Image</button>
       </div>
     </div>
 
@@ -237,6 +238,7 @@ form button:hover{background:var(--accent);}
         <ul>
           <li>Extended grocery pack</li>
         </ul>
+        <button class="cta" onclick="openModal('Hamper_2.jpg')">View Image</button>
       </div>
     </div>
 
@@ -248,6 +250,7 @@ form button:hover{background:var(--accent);}
         <ul>
           <li>Premium full package</li>
         </ul>
+        <button class="cta" onclick="openModal('Hamper_3.jpg')">View Image</button>
       </div>
     </div>
 
@@ -306,20 +309,14 @@ setInterval(()=>{
   document.getElementById("slideImg").src=slides[i];
 },3000);
 
-// Accordion toggle + arrow rotation + modal on header click
+// Accordion toggle only
 document.querySelectorAll('.accordion-header').forEach(header=>{
   header.addEventListener('click',()=>{
     const body = header.nextElementSibling;
     body.style.maxHeight = body.style.maxHeight ? null : body.scrollHeight + "px";
-
     const arrow = header.querySelector('.arrow');
     arrow.textContent = arrow.textContent === "▼" ? "▲" : "▼";
     header.classList.toggle("active");
-
-    const imgSrc = header.classList.contains('hamper1') ? 'Hamper_1.jpg' :
-                   header.classList.contains('hamper2') ? 'Hamper_2.jpg' :
-                   header.classList.contains('hamper3') ? 'Hamper_3.jpg' : null;
-    if(imgSrc) openModal(imgSrc);
   });
 });
 
