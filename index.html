@@ -40,17 +40,17 @@ body{
   overflow:hidden;
 }
 
-/* FLAG WATERMARK IMAGE */
+/* DIAGONAL PROFESSIONAL WATERMARK */
 .header::before{
   content:"";
   position:absolute;
   top:50%;
-  right:20px; /* flag on right side */
-  transform:translateY(-50%);
-  width:120px;
-  height:120px;
+  left:50%;
+  transform:translate(-50%, -50%) rotate(-25deg); /* diagonal */
+  width:220px;    /* professional size */
+  height:220px;
   background:url("https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg") center/contain no-repeat;
-  opacity:0.2;
+  opacity:0.12;   /* semi-transparent watermark */
   z-index:1;
   pointer-events:none;
 }
