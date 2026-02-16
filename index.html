@@ -6,24 +6,32 @@
 <title>Markitt Ramadan Hampers</title>
 <style>
 :root{
-  --primary:#4CAF50;
+  --primary:#00401A;   /* Deep Pakistani Green */
+  --accent:#1B5E20;    /* Soft Leaf Green for buttons/icons */
   --whatsapp:#25D366;
-  --footer-bg:#e6f4ea;
+  --footer-bg:#FFFFFF;  /* Clean background for footer */
+  --gold:#C5A059;      /* Luxury accent for Ramadan text */
 }
+
+/* Body with premium fabric-like blurred background */
 body{
   font-family:Arial, sans-serif;
   margin:0;
-  background:#f0fff4 url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg') no-repeat center center;
+  background:#FFFFFF url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg') no-repeat center center;
   background-size:cover;
   background-attachment:fixed;
-  opacity:0.99;
+  color:#00401A;
 }
+
+/* Top Flag Section */
 .top-flag{
   width:100%;
-  background:url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg') no-repeat center center;
-  background-size:cover;
   height:120px;
+  background:linear-gradient(to bottom, rgba(0,64,26,0.8), rgba(27,94,32,0.6)), url('https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg') no-repeat center center;
+  background-size:cover;
 }
+
+/* Main container */
 .container{
   width:95%;
   max-width:700px;
@@ -33,9 +41,11 @@ body{
   box-shadow:0 6px 15px rgba(0,0,0,0.1);
   overflow:hidden;
 }
+
+/* Header */
 .header{
-  background:linear-gradient(90deg,#43a047,#a5d6a7);
-  color:#fff;
+  background:linear-gradient(90deg,var(--primary),var(--accent));
+  color:#FFFFFF;
   text-align:center;
   padding:20px;
   font-weight:bold;
@@ -44,18 +54,25 @@ body{
 .logo{
   font-size:28px;
   font-weight:bold;
-  color:#fff;
+  color:var(--gold);
   margin-bottom:10px;
 }
+
+/* Slider */
 .slider img{
   width:100%;
+  border-radius:8px;
 }
+
+/* Countdown */
 #countdown{
   text-align:center;
   font-weight:bold;
   color:var(--primary);
   padding:10px;
 }
+
+/* Accordion */
 .accordion{margin:20px;border:1px solid #ccc;border-radius:10px;}
 .accordion-item{
   border-bottom:1px solid #ddd;
@@ -68,23 +85,26 @@ body{
 .accordion-header{
   padding:15px;
   cursor:pointer;
-  background:#e8f5e9;
+  background:#F0FFF4;
   display:flex;
   justify-content:space-between;
   font-weight:bold;
-  transition:background .3s;
+  transition:background .3s, color .3s;
 }
 .accordion-header.active{
-  background:#c8e6c9;
+  background:var(--accent);
+  color:#FFFFFF;
 }
 .accordion-body{
   max-height:0;
   overflow:hidden;
   transition:max-height .3s;
   padding:0 15px 10px 15px;
-  background:#f0fff4;
+  background:#FFFFFF;
 }
 .accordion-body ul{list-style:none;padding:0;margin:0}
+
+/* Buttons / CTA */
 .cta{
   display:inline-block;
   margin:10px 0;
@@ -97,9 +117,11 @@ body{
   cursor:pointer;
   transition:background .3s;
 }
-.cta:hover{background:#388e3c;}
+.cta:hover{background:var(--accent);}
 .whatsapp{background:var(--whatsapp);}
 .whatsapp:hover{background:#1ebe57;}
+
+/* Forms */
 form{margin:20px;}
 form input,select,textarea,button{
   width:100%;
@@ -115,7 +137,9 @@ form button{
   font-weight:bold;
   cursor:pointer;
 }
-form button:hover{background:#388e3c;}
+form button:hover{background:var(--accent);}
+
+/* Modal for images */
 .modal{
   display:none;
   position:fixed;
@@ -139,6 +163,8 @@ form button:hover{background:#388e3c;}
   color:#fff;
   cursor:pointer;
 }
+
+/* Footer */
 .footer{
   background:var(--footer-bg);
   padding:20px 15px;
@@ -180,7 +206,7 @@ form button:hover{background:#388e3c;}
 
   <div class="header">
     <div class="logo">Markitt.com</div>
-    🌙 Markitt Ramadan Hampers
+    🌙 <span style="color:var(--gold)">Markitt Ramadan Hampers</span>
   </div>
 
   <div class="slider">
@@ -194,7 +220,6 @@ form button:hover{background:#388e3c;}
   </div>
 
   <div class="accordion">
-
     <div class="accordion-item">
       <div class="accordion-header hamper1" data-pkr="3240">
         📦 Hamper 1 – <span class="price">PKR 3,240</span> <span class="arrow">▼</span>
@@ -233,7 +258,6 @@ form button:hover{background:#388e3c;}
         <button class="cta" onclick="openModal('Hamper_3.jpg')">View Image</button>
       </div>
     </div>
-
   </div>
 
   <div style="text-align:center;">
@@ -289,16 +313,13 @@ setInterval(()=>{
   document.getElementById("slideImg").src=slides[i];
 },3000);
 
-// Accordion toggle + arrow rotation
+// Accordion toggle
 document.querySelectorAll('.accordion-header').forEach(header=>{
   header.addEventListener('click',()=>{
     const body = header.nextElementSibling;
     body.style.maxHeight = body.style.maxHeight ? null : body.scrollHeight + "px";
-
-    // Rotate arrow
     const arrow = header.querySelector('.arrow');
     arrow.textContent = arrow.textContent === "▼" ? "▲" : "▼";
-
     header.classList.toggle("active");
   });
 });
