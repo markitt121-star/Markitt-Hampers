@@ -10,10 +10,10 @@
   --primary:#66BB6A;
   --accent:#1B5E20;
   --whatsapp:#25D366;
-  --footer-bg:#f0f7f1;
   --gold:#C5A059;
 }
 
+/* BODY */
 body{
   font-family:Arial, sans-serif;
   margin:0;
@@ -25,7 +25,7 @@ body{
   width:95%;
   max-width:700px;
   margin:20px auto;
-  background:rgba(255,255,255,0.96);
+  background:#fff;
   border-radius:12px;
   box-shadow:0 6px 15px rgba(0,0,0,0.1);
   overflow:hidden;
@@ -33,35 +33,23 @@ body{
 
 /* HEADER */
 .header{
-  background:var(--primary);
-  color:#fff;
+  background:#e8f5e9;
   text-align:center;
-  padding:45px 20px 25px 20px;
-  font-weight:bold;
-  position:relative;
-  overflow:hidden;
-}
-
-.header::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:url("https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg") center/cover no-repeat;
-  opacity:0.12;
+  padding:30px 15px;
+  border-bottom:3px solid var(--primary);
 }
 
 .logo-text{
-  position:relative;
-  z-index:1;
-  font-size:30px;
+  font-size:42px;
+  font-weight:300;
+  letter-spacing:2px;
+  color:#000;     /* BLACK */
 }
 
 .hamper-title{
-  position:relative;
-  z-index:1;
-  margin-top:5px;
   font-size:20px;
-  color:var(--gold);
+  margin-top:5px;
+  color:#000;     /* BLACK */
 }
 
 /* SLIDER */
@@ -84,6 +72,7 @@ body{
   border:1px solid #ccc;
   border-radius:10px;
 }
+
 .accordion-header{
   padding:15px;
   cursor:pointer;
@@ -92,9 +81,11 @@ body{
   justify-content:space-between;
   font-weight:bold;
 }
+
 .accordion-header.active{
   background:#c8e6c9;
 }
+
 .accordion-body{
   max-height:0;
   overflow:hidden;
@@ -115,6 +106,7 @@ body{
   font-weight:bold;
   cursor:pointer;
 }
+
 .whatsapp{background:var(--whatsapp);}
 
 /* FORM */
@@ -132,7 +124,7 @@ form button{
   border:none;
 }
 
-/* MODAL */
+/* MODAL IMAGE */
 .modal{
   display:none;
   position:fixed;
@@ -156,41 +148,26 @@ form button{
 
 /* FOOTER */
 .footer{
-  background:var(--footer-bg);
-  padding:20px;
-  text-align:center;
-  font-weight:bold;
-  border-top:2px solid var(--primary);
-}
-
-  /* ===== FOOTER ===== */
-.footer{
-  background:#1B5E20;   /* Accent Green */
+  background:#1B5E20;
   color:#fff;
-  padding:30px 15px;
+  padding:30px 20px;
   text-align:center;
-  margin-top:40px;
 }
 
 .footer h3{
-  margin:5px 0;
-  font-size:22px;
+  font-size:24px;
+  margin-bottom:10px;
 }
 
 .footer p{
-  margin:6px 0;
   font-size:14px;
+  margin:6px 0;
 }
 
 .footer a{
-  color:#C5A059; /* Gold accent */
+  color:#C5A059;
   text-decoration:none;
 }
-
-.footer a:hover{
-  text-decoration:underline;
-}
-
 </style>
 </head>
 
@@ -198,9 +175,10 @@ form button{
 
 <div class="container">
 
+<!-- HEADER -->
 <div class="header">
   <div class="logo-text">Markitt.com</div>
-  <div class="hamper-title">🌙 Markitt Ramadan Hampers</div>
+  <div class="hamper-title">🌙 Ramadan Hamper Services</div>
 </div>
 
 <div class="slider">
@@ -213,6 +191,7 @@ form button{
 <button class="cta" onclick="toggleCurrency()">Toggle PKR / USD</button>
 </div>
 
+<!-- ACCORDION -->
 <div class="accordion">
 
 <div class="accordion-item">
@@ -226,7 +205,6 @@ form button{
 <li>Sugar – 1 kg</li>
 <li>Cooking Oil – 1 pack</li>
 </ul>
-<button class="cta" onclick="openModal('Hamper_1.jpg')">View Image</button>
 </div>
 </div>
 
@@ -238,7 +216,6 @@ form button{
 <ul>
 <li>Extended grocery pack</li>
 </ul>
-<button class="cta" onclick="openModal('Hamper_2.jpg')">View Image</button>
 </div>
 </div>
 
@@ -250,7 +227,6 @@ form button{
 <ul>
 <li>Premium full package</li>
 </ul>
-<button class="cta" onclick="openModal('Hamper_3.jpg')">View Image</button>
 </div>
 </div>
 
@@ -273,42 +249,34 @@ form button{
 <button type="button" onclick="sendWhatsApp()">Submit via WhatsApp</button>
 </form>
 
+<!-- FOOTER -->
 <div class="footer">
-© 2026 Markitt. All rights reserved.
+<h3>Markitt.com</h3>
+<p>
+Premium Ramadan Hampers delivered across Pakistan.  
+Quality groceries • Elegant packing • Reliable service
+</p>
+
+<p>
+📍 Karachi, Pakistan <br>
+📞 WhatsApp: +92 342 2088395 <br>
+✉ support@markitt.com
+</p>
+
+<p>© 2026 Markitt — All Rights Reserved</p>
 </div>
 
 </div>
 
+<!-- IMAGE MODAL -->
 <div id="imgModal" class="modal">
 <span class="close" onclick="closeModal()">×</span>
 <img id="modalImage" class="modal-content">
 </div>
-  <!-- FOOTER -->
-<div class="footer">
-
-  <h3>Markitt.com</h3>
-
-  <p>
-    Your trusted destination for premium Ramadan Hampers across Pakistan.
-    We bring quality groceries, thoughtful packaging, and reliable delivery
-    to make your Ramadan preparations easy and meaningful.
-  </p>
-
-  <p>
-    📍 Karachi, Pakistan <br>
-    📞 WhatsApp: +92 342 2088395 <br>
-    ✉ Email: support@markitt.com
-  </p>
-
-  <p>
-    © 2026 Markitt.com — All Rights Reserved
-  </p>
-
-</div>
-
 
 <script>
-// Slider
+
+/* SLIDER */
 const slides=["SLIDE1.jpg","SLIDE2.jpg","SLIDE3.jpg"];
 let i=0;
 setInterval(()=>{
@@ -316,18 +284,19 @@ i=(i+1)%slides.length;
 document.getElementById("slideImg").src=slides[i];
 },3000);
 
-// Accordion
+/* ACCORDION + IMAGE ON CLICK */
 document.querySelectorAll('.accordion-header').forEach(header=>{
 header.addEventListener('click',()=>{
 const body=header.nextElementSibling;
 body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
-const arrow=header.querySelector('.arrow');
-arrow.textContent=arrow.textContent==="▼"?"▲":"▼";
 header.classList.toggle("active");
+
+/* OPEN IMAGE */
+openModal("Hamper_1.jpg");
 });
 });
 
-// Modal
+/* MODAL */
 function openModal(src){
 document.getElementById("imgModal").style.display="block";
 document.getElementById("modalImage").src=src;
@@ -336,7 +305,7 @@ function closeModal(){
 document.getElementById("imgModal").style.display="none";
 }
 
-// Countdown
+/* COUNTDOWN */
 const ramadan=new Date("Feb 28, 2026").getTime();
 setInterval(()=>{
 let now=new Date().getTime();
@@ -346,7 +315,7 @@ let h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
 document.getElementById("countdown").innerHTML="Ramadan Starts In: "+d+"d "+h+"h";
 },1000);
 
-// Currency toggle
+/* CURRENCY TOGGLE */
 let inUSD=false;
 const rate=280;
 function toggleCurrency(){
@@ -358,7 +327,7 @@ priceSpan.textContent=inUSD?`$${(pkr/rate).toFixed(2)}`:`PKR ${pkr}`;
 });
 }
 
-// WhatsApp submit
+/* WHATSAPP */
 function sendWhatsApp(){
 let f=document.getElementById("orderForm");
 let txt=`Name: ${f.name.value} Hamper: ${f.hamper.value} Message: ${f.message.value}`;
@@ -368,4 +337,3 @@ window.open("https://wa.me/923422088395?text="+encodeURIComponent(txt));
 
 </body>
 </html>
-
