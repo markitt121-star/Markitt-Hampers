@@ -10,6 +10,7 @@
   --primary:#66BB6A;
   --accent:#1B5E20;
   --whatsapp:#25D366;
+  --gold:#C5A059;
   --light-heading:#E8F5E9;
 }
 
@@ -35,22 +36,24 @@ body{
 .header{
   position:relative;
   text-align:center;
-  padding:40px 15px;
-  background:linear-gradient(#c8f2cc,#a5e6aa); /* LIGHT GREEN */
+  padding:45px 15px;
+  background:#c8f2cc; /* LIGHT GREEN */
   overflow:hidden;
 }
 
-/* Pakistan Flag Watermark */
-.header::before{
-  content:"";
+/* FLAG IMAGE WATERMARK */
+.flag-bg{
   position:absolute;
-  inset:0;
-  background:url("https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg")
-            center/70% no-repeat;
-  opacity:0.35;     /* CLEARLY VISIBLE */
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:80%;
+  opacity:0.35;
+  z-index:1;
+  pointer-events:none;
 }
 
-/* Overlay so text stays sharp */
+/* CONTENT ABOVE FLAG */
 .header-content{
   position:relative;
   z-index:2;
@@ -95,6 +98,9 @@ body{
   justify-content:space-between;
   font-weight:bold;
 }
+.accordion-header.active{
+  background:#c8e6c9;
+}
 .accordion-body{
   max-height:0;
   overflow:hidden;
@@ -113,6 +119,7 @@ body{
   text-decoration:none;
   border-radius:8px;
   font-weight:bold;
+  cursor:pointer;
 }
 .whatsapp{background:var(--whatsapp);}
 
@@ -162,7 +169,7 @@ form button{
 }
 
 .footer h3{
-  color:var(--light-heading);   /* LIGHT HEADING COLOR */
+  color:var(--light-heading); /* LIGHT HEADING COLOR */
   font-size:26px;
   margin-bottom:10px;
 }
@@ -181,10 +188,15 @@ form button{
 
 <!-- HEADER -->
 <div class="header">
-  <div class="header-content">
-      <div class="logo-text">Markitt.com</div>
-      <div class="hamper-title">🌙 Ramadan Hamper Services</div>
-  </div>
+
+    <!-- FLAG WATERMARK -->
+    <img class="flag-bg" src="https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg" alt="Pakistan Flag">
+
+    <div class="header-content">
+        <div class="logo-text">Markitt.com</div>
+        <div class="hamper-title">🌙 Ramadan Hamper Services</div>
+    </div>
+
 </div>
 
 <div class="slider">
@@ -193,36 +205,81 @@ form button{
 
 <div id="countdown"></div>
 
+<div style="text-align:center;">
+<button class="cta" onclick="toggleCurrency()">Toggle PKR / USD</button>
+</div>
+
+<!-- ACCORDION -->
 <div class="accordion">
 
 <div class="accordion-item">
 <div class="accordion-header" data-pkr="3240">
-📦 Hamper 1 – <span class="price">PKR 3,240</span>
+📦 Hamper 1 – <span class="price">PKR 3,240</span> <span class="arrow">▼</span>
 </div>
-<div class="accordion-body"><ul><li>Flour – 5kg</li></ul></div>
+<div class="accordion-body">
+<ul>
+<li>Flour – 5 kg</li>
+<li>Rice – 1 kg</li>
+<li>Sugar – 1 kg</li>
+<li>Cooking Oil – 1 pack</li>
+</ul>
+</div>
 </div>
 
 <div class="accordion-item">
 <div class="accordion-header" data-pkr="5499">
-📦 Hamper 2 – <span class="price">PKR 5,499</span>
+📦 Hamper 2 – <span class="price">PKR 5,499</span> <span class="arrow">▼</span>
 </div>
-<div class="accordion-body"><ul><li>Extended pack</li></ul></div>
+<div class="accordion-body">
+<ul>
+<li>Extended grocery pack</li>
+</ul>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" data-pkr="6999">
+📦 Hamper 3 – <span class="price">PKR 6,999</span> <span class="arrow">▼</span>
+</div>
+<div class="accordion-body">
+<ul>
+<li>Premium full package</li>
+</ul>
+</div>
 </div>
 
 </div>
+
+<div style="text-align:center;">
+<a href="mailto:markitt121@gmail.com" class="cta">Order via Email</a>
+<a href="https://wa.me/923422088395" class="cta whatsapp">WhatsApp Order</a>
+</div>
+
+<form id="orderForm">
+<input name="name" placeholder="Name">
+<input name="phone" placeholder="Phone">
+<select name="hamper">
+<option>Hamper 1</option>
+<option>Hamper 2</option>
+<option>Hamper 3</option>
+</select>
+<textarea name="message" placeholder="Message"></textarea>
+<button type="button" onclick="sendWhatsApp()">Submit via WhatsApp</button>
+</form>
 
 <!-- FOOTER -->
 <div class="footer">
 <h3>Markitt.com</h3>
 
 <p>
-Premium Ramadan Hampers delivered across Pakistan.
+Premium Ramadan Hampers delivered across Pakistan. <br>
 Quality groceries • Elegant packing • Reliable service
 </p>
 
 <p>
 📍 Karachi, Pakistan <br>
-📞 WhatsApp: +92 342 2088395
+📞 WhatsApp: +92 342 2088395 <br>
+✉ support@markitt.com
 </p>
 
 <p>© 2026 Markitt — All Rights Reserved</p>
@@ -230,12 +287,70 @@ Quality groceries • Elegant packing • Reliable service
 
 </div>
 
+<!-- IMAGE MODAL -->
+<div id="imgModal" class="modal">
+<span class="close" onclick="closeModal()">×</span>
+<img id="modalImage" class="modal-content">
+</div>
+
 <script>
+/* SLIDER */
+const slides=["SLIDE1.jpg","SLIDE2.jpg","SLIDE3.jpg"];
+let i=0;
+setInterval(()=>{
+i=(i+1)%slides.length;
+document.getElementById("slideImg").src=slides[i];
+},3000);
+
+/* ACCORDION + IMAGE ON CLICK */
 document.querySelectorAll('.accordion-header').forEach(header=>{
 header.addEventListener('click',()=>{
+const body=header.nextElementSibling;
+body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
+header.classList.toggle("active");
+
+/* OPEN IMAGE MODAL */
 openModal("Hamper_1.jpg");
 });
 });
+
+/* MODAL */
+function openModal(src){
+document.getElementById("imgModal").style.display="block";
+document.getElementById("modalImage").src=src;
+}
+function closeModal(){
+document.getElementById("imgModal").style.display="none";
+}
+
+/* COUNTDOWN */
+const ramadan=new Date("Feb 28, 2026").getTime();
+setInterval(()=>{
+let now=new Date().getTime();
+let gap=ramadan-now;
+let d=Math.floor(gap/(1000*60*60*24));
+let h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
+document.getElementById("countdown").innerHTML="Ramadan Starts In: "+d+"d "+h+"h";
+},1000);
+
+/* CURRENCY TOGGLE */
+let inUSD=false;
+const rate=280;
+function toggleCurrency(){
+inUSD=!inUSD;
+document.querySelectorAll('.accordion-header').forEach(h=>{
+let pkr=h.dataset.pkr;
+const priceSpan=h.querySelector('.price');
+priceSpan.textContent=inUSD?`$${(pkr/rate).toFixed(2)}`:`PKR ${pkr}`;
+});
+}
+
+/* WHATSAPP */
+function sendWhatsApp(){
+let f=document.getElementById("orderForm");
+let txt=`Name: ${f.name.value} Hamper: ${f.hamper.value} Message: ${f.message.value}`;
+window.open("https://wa.me/923422088395?text="+encodeURIComponent(txt));
+}
 </script>
 
 </body>
