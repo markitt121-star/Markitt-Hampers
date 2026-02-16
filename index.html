@@ -10,8 +10,6 @@
   --gold:#C5A059;
   --whatsapp:#25D366;
   --footer-bg:#B2E0A9; /* Light green footer */
-  --watermark-scale: 1;
-  --watermark-opacity: 0.06;
 }
 
 /* BODY */
@@ -42,60 +40,22 @@ body{
   overflow:hidden;
 }
 
-/* WATERMARK */
+/* DIAGONAL PROFESSIONAL WATERMARK */
 .header::before{
   content:"";
   position:absolute;
-  top:-50%;
-  left:-50%;
-  width:200%;
-  height:200%;
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg");
-  background-repeat: repeat;
-  background-size: 120px 120px;
-  transform: rotate(-25deg) scale(var(--watermark-scale));
-  opacity: var(--watermark-opacity);
-  pointer-events: none;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%) rotate(-25deg); /* diagonal */
+  width:220px;    /* professional size */
+  height:220px;
+  background:url("https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg") center/contain no-repeat;
+  opacity:0.12;   /* semi-transparent watermark */
   z-index:1;
-
-  /* fade edges */
-  -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: cover;
-  mask-image: radial-gradient(circle, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: cover;
-
-  /* subtle movement animation */
-  animation: watermarkMove 12s linear infinite alternate;
-  transition: transform 0.5s ease, opacity 0.5s ease;
+  pointer-events:none;
 }
 
-/* Keyframes for subtle movement + opacity */
-@keyframes watermarkMove {
-  0% {
-    transform: rotate(-25deg) scale(1);
-    opacity: 0.05;
-  }
-  50% {
-    transform: rotate(-25deg) translate(10px,5px) scale(1.02);
-    opacity: 0.08;
-  }
-  100% {
-    transform: rotate(-25deg) scale(1);
-    opacity: 0.06;
-  }
-}
-
-/* HOVER EFFECT */
-.header:hover::before {
-  transform: rotate(-25deg) scale(1.05);
-  opacity: 0.09;
-}
-
-/* HEADER CONTENT ABOVE WATERMARK */
+/* HEADER CONTENT ABOVE FLAG */
 .header-content{
   position:relative;
   z-index:2;
@@ -379,14 +339,12 @@ priceSpan.textContent=inUSD?`$${(pkr/rate).toFixed(2)}`:`PKR ${pkr}`;
 });
 }
 
-// Scroll effect for watermark
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  const scale = 1 + scrollY/1000;
-  const opacity = 0.06 + scrollY/2000;
-  document.documentElement.style.setProperty('--watermark-scale', scale);
-  document.documentElement.style.setProperty('--watermark-opacity', opacity);
-});
+// WhatsApp Submit
+function sendWhatsApp(){
+let f=document.getElementById("orderForm");
+let txt=`Name: ${f.name.value} Hamper: ${f.hamper.value} Message: ${f.message.value}`;
+window.open("https://wa.me/923422088395?text="+encodeURIComponent(txt));
+}
 </script>
 
 </body>
