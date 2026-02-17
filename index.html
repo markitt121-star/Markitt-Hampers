@@ -11,6 +11,7 @@
   --glass:rgba(255,255,255,0.6);
   --shadow:rgba(0,0,0,0.08);
   --whatsapp:#25D366;
+  --highlight:#ffd700;
 }
 
 body{
@@ -100,7 +101,7 @@ body{
   box-shadow:0 15px 40px rgba(0,0,0,0.15);
 }
 
-/* SLIDER */
+/* Slider */
 .slider{
   position:relative;
   height:300px;
@@ -126,7 +127,7 @@ body{
   transform: scale(1.05);
 }
 
-/* HAMPER */
+/* Hamper */
 .hamper-header{
   display:flex;
   justify-content:space-between;
@@ -180,6 +181,8 @@ input, select, textarea{
   border:1px solid #ddd;
   font-size:14px;
   transition:0.3s;
+  width:100%;
+  box-sizing:border-box;
 }
 
 input:focus, select:focus, textarea:focus{
@@ -197,6 +200,8 @@ button{
   background:var(--accent);
   color:white;
   transition:0.3s;
+  width:100%;
+  font-size:16px;
 }
 
 button:hover{
@@ -223,12 +228,39 @@ button:hover{
   100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}
 }
 
+/* Footer */
 .footer{
   text-align:center;
   margin-top:30px;
   padding:20px;
   font-size:14px;
   color:#666;
+  background:rgba(255,255,255,0.9);
+  border-top:2px solid var(--accent);
+}
+
+.footer h3{
+  margin-bottom:10px;
+  color:var(--accent-dark);
+}
+
+.footer h4{
+  margin-top:15px;
+  color:var(--accent-dark);
+}
+
+.footer .social-icons a{
+  margin:0 8px;
+  font-size:22px;
+  color:#444;
+  text-decoration:none;
+  display:inline-block;
+  transition:0.3s;
+}
+
+.footer .social-icons a:hover{
+  color:var(--accent);
+  animation:aiGlow 1s ease-in-out 0s 3;
 }
 
 .popup{
@@ -253,23 +285,32 @@ button:hover{
   opacity:1;
 }
 
+.highlight{
+  animation:aiGlow 1s ease-in-out 0s 3;
+  box-shadow:0 0 20px 5px var(--highlight);
+  transform: scale(1.05);
+}
+
+@keyframes aiGlow{
+  0%{box-shadow:0 0 5px 0 var(--highlight);transform:scale(1);}
+  50%{box-shadow:0 0 25px 10px var(--highlight);transform:scale(1.08);}
+  100%{box-shadow:0 0 5px 0 var(--highlight);transform:scale(1);}
+}
+
 /* Responsive */
 @media(max-width:768px){
-  .header{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-  .total-orders{
-    margin-top:10px;
-  }
-  .slider{
-    height:220px;
-  }
+  .header{flex-direction:column;align-items:flex-start;}
+  .total-orders{margin-top:10px;}
+  .slider{height:220px;}
+  form input, form select, form textarea, form button{font-size:14px;}
+  .price{font-size:12px;padding:5px 10px;}
+  .hamper-header{flex-direction:column;align-items:flex-start;}
 }
 </style>
 </head>
 <body>
 
+<!-- Header -->
 <div class="header">
   <div class="logo-area">
     <img src="logo.png" alt="Logo">
@@ -283,15 +324,15 @@ button:hover{
 
 <div class="container">
 
-<!-- SLIDER -->
+<!-- Slider -->
 <div class="glass slider" id="slider">
   <img src="SLIDER_1.jpg" class="active">
   <img src="SLIDER_2.jpg">
   <img src="SLIDER_3.jpg">
 </div>
 
-<!-- HAMPERS -->
-<div class="glass hamper">
+<!-- Hampers -->
+<div class="glass hamper" data-hamper="Hamper 1">
   <div class="hamper-header">Hamper 1 <span class="price" data-price="32.40">USD <span class="counter" data-target="32.40">0</span></span></div>
   <div class="hamper-body">
     <ul>
@@ -303,7 +344,7 @@ button:hover{
   </div>
 </div>
 
-<div class="glass hamper">
+<div class="glass hamper" data-hamper="Hamper 2">
   <div class="hamper-header">Hamper 2 <span class="price" data-price="54.99">USD <span class="counter" data-target="54.99">0</span></span></div>
   <div class="hamper-body">
     <ul>
@@ -316,7 +357,7 @@ button:hover{
   </div>
 </div>
 
-<div class="glass hamper">
+<div class="glass hamper" data-hamper="Hamper 3">
   <div class="hamper-header">Hamper 3 <span class="price" data-price="69.99">USD <span class="counter" data-target="69.99">0</span></span></div>
   <div class="hamper-body">
     <ul>
@@ -338,10 +379,16 @@ button:hover{
     <option value="USD" selected>USD</option>
     <option value="PKR">PKR</option>
     <option value="SAR">SAR</option>
+    <option value="EUR">EUR</option>
+    <option value="GBP">GBP</option>
+    <option value="AED">AED</option>
+    <option value="INR">INR</option>
+    <option value="MYR">MYR</option>
+    <option value="IDR">IDR</option>
   </select>
 </div>
 
-<!-- ORDER FORM -->
+<!-- Order Form -->
 <div class="glass">
 <form id="orderForm">
 <input name="sender" placeholder="Sender Name (Country)" required>
@@ -354,136 +401,121 @@ button:hover{
 <option value="Hamper 3">Hamper 3</option>
 </select>
 <textarea name="address" placeholder="Delivery Address" required></textarea>
+
+<!-- Payment Option -->
+<select name="payment" required>
+  <option value="">Select Payment Method</option>
+  <option value="Bank Transfer">Bank Transfer</option>
+  <option value="Cash on Delivery">Cash on Delivery</option>
+  <option value="PayPal">PayPal</option>
+</select>
+
 <button type="submit">💬 Order via WhatsApp</button>
 <button type="button" onclick="sendEmail()">📧 Order via Email</button>
 </form>
 </div>
 
-<!-- FOOTER -->
+<!-- Payment Info -->
+<div class="glass">
+  <h4>Bank Account Details for Payment</h4>
+  <p>Account Title: <strong>United Retail Pvt Ltd</strong><br>
+     Bank Name: <strong>UBL</strong><br>
+     IBAN: <strong>PK52 UNIL 0110 0050 0044 0789</strong></p>
+</div>
+
+<!-- Footer -->
 <div class="footer">
-  📞 +92 342 2088395 | ✉️ info@markitt.com <br>
-  © 2026 Markitt | United Retail Pvt Ltd.
+<h3>Contact & Follow Us</h3>
+<p>📞 +92 342 2088395 | ✉️ <a href="mailto:markitt121@gmail.com">markitt121@gmail.com</a></p>
+<div class="social-icons">
+<a href="https://www.facebook.com/markitt" target="_blank" title="Facebook">🌐</a>
+<a href="https://www.instagram.com/markitt" target="_blank" title="Instagram">📸</a>
+<a href="https://twitter.com/markitt" target="_blank" title="Twitter">🐦</a>
+<a href="https://wa.me/923422088395" target="_blank" title="WhatsApp">💬</a>
+<a href="https://www.linkedin.com/company/markitt" target="_blank" title="LinkedIn">🔗</a>
+</div>
+<p>© 2026 Markitt Hamper Service | United Retail Pvt Ltd. | All rights reserved.</p>
 </div>
 
-</div>
-
-<!-- POPUP -->
-<div id="popup" class="popup">✅ Your order has been initiated!</div>
+<!-- WhatsApp Floating Button -->
 <a href="https://wa.me/923422088395" class="floating-wa" target="_blank">💬</a>
 
+<!-- Popup -->
+<div id="popup" class="popup">✅ Your order has been initiated!</div>
+
 <script>
-// Slider with touch support
+// Slider
 const slides = document.querySelectorAll('.slider img');
-let current = 0;
-let startX = 0, endX = 0;
-const slider = document.getElementById('slider');
-
+let current=0;
 function showSlide(index){
-  slides.forEach((slide,i)=>{
-    slide.style.opacity = i===index?'1':'0';
-    slide.style.transform = i===index?'scale(1.05)':'scale(1)';
-  });
-  current = index;
+  slides.forEach((s,i)=>s.style.opacity=i===index?'1':'0');
+  current=index;
 }
-
-let slideInterval = setInterval(()=>showSlide((current+1)%slides.length),3000);
-
-slider.addEventListener('touchstart',e=>{
-  clearInterval(slideInterval);
-  startX = e.touches[0].clientX;
-});
-slider.addEventListener('touchmove',e=>{
-  endX = e.touches[0].clientX;
-});
-slider.addEventListener('touchend',e=>{
-  let diff = endX-startX;
-  if(diff>50){ showSlide((current-1+slides.length)%slides.length); }
-  else if(diff<-50){ showSlide((current+1)%slides.length); }
-  slideInterval = setInterval(()=>showSlide((current+1)%slides.length),3000);
-});
+setInterval(()=>showSlide((current+1)%slides.length),3000);
 showSlide(0);
 
-// Scroll reveal & counters
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("show");
-      entry.target.querySelectorAll(".counter").forEach(counter=>{
-        let target = parseFloat(counter.getAttribute("data-target"));
-        let count = 0;
-        let increment = target/150;
-        let updateCounter = ()=>{
-          count+=increment;
-          if(count>target) count=target;
-          counter.textContent = target<1?count.toFixed(2):Math.ceil(count);
-          if(count<target) requestAnimationFrame(updateCounter);
-        };
-        updateCounter();
-      });
-      const ordersCounter=document.getElementById("ordersCounter");
-      let totalOrdersTarget=125,totalCount=0,incrementOrders=Math.ceil(totalOrdersTarget/100);
-      let updateOrders=()=>{
-        totalCount+=incrementOrders;
-        if(totalCount>totalOrdersTarget) totalCount=totalOrdersTarget;
-        ordersCounter.textContent=totalCount;
-        if(totalCount<totalOrdersTarget) requestAnimationFrame(updateOrders);
-      };
-      updateOrders();
-    }
-  });
-},{threshold:0.3});
-document.querySelectorAll(".glass").forEach(el=>observer.observe(el));
-
-// Accordion
+// Hamper Accordion
 document.querySelectorAll(".hamper-header").forEach(header=>{
-  header.addEventListener("click",function(){
-    let body=this.nextElementSibling;
+  header.addEventListener("click",()=> {
+    const body=header.nextElementSibling;
     body.style.maxHeight = body.style.maxHeight?null:body.scrollHeight+"px";
   });
 });
 
-// WhatsApp order
-document.getElementById("orderForm").addEventListener("submit",function(e){
+// Counter Animation
+function animateCounter(el,target){
+  let count=0;
+  const inc=target/150;
+  const update=()=>{count+=inc;if(count>target)count=target;el.textContent=target<1?count.toFixed(2):Math.ceil(count);if(count<target)requestAnimationFrame(update);};
+  update();
+}
+document.querySelectorAll(".counter").forEach(c=>animateCounter(c,parseFloat(c.dataset.target)));
+
+// Form Submission WhatsApp
+document.getElementById("orderForm").addEventListener("submit",e=>{
   e.preventDefault();
+  const f=e.target;
+  const message=`Sender: ${f.sender.value}%0AReceiver: ${f.receiver.value}%0APhone: ${f.phone.value}%0AHamper: ${f.hamper.value}%0APayment: ${f.payment.value}%0AAddress: ${f.address.value}`;
+  window.open(`https://wa.me/923422088395?text=${message}`,'_blank');
   showPopup();
-  let f=this;
-  let message=`New Hamper Order\nSender: ${f.sender.value}\nReceiver: ${f.receiver.value}\nPhone: ${f.phone.value}\nHamper: ${f.hamper.value}\nAddress: ${f.address.value}`;
-  window.open("https://wa.me/923422088395?text="+encodeURIComponent(message));
+  f.reset();
 });
 
-// Email order
+// Form Submission Email
 function sendEmail(){
-  showPopup();
-  let f=document.getElementById("orderForm");
-  let subject="New Hamper Order - Markitt";
-  let body=`New Hamper Order\nSender: ${f.sender.value}\nReceiver: ${f.receiver.value}\nPhone: ${f.phone.value}\nHamper: ${f.hamper.value}\nAddress: ${f.address.value}`;
-  window.location.href="mailto:info@markitt.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
+  const f=document.getElementById("orderForm");
+  const body=`Sender: ${f.sender.value}\nReceiver: ${f.receiver.value}\nPhone: ${f.phone.value}\nHamper: ${f.hamper.value}\nPayment: ${f.payment.value}\nAddress: ${f.address.value}`;
+  window.location.href=`mailto:markitt121@gmail.com?subject=Hamper Order&body=${encodeURIComponent(body)}`;
 }
 
-// Show popup
+// Popup
 function showPopup(){
-  const popup=document.getElementById("popup");
-  popup.classList.add("show");
-  setTimeout(()=>{popup.classList.remove("show");},2500);
+  const p=document.getElementById("popup");
+  p.classList.add("show","highlight");
+  setTimeout(()=>p.classList.remove("show","highlight"),2500);
 }
 
-// Currency selector
-const currencySelect = document.getElementById('currency');
-currencySelect.addEventListener('change',()=>{
-  const selected = currencySelect.value;
-  document.querySelectorAll('.price').forEach(priceEl=>{
-    let usdPrice = parseFloat(priceEl.getAttribute('data-price'));
-    let displayPrice = usdPrice;
-    if(selected==='PKR') displayPrice = (usdPrice*300).toFixed(0); // example conversion
-    else if(selected==='SAR') displayPrice = (usdPrice*3.75).toFixed(2);
-    priceEl.innerHTML = selected+' <span class="counter" data-target="'+displayPrice+'">0</span>';
+// Orders Counter Demo
+let orders=0;
+setInterval(()=>{orders++;document.getElementById("ordersCounter").textContent=orders;},5000);
+
+// Currency Conversion
+const rates={USD:1,PKR:280,SAR:3.75,EUR:0.92,GBP:0.81,AED:3.67,INR:83,MYR:4.4,IDR:15000};
+document.getElementById('currency').addEventListener('change',function(){
+  document.querySelectorAll('.price').forEach(p=>{
+    const usd=parseFloat(p.dataset.price);
+    const converted=(usd*rates[this.value]).toFixed(2);
+    p.querySelector('.counter').textContent=converted;
+    p.firstChild.textContent=this.value+' ';
   });
-  // Re-run counters
-  document.querySelectorAll(".counter").forEach(counter=>{
-    let target=parseFloat(counter.getAttribute("data-target")), count=0, increment=target/150;
-    let updateCounter=()=>{count+=increment;if(count>target)count=target;counter.textContent=target<1?count.toFixed(2):Math.ceil(count);if(count<target)requestAnimationFrame(updateCounter);};
-    updateCounter();
-  });
+});
+
+// Hamper Highlight on selection
+const hamperSelect = document.getElementById('hamperSelect');
+hamperSelect.addEventListener('change', ()=>{
+  document.querySelectorAll('.hamper').forEach(h=>h.classList.remove('highlight'));
+  const selected=document.querySelector(`.hamper[data-hamper="${hamperSelect.value}"]`);
+  if(selected){selected.classList.add('highlight');setTimeout(()=>selected.classList.remove('highlight'),3500);}
 });
 </script>
 
