@@ -1,121 +1,315 @@
-  <!-- SLIDER -->
-  <div class="slider">
-    <img src="https://via.placeholder.com/700x300?text=Ramadan+Hamper+1" class="active" alt="Hamper 1">
-    <img src="https://via.placeholder.com/700x300?text=Ramadan+Hamper+2" alt="Hamper 2">
-    <img src="https://via.placeholder.com/700x300?text=Ramadan+Hamper+3" alt="Hamper 3">
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Markitt Premium Ramadan Hampers</title>
 
-  <!-- COUNTDOWN -->
-  <div id="countdown">Offer ends in: <span id="timer">00d 00h 00m 00s</span></div>
+<style>
+:root{
+  --light-green:#f1f8f4;
+  --accent:#66bb6a;
+  --dark-accent:#43a047;
+  --gold:#C5A059;
+  --whatsapp:#25D366;
+}
 
-  <!-- ACCORDION -->
-  <div class="accordion">
-    <div class="accordion-header">
-      <span>Hamper Details</span>
-      <span class="arrow">&#9662;</span>
-    </div>
-    <div class="accordion-body">
-      <p>This hamper includes dates, nuts, chocolates, and other Ramadan essentials. Perfect for gifting your loved ones!</p>
-    </div>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(to bottom,#f1f8f4,#ffffff);
+  color:#000;
+}
 
-    <div class="accordion-header">
-      <span>Delivery Info</span>
-      <span class="arrow">&#9662;</span>
-    </div>
-    <div class="accordion-body">
-      <p>Orders are delivered within 3-5 business days. Free delivery on orders above $50.</p>
-    </div>
-  </div>
+/* TOP BORDER HEADER */
+.top-bar{
+  width:100%;
+  background:#ffffff;
+  border-bottom:5px solid var(--accent);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100px;
+}
 
-  <!-- HAMPER IMAGES -->
-  <img src="https://via.placeholder.com/600x400?text=Hamper+1" alt="Hamper 1" class="hamper-image">
-  <img src="https://via.placeholder.com/600x400?text=Hamper+2" alt="Hamper 2" class="hamper-image">
-  <img src="https://via.placeholder.com/600x400?text=Hamper+3" alt="Hamper 3" class="hamper-image">
+.top-bar img{
+  height:65px;
+}
 
-  <!-- CTA BUTTON -->
-  <div style="text-align:center;">
-    <a href="#" class="cta">Order Now</a>
-  </div>
+/* MAIN CONTAINER */
+.container{
+  max-width:700px;
+  margin:20px auto;
+  background:#fff;
+  border-radius:15px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+  overflow:hidden;
+}
 
-  <!-- CURRENCY SELECT -->
-  <div class="currency-select">
-    <label for="currency">Select Currency:</label>
-    <select id="currency">
-      <option value="USD">USD</option>
-      <option value="PKR">PKR</option>
-      <option value="EUR">EUR</option>
-    </select>
-  </div>
+/* HEADER */
+.header{
+  text-align:center;
+  padding:25px 15px;
+  background:linear-gradient(90deg,#a5d6a7,#66bb6a);
+  font-size:26px;
+  font-weight:bold;
+}
 
-  <!-- FOOTER -->
-  <div class="footer">
-    <h3>Markitt.com</h3>
-    <p>© 2026 All rights reserved.</p>
-    <p>
-      <a href="#">Facebook</a> | 
-      <a href="#">Instagram</a> | 
-      <a href="#">WhatsApp</a>
-    </p>
-  </div>
+/* SLIDER */
+.slider img{
+  width:100%;
+}
+
+/* COUNTDOWN */
+#countdown{
+  text-align:center;
+  padding:10px;
+  font-weight:bold;
+  color:#000;
+}
+
+/* BUTTON */
+.cta{
+  display:inline-block;
+  padding:12px 25px;
+  margin:10px;
+  background:var(--accent);
+  color:#fff;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:bold;
+  transition:.3s;
+  border:none;
+  cursor:pointer;
+}
+
+.cta:hover{
+  background:var(--dark-accent);
+}
+
+/* ACCORDION CARDS */
+.accordion-item{
+  margin:15px;
+  border-radius:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  overflow:hidden;
+  transition:.3s;
+}
+
+.accordion-item:hover{
+  transform:translateY(-6px);
+}
+
+.accordion-header{
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  font-weight:bold;
+  font-size:18px;
+  cursor:pointer;
+  background:#f9fdf9;
+}
+
+.price{
+  background:var(--accent);
+  color:#fff;
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:14px;
+}
+
+.accordion-body{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .3s;
+  padding:0 18px;
+  background:#ffffff;
+}
+
+.accordion-body ul{
+  list-style:none;
+  padding:10px 0;
+}
+
+/* FORM */
+form{
+  margin:25px;
+  padding:20px;
+  background:#f9fdf9;
+  border-radius:15px;
+  box-shadow:0 6px 15px rgba(0,0,0,0.05);
+}
+
+form input, form select, form textarea{
+  width:100%;
+  padding:10px;
+  margin-bottom:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+/* FLOATING WHATSAPP */
+.floating-wa{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:var(--whatsapp);
+  color:#fff;
+  font-size:22px;
+  padding:15px;
+  border-radius:50%;
+  text-decoration:none;
+  box-shadow:0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  padding:20px;
+  background:#f1f8f4;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP LOGO BAR -->
+<div class="top-bar">
+  <img src="logo.png" alt="Markitt Logo">
 </div>
 
-<!-- MODAL -->
-<div class="modal" id="imageModal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="modalImg">
+<div class="container">
+
+<div class="header">
+🌙 Ramadan Kareem – Markitt Premium Hampers 🌙
 </div>
+
+<div class="slider">
+  <img id="slideImg" src="SLIDE1.jpg">
+</div>
+
+<div id="countdown"></div>
+
+<div style="text-align:center;">
+<button class="cta" onclick="toggleCurrency()">Toggle USD / PKR</button>
+</div>
+
+<!-- HAMPERS -->
+<div class="accordion">
+
+<div class="accordion-item">
+<div class="accordion-header" data-pkr="3240">
+Hamper 1 <span class="price">PKR 3,240</span>
+</div>
+<div class="accordion-body">
+<ul>
+<li>Flour – 5 kg</li>
+<li>Rice – 1 kg</li>
+<li>Sugar – 1 kg</li>
+<li>Cooking Oil</li>
+</ul>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" data-pkr="5499">
+Hamper 2 <span class="price">PKR 5,499</span>
+</div>
+<div class="accordion-body">
+<ul>
+<li>Extended grocery package</li>
+</ul>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" data-pkr="6999">
+Hamper 3 <span class="price">PKR 6,999</span>
+</div>
+<div class="accordion-body">
+<ul>
+<li>Premium full package</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<!-- ORDER FORM -->
+<form id="orderForm">
+<input name="name" placeholder="Your Name">
+<input name="phone" placeholder="Phone Number">
+<select name="hamper">
+<option>Hamper 1</option>
+<option>Hamper 2</option>
+<option>Hamper 3</option>
+</select>
+<textarea name="message" placeholder="Delivery Address"></textarea>
+<button type="button" class="cta" onclick="sendWhatsApp()">Order via WhatsApp</button>
+</form>
+
+<div class="footer">
+© 2026 Markitt | Muhammad Shoaib Ashraf  
+<br>📞 +92 342 2088395
+</div>
+
+</div>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/923422088395" class="floating-wa" target="_blank">💬</a>
 
 <script>
-  // SLIDER
-  let slides = document.querySelectorAll('.slider img');
-  let currentSlide = 0;
-  setInterval(() => {
-    slides[currentSlide].classList.remove('active');
-    currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].classList.add('active');
-  }, 4000);
 
-  // ACCORDION
-  document.querySelectorAll('.accordion-header').forEach(header => {
-    header.addEventListener('click', () => {
-      const body = header.nextElementSibling;
-      const arrow = header.querySelector('.arrow');
-      if(body.style.maxHeight){
-        body.style.maxHeight = null;
-        body.style.opacity = 0;
-        arrow.innerHTML = "&#9662;";
-      } else {
-        body.style.maxHeight = body.scrollHeight + "px";
-        body.style.opacity = 1;
-        arrow.innerHTML = "&#9652;";
-      }
-    });
-  });
+/* SLIDER */
+const slides=["SLIDE1.jpg","SLIDE2.jpg","SLIDE3.jpg"];
+let i=0;
+setInterval(()=>{
+i=(i+1)%slides.length;
+document.getElementById("slideImg").src=slides[i];
+},3000);
 
-  // MODAL POPUP
-  const modal = document.getElementById("imageModal");
-  const modalImg = document.getElementById("modalImg");
-  document.querySelectorAll('.hamper-image').forEach(img => {
-    img.addEventListener('click', () => {
-      modal.style.display = "block";
-      modalImg.src = img.src;
-    });
-  });
-  document.querySelector('.close').onclick = () => modal.style.display = "none";
+/* ACCORDION */
+document.querySelectorAll('.accordion-header').forEach(header=>{
+header.addEventListener('click',()=>{
+const body=header.nextElementSibling;
+body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
+});
+});
 
-  // COUNTDOWN
-  const countdown = document.getElementById('timer');
-  const endDate = new Date();
-  endDate.setDate(endDate.getDate() + 7); // 7 days from now
-  setInterval(() => {
-    let now = new Date().getTime();
-    let distance = endDate - now;
-    let days = Math.floor(distance / (1000*60*60*24));
-    let hours = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
-    let minutes = Math.floor((distance % (1000*60*60))/(1000*60));
-    let seconds = Math.floor((distance % (1000*60))/1000);
-    countdown.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  }, 1000);
+/* COUNTDOWN */
+const ramadan=new Date("Feb 28, 2026").getTime();
+setInterval(()=>{
+let now=new Date().getTime();
+let gap=ramadan-now;
+let d=Math.floor(gap/(1000*60*60*24));
+document.getElementById("countdown").innerHTML=
+"Ramadan Starts In: "+d+" Days";
+},1000);
+
+/* CURRENCY TOGGLE */
+let inUSD=false;
+const rate=280;
+function toggleCurrency(){
+inUSD=!inUSD;
+document.querySelectorAll('.accordion-header').forEach(h=>{
+let pkr=h.dataset.pkr;
+let price=h.querySelector('.price');
+price.textContent=inUSD?`$${(pkr/rate).toFixed(2)}`:`PKR ${pkr}`;
+});
+}
+
+/* WHATSAPP FORM */
+function sendWhatsApp(){
+let f=document.getElementById("orderForm");
+let txt=`Name: ${f.name.value}
+Phone: ${f.phone.value}
+Hamper: ${f.hamper.value}
+Address: ${f.message.value}`;
+window.open("https://wa.me/923422088395?text="+encodeURIComponent(txt));
+}
+
 </script>
+
 </body>
 </html>
