@@ -110,8 +110,9 @@ body{
   height:350px;
   overflow:hidden;
   border-radius:20px;
-  border: 3px solid var(--accent); /* visible border */
-  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+  border: 3px solid var(--accent);
+  /* outer + inner shadow for depth */
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.1), 0 8px 20px rgba(0,0,0,0.1);
 }
 
 .slider img{
@@ -123,12 +124,12 @@ body{
   left:0;
   opacity:0;
   transition:opacity 1s ease-in-out, transform 0.5s ease;
-  border-radius:17px; /* slightly smaller for inner margin */
+  border-radius:17px;
 }
 
 .slider img.active{
   opacity:1;
-  transform: scale(1.05); /* subtle zoom effect */
+  transform: scale(1.05);
 }
 
 /* HAMPER */
@@ -263,6 +264,78 @@ button:hover{
   transform:translate(-50%,-50%) scale(1);
   opacity:1;
 }
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .container {
+    margin: 20px 10px;
+    padding-bottom: 20px;
+  }
+
+  .slider {
+    height: 220px;
+    border-width: 2px;
+  }
+
+  .slider img {
+    border-radius: 15px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 10px;
+    gap: 10px;
+  }
+
+  .total-orders {
+    min-width: auto;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .brand-text {
+    font-size: 20px;
+  }
+
+  .tagline {
+    font-size: 12px;
+  }
+
+  .glass {
+    padding: 15px;
+  }
+
+  .hamper-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 12px 0;
+  }
+
+  .price {
+    padding: 5px 10px;
+    font-size: 13px;
+  }
+
+  form {
+    padding: 15px;
+    gap: 10px;
+  }
+
+  input, select, textarea, button {
+    font-size: 14px;
+  }
+
+  .floating-wa {
+    padding: 14px;
+    font-size: 20px;
+  }
+
+  .footer {
+    font-size: 13px;
+  }
+}
 </style>
 </head>
 
@@ -276,7 +349,6 @@ button:hover{
       <div class="tagline">Serving Across Pakistan – Orders Worldwide</div>
     </div>
   </div>
-  <!-- Total Orders Counter -->
   <div class="total-orders">💚 Orders Placed: <span id="ordersCounter">0</span></div>
 </div>
 
@@ -284,8 +356,8 @@ button:hover{
 
 <!-- SLIDER -->
 <div class="glass slider">
-  <img src="SLIDER_1.jpg" class="active">
-  <img src="SLIDER_2.jpg">
+  <img src="Markitt_Slide.jpg" class="active">
+  <img src="SLIDER_1.jpg">
 </div>
 
 <!-- HAMPERS -->
@@ -381,12 +453,7 @@ const observer=new IntersectionObserver(entries=>{
         let target=parseInt(counter.getAttribute("data-target"));
         let count=0;
         let increment=Math.ceil(target/150);
-        let updateCounter=()=>{
-          count+=increment;
-          if(count>target) count=target;
-          counter.textContent=count.toLocaleString();
-          if(count<target) requestAnimationFrame(updateCounter);
-        };
+        let updateCounter=()=>{count+=increment;if(count>target) count=target;counter.textContent=count.toLocaleString();if(count<target) requestAnimationFrame(updateCounter);};
         updateCounter();
       });
 
@@ -395,20 +462,13 @@ const observer=new IntersectionObserver(entries=>{
       let totalOrdersTarget=125;
       let totalCount=0;
       let incrementOrders=Math.ceil(totalOrdersTarget/100);
-      let updateOrders=()=>{
-        totalCount+=incrementOrders;
-        if(totalCount>totalOrdersTarget) totalCount=totalOrdersTarget;
-        ordersCounter.textContent=totalCount;
-        if(totalCount<totalOrdersTarget) requestAnimationFrame(updateOrders);
-      };
+      let updateOrders=()=>{totalCount+=incrementOrders;if(totalCount>totalOrdersTarget) totalCount=totalOrdersTarget;ordersCounter.textContent=totalCount;if(totalCount<totalOrdersTarget) requestAnimationFrame(updateOrders);};
       updateOrders();
     }
   });
 },{threshold:0.3});
 
-document.querySelectorAll(".glass").forEach(el=>{
-  observer.observe(el);
-});
+document.querySelectorAll(".glass").forEach(el=>{observer.observe(el);});
 
 /* Accordion */
 document.querySelectorAll(".hamper-header").forEach(header=>{
