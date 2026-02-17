@@ -3,111 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Markitt Premium Ramadan Hampers</title>
+<title>Markitt Hamper Service</title>
 
 <style>
 :root{
-  --light-green:#f1f8f4;
-  --accent:#66bb6a;
-  --dark-accent:#43a047;
-  --gold:#C5A059;
+  --accent:#5bcf7a;
+  --accent-dark:#3fb963;
+  --glass:rgba(255,255,255,0.6);
+  --shadow:rgba(0,0,0,0.08);
   --whatsapp:#25D366;
 }
 
 body{
   margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(to bottom,#f1f8f4,#ffffff);
-  color:#000;
+  font-family:'Segoe UI', sans-serif;
+  background:linear-gradient(135deg,#eafaf0,#ffffff,#f3faf4);
+  background-size:400% 400%;
+  animation:bgMove 15s ease infinite;
+  color:#222;
 }
 
-/* TOP BORDER HEADER */
-.top-bar{
-  width:100%;
-  background:#ffffff;
-  border-bottom:5px solid var(--accent);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100px;
-}
-
-.top-bar img{
-  height:65px;
-}
-
-/* MAIN CONTAINER */
-.container{
-  max-width:700px;
-  margin:20px auto;
-  background:#fff;
-  border-radius:15px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.08);
-  overflow:hidden;
+/* Animated Background */
+@keyframes bgMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
 }
 
 /* HEADER */
 .header{
+  background:rgba(255,255,255,0.8);
+  backdrop-filter:blur(10px);
+  padding:20px 30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 4px 30px var(--shadow);
+}
+
+.logo-area{
+  display:flex;
+  align-items:center;
+}
+
+.logo-area img{
+  height:60px;
+  margin-right:15px;
+}
+
+.brand-text{
+  font-size:24px;
+  font-weight:700;
+  color:var(--accent);
+}
+
+.tagline{
+  font-size:13px;
+  color:#555;
+}
+
+/* TOTAL ORDERS COUNTER */
+.total-orders{
+  font-weight:700;
+  font-size:16px;
+  color:#3fb963;
+  padding:10px 20px;
+  border-radius:20px;
+  background:rgba(91,207,122,0.15);
+  min-width:120px;
   text-align:center;
-  padding:25px 15px;
-  background:linear-gradient(90deg,#a5d6a7,#66bb6a);
-  font-size:26px;
-  font-weight:bold;
+}
+
+/* CONTAINER */
+.container{
+  max-width:900px;
+  margin:40px auto;
+  padding-bottom:30px;
+}
+
+/* GLASS CARD */
+.glass{
+  background:var(--glass);
+  backdrop-filter:blur(15px);
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 8px 30px var(--shadow);
+  margin:20px 0;
+  transition:0.4s;
+  opacity:0;
+  transform:translateY(40px);
+}
+
+.glass.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.glass:hover{
+  transform:translateY(-8px);
+  box-shadow:0 15px 40px rgba(0,0,0,0.15);
 }
 
 /* SLIDER */
+.slider{
+  position:relative;
+  height:350px;
+  overflow:hidden;
+  border-radius:20px;
+  border: 3px solid var(--accent); /* visible border */
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
 .slider img{
   width:100%;
+  height:100%;
+  object-fit:cover;
+  position:absolute;
+  top:0;
+  left:0;
+  opacity:0;
+  transition:opacity 1s ease-in-out, transform 0.5s ease;
+  border-radius:17px; /* slightly smaller for inner margin */
 }
 
-/* COUNTDOWN */
-#countdown{
-  text-align:center;
-  padding:10px;
-  font-weight:bold;
-  color:#000;
+.slider img.active{
+  opacity:1;
+  transform: scale(1.05); /* subtle zoom effect */
 }
 
-/* BUTTON */
-.cta{
-  display:inline-block;
-  padding:12px 25px;
-  margin:10px;
-  background:var(--accent);
-  color:#fff;
-  border-radius:30px;
-  text-decoration:none;
-  font-weight:bold;
-  transition:.3s;
-  border:none;
-  cursor:pointer;
-}
-
-.cta:hover{
-  background:var(--dark-accent);
-}
-
-/* ACCORDION CARDS */
-.accordion-item{
-  margin:15px;
-  border-radius:15px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.08);
-  overflow:hidden;
-  transition:.3s;
-}
-
-.accordion-item:hover{
-  transform:translateY(-6px);
-}
-
-.accordion-header{
-  padding:18px;
+/* HAMPER */
+.hamper-header{
   display:flex;
   justify-content:space-between;
-  font-weight:bold;
-  font-size:18px;
+  font-weight:600;
   cursor:pointer;
-  background:#f9fdf9;
+  padding:15px;
 }
 
 .price{
@@ -116,36 +146,70 @@ body{
   padding:6px 14px;
   border-radius:20px;
   font-size:14px;
+  transition:0.3s;
 }
 
-.accordion-body{
+.price:hover{
+  background:var(--accent-dark);
+}
+
+.hamper-body{
   max-height:0;
   overflow:hidden;
-  transition:max-height .3s;
-  padding:0 18px;
-  background:#ffffff;
+  transition:max-height 0.4s ease;
+  padding:0 15px 10px 15px;
 }
 
-.accordion-body ul{
-  list-style:none;
-  padding:10px 0;
+.hamper-body ul{
+  padding-left:20px;
+  list-style:disc;
+}
+
+/* COUNTERS */
+.counter{
+  font-weight:700;
+  font-size:18px;
+  color:#444;
+  margin-left:8px;
 }
 
 /* FORM */
 form{
-  margin:25px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
   padding:20px;
-  background:#f9fdf9;
-  border-radius:15px;
-  box-shadow:0 6px 15px rgba(0,0,0,0.05);
 }
 
-form input, form select, form textarea{
-  width:100%;
-  padding:10px;
-  margin-bottom:10px;
-  border-radius:8px;
-  border:1px solid #ccc;
+input, select, textarea{
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  font-size:14px;
+  transition:0.3s;
+}
+
+input:focus, select:focus, textarea:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 8px rgba(91,207,122,0.4);
+  outline:none;
+}
+
+/* BUTTONS */
+button{
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+  background:var(--accent);
+  color:white;
+  transition:0.3s;
+}
+
+button:hover{
+  background:var(--accent-dark);
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
 /* FLOATING WHATSAPP */
@@ -154,161 +218,246 @@ form input, form select, form textarea{
   bottom:20px;
   right:20px;
   background:var(--whatsapp);
-  color:#fff;
-  font-size:22px;
-  padding:15px;
+  color:white;
+  padding:16px;
   border-radius:50%;
+  font-size:22px;
   text-decoration:none;
-  box-shadow:0 6px 15px rgba(0,0,0,0.2);
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(37,211,102,0.6);}
+  70%{box-shadow:0 0 0 15px rgba(37,211,102,0);}
+  100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}
 }
 
 /* FOOTER */
 .footer{
   text-align:center;
+  margin-top:30px;
   padding:20px;
-  background:#f1f8f4;
   font-size:14px;
+  color:#666;
+}
+
+/* POPUP */
+.popup{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) scale(0);
+  background:var(--accent);
+  color:white;
+  padding:25px 35px;
+  border-radius:15px;
+  font-size:16px;
+  font-weight:600;
+  box-shadow:0 15px 50px rgba(0,0,0,0.3);
+  z-index:999;
+  opacity:0;
+  transition:0.3s;
+}
+
+.popup.show{
+  transform:translate(-50%,-50%) scale(1);
+  opacity:1;
 }
 </style>
 </head>
 
 <body>
 
-<!-- TOP LOGO BAR -->
-<div class="top-bar">
-  <img src="logo.png" alt="Markitt Logo">
+<div class="header">
+  <div class="logo-area">
+    <img src="logo.png" alt="Logo">
+    <div>
+      <div class="brand-text">Markitt Hamper Service</div>
+      <div class="tagline">Serving Across Pakistan – Orders Worldwide</div>
+    </div>
+  </div>
+  <!-- Total Orders Counter -->
+  <div class="total-orders">💚 Orders Placed: <span id="ordersCounter">0</span></div>
 </div>
 
 <div class="container">
 
-<div class="header">
-🌙 Ramadan Kareem – Markitt Premium Hampers 🌙
-</div>
-
-<div class="slider">
-  <img id="slideImg" src="SLIDE1.jpg">
-</div>
-
-<div id="countdown"></div>
-
-<div style="text-align:center;">
-<button class="cta" onclick="toggleCurrency()">Toggle USD / PKR</button>
+<!-- SLIDER -->
+<div class="glass slider">
+  <img src="SLIDER_1.jpg" class="active">
+  <img src="SLIDER_2.jpg">
 </div>
 
 <!-- HAMPERS -->
-<div class="accordion">
-
-<div class="accordion-item">
-<div class="accordion-header" data-pkr="3240">
-Hamper 1 <span class="price">PKR 3,240</span>
-</div>
-<div class="accordion-body">
-<ul>
-<li>Flour – 5 kg</li>
-<li>Rice – 1 kg</li>
-<li>Sugar – 1 kg</li>
-<li>Cooking Oil</li>
-</ul>
-</div>
+<div class="glass hamper">
+  <div class="hamper-header">Hamper 1 <span class="price">PKR <span class="counter" data-target="3240">0</span></span></div>
+  <div class="hamper-body">
+    <ul>
+      <li>Flour – 5kg</li>
+      <li>Rice – 1kg</li>
+      <li>Sugar – 1kg</li>
+      <li>Cooking Oil</li>
+    </ul>
+  </div>
 </div>
 
-<div class="accordion-item">
-<div class="accordion-header" data-pkr="5499">
-Hamper 2 <span class="price">PKR 5,499</span>
-</div>
-<div class="accordion-body">
-<ul>
-<li>Extended grocery package</li>
-</ul>
-</div>
-</div>
-
-<div class="accordion-item">
-<div class="accordion-header" data-pkr="6999">
-Hamper 3 <span class="price">PKR 6,999</span>
-</div>
-<div class="accordion-body">
-<ul>
-<li>Premium full package</li>
-</ul>
-</div>
+<div class="glass hamper">
+  <div class="hamper-header">Hamper 2 <span class="price">PKR <span class="counter" data-target="5499">0</span></span></div>
+  <div class="hamper-body">
+    <ul>
+      <li>Extended grocery package</li>
+      <li>Flour – 10kg</li>
+      <li>Rice – 5kg</li>
+      <li>Sugar – 2kg</li>
+      <li>Cooking Oil – 2 liters</li>
+      <li>Tea – 1kg</li>
+    </ul>
+  </div>
 </div>
 
+<div class="glass hamper">
+  <div class="hamper-header">Hamper 3 <span class="price">PKR <span class="counter" data-target="6999">0</span></span></div>
+  <div class="hamper-body">
+    <ul>
+      <li>Premium full package</li>
+      <li>Flour – 15kg</li>
+      <li>Rice – 10kg</li>
+      <li>Sugar – 5kg</li>
+      <li>Cooking Oil – 5 liters</li>
+      <li>Tea – 2kg</li>
+      <li>Biscuits & Snacks</li>
+      <li>Special Gift Item</li>
+    </ul>
+  </div>
 </div>
 
 <!-- ORDER FORM -->
+<div class="glass">
 <form id="orderForm">
-<input name="name" placeholder="Your Name">
-<input name="phone" placeholder="Phone Number">
-<select name="hamper">
+<input name="sender" placeholder="Sender Name (Country)" required>
+<input name="receiver" placeholder="Receiver Name (City in Pakistan)" required>
+<input name="phone" placeholder="Receiver Phone Number" required>
+<select name="hamper" required>
+<option value="">Select Hamper</option>
 <option>Hamper 1</option>
 <option>Hamper 2</option>
 <option>Hamper 3</option>
 </select>
-<textarea name="message" placeholder="Delivery Address"></textarea>
-<button type="button" class="cta" onclick="sendWhatsApp()">Order via WhatsApp</button>
+<textarea name="address" placeholder="Delivery Address" required></textarea>
+<button type="submit">💬 Order via WhatsApp</button>
+<button type="button" onclick="sendEmail()">📧 Order via Email</button>
 </form>
+</div>
 
 <div class="footer">
-© 2026 Markitt | Muhammad Shoaib Ashraf  
-<br>📞 +92 342 2088395
+© 2026 Markitt | United Retail Pvt Ltd.
 </div>
 
 </div>
 
-<!-- FLOATING WHATSAPP -->
+<!-- POPUP -->
+<div id="popup" class="popup">✅ Your order has been initiated!</div>
+
 <a href="https://wa.me/923422088395" class="floating-wa" target="_blank">💬</a>
 
 <script>
-
-/* SLIDER */
-const slides=["SLIDE1.jpg","SLIDE2.jpg","SLIDE3.jpg"];
-let i=0;
+/* Slider */
+const slides=document.querySelectorAll('.slider img');
+let current=0;
 setInterval(()=>{
-i=(i+1)%slides.length;
-document.getElementById("slideImg").src=slides[i];
+  slides[current].classList.remove('active');
+  current=(current+1)%slides.length;
+  slides[current].classList.add('active');
 },3000);
 
-/* ACCORDION */
-document.querySelectorAll('.accordion-header').forEach(header=>{
-header.addEventListener('click',()=>{
-const body=header.nextElementSibling;
-body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
-});
+/* Scroll Reveal & Counter Animation */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+
+      /* Animate counters */
+      entry.target.querySelectorAll(".counter").forEach(counter=>{
+        let target=parseInt(counter.getAttribute("data-target"));
+        let count=0;
+        let increment=Math.ceil(target/150);
+        let updateCounter=()=>{
+          count+=increment;
+          if(count>target) count=target;
+          counter.textContent=count.toLocaleString();
+          if(count<target) requestAnimationFrame(updateCounter);
+        };
+        updateCounter();
+      });
+
+      /* Animate total orders */
+      const ordersCounter=document.getElementById("ordersCounter");
+      let totalOrdersTarget=125;
+      let totalCount=0;
+      let incrementOrders=Math.ceil(totalOrdersTarget/100);
+      let updateOrders=()=>{
+        totalCount+=incrementOrders;
+        if(totalCount>totalOrdersTarget) totalCount=totalOrdersTarget;
+        ordersCounter.textContent=totalCount;
+        if(totalCount<totalOrdersTarget) requestAnimationFrame(updateOrders);
+      };
+      updateOrders();
+    }
+  });
+},{threshold:0.3});
+
+document.querySelectorAll(".glass").forEach(el=>{
+  observer.observe(el);
 });
 
-/* COUNTDOWN */
-const ramadan=new Date("Feb 28, 2026").getTime();
-setInterval(()=>{
-let now=new Date().getTime();
-let gap=ramadan-now;
-let d=Math.floor(gap/(1000*60*60*24));
-document.getElementById("countdown").innerHTML=
-"Ramadan Starts In: "+d+" Days";
-},1000);
-
-/* CURRENCY TOGGLE */
-let inUSD=false;
-const rate=280;
-function toggleCurrency(){
-inUSD=!inUSD;
-document.querySelectorAll('.accordion-header').forEach(h=>{
-let pkr=h.dataset.pkr;
-let price=h.querySelector('.price');
-price.textContent=inUSD?`$${(pkr/rate).toFixed(2)}`:`PKR ${pkr}`;
+/* Accordion */
+document.querySelectorAll(".hamper-header").forEach(header=>{
+  header.addEventListener("click",function(){
+    let body=this.nextElementSibling;
+    body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
+  });
 });
-}
 
-/* WHATSAPP FORM */
-function sendWhatsApp(){
-let f=document.getElementById("orderForm");
-let txt=`Name: ${f.name.value}
+/* WhatsApp Order */
+document.getElementById("orderForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  showPopup();
+  let f=this;
+  let message=`New Hamper Order
+
+Sender: ${f.sender.value}
+Receiver: ${f.receiver.value}
 Phone: ${f.phone.value}
 Hamper: ${f.hamper.value}
-Address: ${f.message.value}`;
-window.open("https://wa.me/923422088395?text="+encodeURIComponent(txt));
+Address: ${f.address.value}`;
+
+  window.open("https://wa.me/923422088395?text="+encodeURIComponent(message));
+});
+
+/* Email Order */
+function sendEmail(){
+  showPopup();
+  let f=document.getElementById("orderForm");
+  let subject="New Hamper Order - Markitt";
+  let body=`New Hamper Order
+
+Sender: ${f.sender.value}
+Receiver: ${f.receiver.value}
+Phone: ${f.phone.value}
+Hamper: ${f.hamper.value}
+Address: ${f.address.value}`;
+
+  window.location.href="mailto:your@email.com?subject="
+  +encodeURIComponent(subject)
+  +"&body="+encodeURIComponent(body);
 }
 
+/* Show Popup */
+function showPopup(){
+  const popup=document.getElementById("popup");
+  popup.classList.add("show");
+  setTimeout(()=>{popup.classList.remove("show");},2500);
+}
 </script>
 
 </body>
