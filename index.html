@@ -92,8 +92,8 @@ body{
 .accordion-body{
   max-height:0;
   overflow:hidden;
-  transition:max-height 0.5s ease, opacity 0.5s ease;
   opacity:0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
 }
 .hamper-image{
   width:100%;
@@ -102,8 +102,11 @@ body{
   object-fit:contain;
   border-radius:10px;
   margin:12px 0;
-  display:none; /* hidden initially */
-  transition:0.3s;
+  display:block;
+  transform:scaleY(0);
+  transform-origin:top;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity:0;
 }
 
 /* BUTTONS */
@@ -247,7 +250,7 @@ setInterval(()=>{
   slides[i].classList.add('active');
 },3000);
 
-/* ACCORDION + ARROWS + SHOW IMAGE BELOW */
+/* ACCORDION + SLIDE IMAGE */
 document.querySelectorAll('.accordion-header').forEach(header=>{
   header.addEventListener('click',()=>{
     const body=header.nextElementSibling;
@@ -258,7 +261,11 @@ document.querySelectorAll('.accordion-header').forEach(header=>{
       if(b!==body){
         b.style.maxHeight=null;
         b.style.opacity=0;
-        b.querySelector('.hamper-image').style.display='none';
+        let otherImg=b.querySelector('.hamper-image');
+        if(otherImg){
+          otherImg.style.transform='scaleY(0)';
+          otherImg.style.opacity=0;
+        }
         b.previousElementSibling.querySelector('.arrow').textContent="▼";
       }
     });
@@ -266,12 +273,14 @@ document.querySelectorAll('.accordion-header').forEach(header=>{
     if(body.style.maxHeight){
       body.style.maxHeight=null;
       body.style.opacity=0;
-      img.style.display='none';
+      img.style.transform='scaleY(0)';
+      img.style.opacity=0;
       arrow.textContent="▼";
     } else {
       body.style.maxHeight=body.scrollHeight+"px";
       body.style.opacity=1;
-      img.style.display='block';
+      img.style.transform='scaleY(1)';
+      img.style.opacity=1;
       arrow.textContent="▲";
     }
   });
@@ -326,6 +335,5 @@ fetch("https://ipapi.co/json/")
 .catch(()=>{ convertCurrency("PKR"); });
 
 </script>
-
 </body>
 </html>
