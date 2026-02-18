@@ -583,72 +583,58 @@ async function uploadToCloudinary(){
   const fd=new FormData(); fd.append("file",file); fd.append("upload_preset","markitt_preset");
   try{const res=await fetch("https://api.cloudinary.com/v1_1/dgxiobk7d/image/upload",{method:"POST",body:fd});const data=await res.json();return data.secure_url;}catch(e){console.error(e);return null;}
 }
-form.addEventListener("submit",async e=>{
+//Submit Section Function
+form.addEventListener("submit", async e=>{
   e.preventDefault();
-  const sender=form.sender.value.trim(),receiver=form.receiver.value.trim(),phone=form.phone.value.trim(),email=form.email.value.trim(),hamper=form.hamper.value,address=form.address.value.trim();
-  const phoneRegex=/^[0-9+]{7,15}$/;const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const sender=form.sender.value.trim(),
+        receiver=form.receiver.value.trim(),
+        phone=form.phone.value.trim(),
+        email=form.email.value.trim(),
+        hamper=form.hamper.value,
+        address=form.address.value.trim();
+
+  const phoneRegex=/^[0-9+]{7,15}$/;
+  const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   if(sender.length<2){alert('Please enter valid Sender');return;}
   if(receiver.length<2){alert('Please enter valid Receiver');return;}
   if(!phoneRegex.test(phone)){alert('Please enter valid Phone');return;}
   if(email && !emailRegex.test(email)){alert('Please enter valid Email');return;}
   if(!hamper){alert('Please select a Hamper');return;}
   if(address.length<5){alert('Please enter valid Address');return;}
+
   let paymentUrl=await uploadToCloudinary();
 
-// SAVE TO GOOGLE SHEET
-const scriptURL = "https://script.google.com/macros/s/AKfycbx2SMvCSnz03qaT11UBX25MbWQXFpmMRmGUTpim1jDkcJMAPv5aSLwkc_kRoXjU_NPmJw/exec";
+  // ✅ SAVE TO GOOGLE SHEET
+  const scriptURL="https://script.google.com/macros/s/AKfycbx2SMvCSnz03qaT11UBX25MbWQXFpmMRmGUTpim1jDkcJMAPv5aSLwkc_kRoXjU_NPmJw/exec";
 
-await fetch(scriptURL, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    sender,
-    receiver,
-    phone,
-    email,
-    hamper,
-    address,
-    paymentUrl: paymentUrl || ""
-  })
-});
+  await fetch(scriptURL,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      sender,
+      receiver,
+      phone,
+      email,
+      hamper,
+      address,
+      paymentUrl: paymentUrl || ""
+    })
+  });
 
-// THEN WhatsApp opens
-window.open(`https://wa.me/923422088395?text=${msg}`,'_blank');
-
+  // ✅ CREATE WHATSAPP MESSAGE
   const msg=`Sender: ${sender}%0AReceiver: ${receiver}%0APhone: ${phone}%0AHamper: ${hamper}%0AAddress: ${address}${paymentUrl?'%0APayment Screenshot: '+paymentUrl:''}${email?'%0AEmail: '+email:''}`;
+
+  // ✅ OPEN WHATSAPP
   window.open(`https://wa.me/923422088395?text=${msg}`,'_blank');
+
   popup.classList.add("show");
   setTimeout(()=>popup.classList.remove("show"),3000);
+
   form.reset();
-  document.getElementById("ordersCounter").textContent=parseInt(document.getElementById("ordersCounter").textContent)+1;
-});
-
-// Email Function
-function sendEmail(){
-  const f=form;
-  const body=`Sender: ${f.sender.value}\nReceiver: ${f.receiver.value}\nPhone: ${f.phone.value}\nHamper: ${f.hamper.value}\nAddress: ${f.address.value}\n${f.email.value?`Email: ${f.email.value}\n`:''}`;
-  window.location.href=`mailto:markitt121@gmail.com?subject=Hamper Order&body=${encodeURIComponent(body)}`;
-}
-
-  // Live preview of payment screenshot
-const screenshotInput = document.getElementById("paymentScreenshot");
-const previewImg = document.getElementById("screenshotPreview");
-
-screenshotInput.addEventListener("change", () => {
-    const file = screenshotInput.files[0];
-    if (!file) {
-        previewImg.style.display = "none";
-        previewImg.src = "";
-        return;
-    }
-    const reader = new FileReader();
-    reader.onload = e => {
-        previewImg.src = e.target.result;
-        previewImg.style.display = "block";
-    };
-    reader.readAsDataURL(file);
+  document.getElementById("ordersCounter").textContent =
+    parseInt(document.getElementById("ordersCounter").textContent)+1;
 });
 
 
