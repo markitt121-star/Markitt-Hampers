@@ -689,7 +689,56 @@ function sendEmail(){
   data.forEach((v,k)=>body+=k+": "+v+"\n");
   window.location.href="mailto:markitt121@gmail.com?subject=New Hamper Order&body="+encodeURIComponent(body);
 }
+
+async function uploadToCloudinary(){
+
+const file = document.getElementById("paymentImage").files[0];
+
+if(!file){
+alert("Please upload screenshot");
+return null;
+}
+
+const formData = new FormData();
+formData.append("file", file);
+formData.append("upload_preset", "markitt_preset");
+
+const response = await fetch(
+`https://api.cloudinary.com/v1_1/dgxiobk7d/image/upload`,
+{
+method:"POST",
+body: formData
+});
+
+const data = await response.json();
+
+return data.secure_url;
+}
+
+orderForm.addEventListener("submit", async e=>{
+e.preventDefault();
+
+const imgUrl = await uploadToCloudinary();
+
+if(!imgUrl) return;
+
+const f=e.target;
+
+const text =
+`Sender:${f.sender.value}
+Receiver:${f.receiver.value}
+Phone:${f.phone.value}
+Hamper:${f.hamper.value}
+Address:${f.address.value}
+Payment Proof:${imgUrl}`;
+
+window.open(
+`https://wa.me/923422088395?text=${encodeURIComponent(text)}`
+);
+});
+
 </script>
 
 </body>
 </html>
+
