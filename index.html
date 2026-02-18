@@ -676,12 +676,12 @@ document.addEventListener("DOMContentLoaded", updatePrices);
 document.getElementById("currency").addEventListener("change", updatePrices);
 
 // ================== Form Submission ==================
-/*document.getElementById("orderForm").addEventListener("submit",function(e){
+document.getElementById("orderForm").addEventListener("submit",function(e){
   e.preventDefault();
   document.getElementById("popup").classList.add("show");
   setTimeout(()=>document.getElementById("popup").classList.remove("show"),3000);
 });
-*/
+
 function sendEmail(){
   const form=document.getElementById("orderForm");
   const data=new FormData(form);
@@ -772,6 +772,7 @@ function sendEmail(){
 
 </body>
 </html>
+
 
 
 
