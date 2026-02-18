@@ -608,8 +608,29 @@ function sendEmail(){
   const body=`Sender: ${f.sender.value}\nReceiver: ${f.receiver.value}\nPhone: ${f.phone.value}\nHamper: ${f.hamper.value}\nAddress: ${f.address.value}\n${f.email.value?`Email: ${f.email.value}\n`:''}`;
   window.location.href=`mailto:markitt121@gmail.com?subject=Hamper Order&body=${encodeURIComponent(body)}`;
 }
+
+  // Live preview of payment screenshot
+const screenshotInput = document.getElementById("paymentScreenshot");
+const previewImg = document.getElementById("screenshotPreview");
+
+screenshotInput.addEventListener("change", () => {
+    const file = screenshotInput.files[0];
+    if (!file) {
+        previewImg.style.display = "none";
+        previewImg.src = "";
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = e => {
+        previewImg.src = e.target.result;
+        previewImg.style.display = "block";
+    };
+    reader.readAsDataURL(file);
+});
+
 </script>
 </body>
 </html>
+
 
 
