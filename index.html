@@ -594,6 +594,29 @@ form.addEventListener("submit",async e=>{
   if(!hamper){alert('Please select a Hamper');return;}
   if(address.length<5){alert('Please enter valid Address');return;}
   let paymentUrl=await uploadToCloudinary();
+
+// SAVE TO GOOGLE SHEET
+const scriptURL = "https://script.google.com/macros/s/AKfycbx2SMvCSnz03qaT11UBX25MbWQXFpmMRmGUTpim1jDkcJMAPv5aSLwkc_kRoXjU_NPmJw/exec";
+
+await fetch(scriptURL, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    sender,
+    receiver,
+    phone,
+    email,
+    hamper,
+    address,
+    paymentUrl: paymentUrl || ""
+  })
+});
+
+// THEN WhatsApp opens
+window.open(`https://wa.me/923422088395?text=${msg}`,'_blank');
+
   const msg=`Sender: ${sender}%0AReceiver: ${receiver}%0APhone: ${phone}%0AHamper: ${hamper}%0AAddress: ${address}${paymentUrl?'%0APayment Screenshot: '+paymentUrl:''}${email?'%0AEmail: '+email:''}`;
   window.open(`https://wa.me/923422088395?text=${msg}`,'_blank');
   popup.classList.add("show");
@@ -628,9 +651,11 @@ screenshotInput.addEventListener("change", () => {
     reader.readAsDataURL(file);
 });
 
+
 </script>
 </body>
 </html>
+
 
 
 
