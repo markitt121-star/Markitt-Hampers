@@ -675,12 +675,7 @@ function updatePrices(){
 document.addEventListener("DOMContentLoaded", updatePrices);
 document.getElementById("currency").addEventListener("change", updatePrices);
 
-// ================== Form Submission ==================
-document.getElementById("orderForm").addEventListener("submit",function(e){
-  e.preventDefault();
-  document.getElementById("popup").classList.add("show");
-  setTimeout(()=>document.getElementById("popup").classList.remove("show"),3000);
-});
+
 
 function sendEmail(){
   const form=document.getElementById("orderForm");
@@ -737,7 +732,7 @@ window.open(
 );
 });
 
-  // Form Validation & WhatsApp
+/*  // Form Validation & WhatsApp
 document.getElementById("orderForm").addEventListener("submit", e=>{
   e.preventDefault();
   const f = e.target;
@@ -759,6 +754,7 @@ document.getElementById("orderForm").addEventListener("submit", e=>{
   showPopup();
   f.reset();
 });
+*/
 
 // Email Order
 function sendEmail(){
@@ -772,6 +768,7 @@ function sendEmail(){
 
 </body>
 </html>
+
 
 
 
