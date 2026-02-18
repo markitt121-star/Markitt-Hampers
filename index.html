@@ -249,18 +249,18 @@ button:hover{
   justify-content: space-between;
   background: #f9f9f9;
   border-top: 1px solid #5bcf7a;
-  padding: 40px 20px;
-  max-width: 1200px;
-  width:95%;
+  padding: 20px 20px;
+  max-width: 1500px;
+  width:96%;
   font-family: 'Segoe UI', sans-serif;
   color: #333;
-  border-radius:15px;
+  border-radius:13px;
 }
 
 .footer-column {
   flex: 1;
-  min-width: 220px;
-  margin-bottom: 20px;
+  min-width: 260px;
+  margin-bottom: 10px;
 }
 
 .footer-column h4 {
@@ -303,7 +303,7 @@ button:hover{
     align-items: flex-start;
   }
   .footer-column {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
   }
 }
 
@@ -401,7 +401,6 @@ button:hover{
   color:#666;
   text-align:center;
 }
-
 </style>
 </head>
 <body>
@@ -427,9 +426,32 @@ button:hover{
   <img src="Slider_1.jpg">
 </div>
 
+<!-- Currency Selector -->
+<div class="glass">
+  <label>Select Currency:</label>
+  <select id="currency">
+     <option value="PKR" selected>🇵🇰 Pakistan - PKR (₨)</option>
+     <option value="USD">🇺🇸 United States - USD ($)</option>
+     <option value="GBP">🇬🇧 United Kingdom - GBP (£)</option>
+     <option value="EUR">🇪🇺 Europe - EUR (€)</option>
+     <option value="CAD">🇨🇦 Canada - CAD ($)</option>
+     <option value="AUD">🇦🇺 Australia - AUD ($)</option>
+     <option value="AED">🇦🇪 UAE - AED (د.إ)</option>
+     <option value="SAR">🇸🇦 Saudi Arabia - SAR (﷼)</option>
+     <option value="QAR">🇶🇦 Qatar - QAR (﷼)</option>
+     <option value="KWD">🇰🇼 Kuwait - KWD (د.ك)</option>
+     <option value="MYR">🇲🇾 Malaysia - MYR (RM)</option>
+     <option value="TRY">🇹🇷 Turkey - TRY (₺)</option>
+
+</select>
+</div>
+
 <!-- Hampers -->
-<div class="glass hamper" data-hamper="Hamper_With_ItemName_1">
-  <div class="hamper-header">Hamper 1 <span class="price" data-price="3499">PKR <span class="counter" data-target="3499">0</span></span></div>
+<div class="glass hamper" data-price="3499">
+  <div class="hamper-header">
+    Hamper 1
+    <span class="price"></span>
+  </div>
   <div class="hamper-body">
     <ul>
       <li>Flour – 5kg</li>
@@ -440,8 +462,11 @@ button:hover{
   </div>
 </div>
 
-<div class="glass hamper" data-hamper="Hamper_With_ItemName_2">
-  <div class="hamper-header">Hamper 2 <span class="price" data-price="5499">PKR <span class="counter" data-target="5499">0</span></span></div>
+<div class="glass hamper" data-price="5499">
+  <div class="hamper-header">
+    Hamper 2
+    <span class="price"></span>
+  </div>
   <div class="hamper-body">
     <ul>
       <li>Flour – 10kg</li>
@@ -453,8 +478,11 @@ button:hover{
   </div>
 </div>
 
-<div class="glass hamper" data-hamper="Hamper_With_ItemName_3">
-  <div class="hamper-header">Hamper 3 <span class="price" data-price="6999">PKR <span class="counter" data-target="6999">0</span></span></div>
+<div class="glass hamper" data-price="6999">
+  <div class="hamper-header">
+    Hamper 3
+    <span class="price"></span>
+  </div>
   <div class="hamper-body">
     <ul>
       <li>Flour – 15kg</li>
@@ -466,22 +494,6 @@ button:hover{
       <li>Special Gift Item</li>
     </ul>
   </div>
-</div>
-
-<!-- Currency Selector -->
-<div class="glass">
-  <label for="currency">Select Currency:</label>
-  <select id="currency">
-    <option value="USD" selected>USD - United States Dollar</option>
-    <option value="PKR">PKR - Pakistani Rupee</option>
-    <option value="SAR">SAR - Saudi Riyal</option>
-    <option value="EUR">EUR - Euro</option>
-    <option value="GBP">GBP - British Pound</option>
-    <option value="AED">AED - UAE Dirham</option>
-    <option value="INR">INR - Indian Rupee</option>
-    <option value="MYR">MYR - Malaysian Ringgit</option>
-    <option value="IDR">IDR - Indonesian Rupiah</option>
-  </select>
 </div>
 
 <!-- Order Form -->
@@ -535,9 +547,6 @@ button:hover{
 
 <!-- Popups -->
 <div id="popup" class="popup">✅ Your order has been initiated!</div>
-<div id="hamperPopup" class="popup">
-  <img id="hamperImage" src="" style="max-width:100%; border-radius:15px;">
-</div>
 
 <!-- WhatsApp Floating Button -->
 <a href="https://wa.me/923422088395" class="floating-wa" target="_blank">💬</a>
@@ -548,33 +557,42 @@ button:hover{
     <h4>Contact</h4>
     <p><strong>Phone:</strong> <a href="tel:+923422088395">+92 342 2088395</a></p>
     <p><strong>Email:</strong> <a href="mailto:markitt121@gmail.com">markitt121@gmail.com</a></p>
-    <p><strong>Hours:</strong> Mon-Sat, 9:00 AM - 6:00 PM</p>
+    <p><strong>Hours:</strong> Mon-Sun, 9:00 AM - 12:00 PM</p>
   </div>
 
   <!-- Social Media Section -->
   <div class="footer-column">
     <h4>Follow Us</h4>
     <div class="social-icons">
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
       <!-- Facebook -->
-      <a href="https://www.facebook.com/markitt" target="_blank" aria-label="Facebook">
+      <a href="https://www.facebook.com/markittstore" target="_blank" aria-label="Facebook">
         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#3b5998">
           <path d="M22.675 0h-21.35C.596 0 0 .593 0 1.326v21.348C0 23.407.596 24 1.326 24h11.495v-9.294H9.692V11.06h3.129V8.413c0-3.1 1.894-4.788 4.66-4.788 1.325 0 2.463.098 2.794.142v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.31h3.587l-.467 3.647h-3.12V24h6.116c.73 0 1.324-.593 1.324-1.326V1.326C24 .593 23.404 0 22.675 0z"/>
         </svg>
       </a>
       <!-- Instagram -->
-      <a href="https://www.instagram.com/markitt" target="_blank" aria-label="Instagram">
+      <a href="https://www.instagram.com/markittstore" target="_blank" aria-label="Instagram">
         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#C13584">
           <path d="M12 2.163c3.204 0 3.584.012 4.849.07 1.366.062 2.633.35 3.608 1.325.975.975 1.263 2.242 1.325 3.608.058 1.265.07 1.645.07 4.849s-.012 3.584-.07 4.849c-.062 1.366-.35 2.633-1.325 3.608-.975.975-2.242 1.263-3.608 1.325-1.265.058-1.645.07-4.849.07s-3.584-.012-4.849-.07c-1.366-.062-2.633-.35-3.608-1.325-.975-.975-1.263-2.242-1.325-3.608C2.175 15.747 2.163 15.367 2.163 12s.012-3.584.07-4.849c.062-1.366.35-2.633 1.325-3.608C4.533 2.583 5.8 2.295 7.166 2.233 8.431 2.175 8.811 2.163 12 2.163zm0-2.163C8.736 0 8.332.014 7.052.072 5.779.13 4.683.428 3.757 1.354 2.831 2.28 2.533 3.376 2.475 4.649 2.417 5.929 2.403 6.333 2.403 12c0 5.667.014 6.071.072 7.351.058 1.273.356 2.369 1.282 3.295.926.926 2.022 1.224 3.295 1.282 1.28.058 1.684.072 7.351.072s6.071-.014 7.351-.072c1.273-.058 2.369-.356 3.295-1.282.926-.926 1.224-2.022 1.282-3.295.058-1.28.072-1.684.072-7.351s-.014-6.071-.072-7.351c-.058-1.273-.356-2.369-1.282-3.295-.926-.926-2.022-1.224-3.295-1.282C18.071.014 17.667 0 12 0z"/>
           <path d="M12 5.838A6.162 6.162 0 1 0 18.162 12 6.169 6.169 0 0 0 12 5.838zm0 10.162A3.999 3.999 0 1 1 16 12 3.997 3.997 0 0 1 12 16z"/>
           <circle cx="18.406" cy="5.594" r="1.44"/>
         </svg>
       </a>
-      <!-- Twitter -->
+<!-- Twitter -->
       <a href="https://twitter.com/markitt" target="_blank" aria-label="Twitter">
         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#1DA1F2">
           <path d="M24 4.557a9.83 9.83 0 0 1-2.828.775 4.932 4.932 0 0 0 2.165-2.724 9.864 9.864 0 0 1-3.127 1.195 4.916 4.916 0 0 0-8.38 4.482A13.944 13.944 0 0 1 1.671 3.149 4.918 4.918 0 0 0 3.195 9.722 4.897 4.897 0 0 1 .964 9.11v.062a4.918 4.918 0 0 0 3.946 4.827 4.902 4.902 0 0 1-2.212.084 4.923 4.923 0 0 0 4.6 3.417 9.867 9.867 0 0 1-6.102 2.104c-.396 0-.787-.023-1.175-.069a13.945 13.945 0 0 0 7.548 2.212c9.056 0 14.009-7.514 14.009-14.009 0-.213-.004-.425-.014-.636A10.012 10.012 0 0 0 24 4.557z"/>
         </svg>
       </a>
+      
+      
       <!-- WhatsApp -->
       <a href="https://wa.me/923422088395" target="_blank" aria-label="WhatsApp">
         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#25D366">
@@ -587,6 +605,7 @@ button:hover{
           <path d="M22.225 0H1.771C.792 0 0 .771 0 1.725v20.549C0 23.228.792 24 1.771 24h20.451C23.208 24 24 23.228 24 22.274V1.725C24 .771 23.208 0 22.225 0zM7.082 20.452H3.542V9h3.54v11.452zM5.313 7.577c-1.137 0-2.06-.93-2.06-2.078 0-1.147.923-2.078 2.06-2.078s2.06.931 2.06 2.078c0 1.148-.924 2.078-2.06 2.078zm15.138 12.875h-3.542v-5.568c0-1.328-.024-3.037-1.85-3.037-1.85 0-2.134 1.446-2.134 2.939v5.666h-3.541V9h3.396v1.561h.048c.474-.897 1.632-1.847 3.36-1.847 3.594 0 4.26 2.366 4.26 5.446v6.291z"/>
         </svg>
       </a>
+    
     </div>
   </div>
 
@@ -598,6 +617,8 @@ button:hover{
     <p>All Rights Reserved</p>
   </div>
 </footer>
+
+
 <script>
 // ================== Animations ==================
 window.addEventListener('DOMContentLoaded', () => {
@@ -624,91 +645,51 @@ document.querySelectorAll(".hamper-header").forEach(header=>{
   });
 });
 
-// Counter
-document.querySelectorAll('.counter').forEach(counter=>{
-  const update=()=>{
-    const target=parseFloat(counter.getAttribute('data-target'));
-    let val=parseFloat(counter.innerText);
-    if(val<target){
-      val+=0.5;
-      counter.innerText=val.toFixed(2);
-      requestAnimationFrame(update);
-    }else counter.innerText=target.toFixed(2);
-  }
-  update();
-});
+// ================== Currency Conversion ==================
+const rates = {
+  PKR: 1,
+  USD: 0.00357,
+  GBP: 0.0028,
+  EUR: 0.0032,
+  AED: 0.013,
+  SAR: 0.0134
+};
 
-// Currency Conversion (dummy rates)
-const rates={USD:1,PKR:280,SAR:3.75,EUR:0.92,GBP:0.82,AED:3.67,INR:83,MYR:4.5,IDR:15000};
-document.getElementById('currency').addEventListener('change',e=>{
-  const cur=e.target.value;
-  document.querySelectorAll('.price').forEach(p=>{
-    const usd=parseFloat(p.getAttribute('data-price'));
-    p.innerHTML=`${cur} <span class="counter">${(usd*rates[cur]).toFixed(2)}</span>`;
+const symbols = {
+  PKR: "₨",
+  USD: "$",
+  GBP: "£",
+  EUR: "€",
+  AED: "د.إ",
+  SAR: "﷼"
+};
+
+function updatePrices(){
+  const currency = document.getElementById("currency").value;
+  document.querySelectorAll('.hamper').forEach(box => {
+    const base = parseFloat(box.dataset.price);
+    const converted = (base * rates[currency]).toFixed(2);
+    box.querySelector('.price').textContent = symbols[currency]+" "+converted;
   });
-});
-
-// ================== Form Submit ==================
-async function validateForm(f){return true;} // Add extra validation if needed
-
-document.getElementById("orderForm").addEventListener("submit", async e=>{
-  e.preventDefault();
-  const f=e.target;
-  if(!validateForm(f)) return;
-
-  let text=`Sender: ${f.sender.value}\nReceiver: ${f.receiver.value}\nPhone: ${f.phone.value}\nHamper: ${f.hamper.value}\nAddress: ${f.address.value}\nEmail: ${f.email.value}`;
-  let waMessage=encodeURIComponent(text);
-
-  const fileInput=document.getElementById("paymentScreenshot");
-  if(fileInput.files.length>0){
-    const file=fileInput.files[0];
-    const formData=new FormData();
-    formData.append("file",file);
-    formData.append("upload_preset","YOUR_UPLOAD_PRESET"); // Replace
-    try{
-      const res=await fetch(`https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload`,{
-        method:"POST",body:formData
-      });
-      const data=await res.json();
-      if(data.secure_url) waMessage+=`%0A%0APayment Screenshot: ${encodeURIComponent(data.secure_url)}`;
-    }catch(err){
-      alert("Error uploading screenshot. You can continue without it.");
-    }
-  }
-
-  window.open(`https://wa.me/923422088395?text=${waMessage}`,"_blank");
-  showPopup();
-  f.reset();
-});
-
-function showPopup(){
-  const pop=document.getElementById('popup');
-  pop.classList.add('show');
-  setTimeout(()=>pop.classList.remove('show'),3000);
 }
+document.addEventListener("DOMContentLoaded", updatePrices);
+document.getElementById("currency").addEventListener("change", updatePrices);
 
-// Hamper Image Click (optional popup)
-document.querySelectorAll('.hamper-header').forEach(h=>{
-  h.addEventListener('click',()=>{
-    const img=document.getElementById('hamperImage');
-    const name=h.parentElement.getAttribute('data-hamper');
-    img.src=`${name.replace(' ','_')}.jpg`;
-    document.getElementById('hamperPopup').classList.add('show');
-    setTimeout(()=>document.getElementById('hamperPopup').classList.remove('show'),3000);
-  });
+// ================== Form Submission ==================
+document.getElementById("orderForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  document.getElementById("popup").classList.add("show");
+  setTimeout(()=>document.getElementById("popup").classList.remove("show"),3000);
 });
 
-// Email Order
 function sendEmail(){
-  const f=document.getElementById('orderForm');
-  let body=`Sender: ${f.sender.value}%0D%0AReceiver: ${f.receiver.value}%0D%0APhone: ${f.phone.value}%0D%0AHamper: ${f.hamper.value}%0D%0AAddress: ${f.address.value}%0D%0AEmail: ${f.email.value}`;
-  window.open(`mailto:markitt121@gmail.com?subject=Markitt Hamper Order&body=${body}`);
+  const form=document.getElementById("orderForm");
+  const data=new FormData(form);
+  let body="Order Details:\n";
+  data.forEach((v,k)=>body+=k+": "+v+"\n");
+  window.location.href="mailto:markitt121@gmail.com?subject=New Hamper Order&body="+encodeURIComponent(body);
 }
 </script>
+
 </body>
 </html>
-
-
-
-
-
