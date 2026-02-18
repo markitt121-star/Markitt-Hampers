@@ -77,6 +77,7 @@ body{
   max-width:900px;
   margin:40px auto;
   padding-bottom:30px;
+  text-align:center;
 }
 
 .glass{
@@ -86,7 +87,7 @@ body{
   padding:25px;
   box-shadow:0 8px 30px var(--shadow);
   margin:20px 0;
-  transition:0.4s;
+  transition:0.6s ease;
   opacity:0;
   transform:translateY(40px);
 }
@@ -108,6 +109,7 @@ body{
   overflow:hidden;
   border-radius:20px;
   box-shadow:0 8px 20px rgba(0,0,0,0.1);
+  cursor:pointer;
 }
 
 .slider img{
@@ -134,6 +136,7 @@ body{
   font-weight:600;
   cursor:pointer;
   padding:15px;
+  flex-wrap:wrap;
 }
 
 .price{
@@ -154,6 +157,7 @@ body{
   overflow:hidden;
   transition:max-height 0.4s ease;
   padding:0 15px 10px 15px;
+  text-align:left;
 }
 
 .hamper-body ul{
@@ -173,6 +177,7 @@ form{
   flex-direction:column;
   gap:12px;
   padding:20px;
+  text-align:left;
 }
 
 input, select, textarea{
@@ -376,15 +381,15 @@ button:hover{
 <div class="glass">
   <label for="currency">Select Currency:</label>
   <select id="currency">
-    <option value="USD" selected>USD</option>
-    <option value="PKR">PKR</option>
-    <option value="SAR">SAR</option>
-    <option value="EUR">EUR</option>
-    <option value="GBP">GBP</option>
-    <option value="AED">AED</option>
-    <option value="INR">INR</option>
-    <option value="MYR">MYR</option>
-    <option value="IDR">IDR</option>
+    <option value="USD" selected>USD - United States Dollar</option>
+    <option value="PKR">PKR - Pakistani Rupee</option>
+    <option value="SAR">SAR - Saudi Riyal</option>
+    <option value="EUR">EUR - Euro (Europe)</option>
+    <option value="GBP">GBP - British Pound</option>
+    <option value="AED">AED - UAE Dirham</option>
+    <option value="INR">INR - Indian Rupee</option>
+    <option value="MYR">MYR - Malaysian Ringgit</option>
+    <option value="IDR">IDR - Indonesian Rupiah</option>
   </select>
 </div>
 
@@ -394,6 +399,7 @@ button:hover{
 <input name="sender" placeholder="Sender Name (Country)" required>
 <input name="receiver" placeholder="Receiver Name (City in Pakistan)" required>
 <input name="phone" placeholder="Receiver Phone Number" required>
+<input name="email" placeholder="Email (Optional)">
 <select name="hamper" id="hamperSelect" required>
 <option value="">Select Hamper</option>
 <option value="Hamper 1">Hamper 1</option>
@@ -402,12 +408,11 @@ button:hover{
 </select>
 <textarea name="address" placeholder="Delivery Address" required></textarea>
 
-<!-- Payment Option -->
 <select name="payment" required>
-  <option value="">Select Payment Method</option>
-  <option value="Bank Transfer">Bank Transfer</option>
-  <option value="Cash on Delivery">Cash on Delivery</option>
-  <option value="PayPal">PayPal</option>
+<option value="">Select Payment Method</option>
+<option value="Bank Transfer">Bank Transfer</option>
+<option value="Cash on Delivery">Cash on Delivery</option>
+<option value="PayPal">PayPal</option>
 </select>
 
 <button type="submit">💬 Order via WhatsApp</button>
@@ -417,10 +422,10 @@ button:hover{
 
 <!-- Payment Info -->
 <div class="glass">
-  <h4>Bank Account Details for Payment</h4>
-  <p>Account Title: <strong>United Retail Pvt Ltd</strong><br>
-     Bank Name: <strong>UBL</strong><br>
-     IBAN: <strong>PK52 UNIL 0110 0050 0044 0789</strong></p>
+<h4>Bank Account Details for Payment</h4>
+<p>Account Title: <strong>United Retail Pvt Ltd</strong><br>
+Bank Name: <strong>UBL</strong><br>
+IBAN: <strong>PK52 UNIL 0110 0050 0044 0789</strong></p>
 </div>
 
 <!-- Footer -->
@@ -443,18 +448,30 @@ button:hover{
 <!-- Popup -->
 <div id="popup" class="popup">✅ Your order has been initiated!</div>
 
+<!-- Hamper Popup Image -->
+<div id="hamperPopup" class="popup">
+  <img id="hamperImage" src="" style="max-width:100%; border-radius:15px;">
+</div>
+
 <script>
+// Show .glass elements on page load
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.glass').forEach((el, index) => {
+    setTimeout(() => el.classList.add('show'), index * 200);
+  });
+});
+
 // Slider
-const slides = document.querySelectorAll('.slider img');
+const slides=document.querySelectorAll('.slider img');
 let current=0;
 function showSlide(index){
-  slides.forEach((s,i)=>s.style.opacity=i===index?'1':'0');
+  slides.forEach((s,i)=>{s.style.opacity=i===index?'1':'0'; s.style.transform=i===index?'scale(1.05)':'scale(1)';});
   current=index;
 }
 setInterval(()=>showSlide((current+1)%slides.length),3000);
 showSlide(0);
 
-// Hamper Accordion
+// Accordion
 document.querySelectorAll(".hamper-header").forEach(header=>{
   header.addEventListener("click",()=> {
     const body=header.nextElementSibling;
@@ -463,28 +480,61 @@ document.querySelectorAll(".hamper-header").forEach(header=>{
 });
 
 // Counter Animation
-function animateCounter(el,target){
-  let count=0;
-  const inc=target/150;
-  const update=()=>{count+=inc;if(count>target)count=target;el.textContent=target<1?count.toFixed(2):Math.ceil(count);if(count<target)requestAnimationFrame(update);};
+document.querySelectorAll(".counter").forEach(c=>{
+  let target=parseFloat(c.dataset.target),count=0,inc=target/150;
+  function update(){count+=inc;if(count>target)count=target;c.textContent=target<1?count.toFixed(2):Math.ceil(count);if(count<target)requestAnimationFrame(update);}
   update();
-}
-document.querySelectorAll(".counter").forEach(c=>animateCounter(c,parseFloat(c.dataset.target)));
+});
 
-// Form Submission WhatsApp
-document.getElementById("orderForm").addEventListener("submit",e=>{
+// Orders Counter Demo
+let orders=0;
+setInterval(()=>{orders++;document.getElementById("ordersCounter").textContent=orders;},5000);
+
+// Hamper Image Popup on click
+document.querySelectorAll('.hamper').forEach(h=>{
+  h.addEventListener('click',()=>{
+    const hamperName = h.dataset.hamper;
+    let imgSrc = '';
+    switch(hamperName){
+      case 'Hamper 1': imgSrc='HAM_1.jpg'; break;
+      case 'Hamper 2': imgSrc='HAM_2.jpg'; break;
+      case 'Hamper 3': imgSrc='HAM_3.jpg'; break;
+    }
+    const popup = document.getElementById('hamperPopup');
+    const img = document.getElementById('hamperImage');
+    img.src = imgSrc;
+    popup.classList.add('show');
+    setTimeout(()=>popup.classList.remove('show'), 3500);
+  });
+});
+
+// Form Validation & WhatsApp
+document.getElementById("orderForm").addEventListener("submit", e=>{
   e.preventDefault();
-  const f=e.target;
-  const message=`Sender: ${f.sender.value}%0AReceiver: ${f.receiver.value}%0APhone: ${f.phone.value}%0AHamper: ${f.hamper.value}%0APayment: ${f.payment.value}%0AAddress: ${f.address.value}`;
+  const f = e.target;
+  const sender = f.sender.value.trim();
+  const receiver = f.receiver.value.trim();
+  const phone = f.phone.value.trim();
+  const email = f.email.value.trim();
+
+  const phoneRegex = /^[0-9+]{7,15}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if(sender.length<2){alert('Please enter a valid Sender Name / Country'); return;}
+  if(receiver.length<2){alert('Please enter a valid Receiver City'); return;}
+  if(!phoneRegex.test(phone)){alert('Please enter a valid Phone Number'); return;}
+  if(email && !emailRegex.test(email)){alert('Please enter a valid Email'); return;}
+
+  const message = `Sender: ${sender}%0AReceiver: ${receiver}%0APhone: ${phone}%0AHamper: ${f.hamper.value}%0APayment: ${f.payment.value}%0AAddress: ${f.address.value}%0AEmail: ${email}`;
   window.open(`https://wa.me/923422088395?text=${message}`,'_blank');
   showPopup();
   f.reset();
 });
 
-// Form Submission Email
+// Email Order
 function sendEmail(){
   const f=document.getElementById("orderForm");
-  const body=`Sender: ${f.sender.value}\nReceiver: ${f.receiver.value}\nPhone: ${f.phone.value}\nHamper: ${f.hamper.value}\nPayment: ${f.payment.value}\nAddress: ${f.address.value}`;
+  const body=`Sender: ${f.sender.value}\nReceiver: ${f.receiver.value}\nPhone: ${f.phone.value}\nHamper: ${f.hamper.value}\nPayment: ${f.payment.value}\nAddress: ${f.address.value}\nEmail: ${f.email.value}`;
   window.location.href=`mailto:markitt121@gmail.com?subject=Hamper Order&body=${encodeURIComponent(body)}`;
 }
 
@@ -494,10 +544,6 @@ function showPopup(){
   p.classList.add("show","highlight");
   setTimeout(()=>p.classList.remove("show","highlight"),2500);
 }
-
-// Orders Counter Demo
-let orders=0;
-setInterval(()=>{orders++;document.getElementById("ordersCounter").textContent=orders;},5000);
 
 // Currency Conversion
 const rates={USD:1,PKR:280,SAR:3.75,EUR:0.92,GBP:0.81,AED:3.67,INR:83,MYR:4.4,IDR:15000};
@@ -510,12 +556,11 @@ document.getElementById('currency').addEventListener('change',function(){
   });
 });
 
-// Hamper Highlight on selection
-const hamperSelect = document.getElementById('hamperSelect');
-hamperSelect.addEventListener('change', ()=>{
+// Hamper Highlight
+document.getElementById('hamperSelect').addEventListener('change',()=>{
   document.querySelectorAll('.hamper').forEach(h=>h.classList.remove('highlight'));
-  const selected=document.querySelector(`.hamper[data-hamper="${hamperSelect.value}"]`);
-  if(selected){selected.classList.add('highlight');setTimeout(()=>selected.classList.remove('highlight'),3500);}
+  const selected=document.querySelector(`.hamper[data-hamper="${document.getElementById('hamperSelect').value}"]`);
+  if(selected){selected.classList.add('highlight'); setTimeout(()=>selected.classList.remove('highlight'),3500);}
 });
 </script>
 
