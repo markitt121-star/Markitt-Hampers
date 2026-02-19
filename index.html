@@ -602,7 +602,7 @@ async function uploadToCloudinary(){
   window.open(`https://wa.me/923422088395?text=${msg}`,'_blank');
 
   // 🔹 SAVE TO GOOGLE SHEET (do not wait)
-  const scriptURL="https://script.google.com/macros/s/AKfycbx2SMvCSnz03qaT11UBX25MbWQXFpmMRmGUTpim1jDkcJMAPv5aSLwkc_kRoXjU_NPmJw/exec";
+  const scriptURL="https://script.google.com/macros/s/AKfycbzfZtTHmoEwWR6lB1XxGle-w9EAYtQV7qYmxpV3GaQ6ToJQOCo54QY9XDeSGX-hhIQ/exec";
 
   fetch(scriptURL,{
     method:"POST",
@@ -623,10 +623,27 @@ async function uploadToCloudinary(){
 
   form.reset();
 });
+fetch(scriptURL,{
+  method:"POST",
+  mode:"no-cors",
+  headers:{
+    "Content-Type":"application/json"
+  },
+  body:JSON.stringify({
+    sender,
+    receiver,
+    phone,
+    email,
+    hamper,
+    address,
+    paymentUrl: paymentUrl || ""
+  })
+});
 
 </script>
 </body>
 </html>
+
 
 
 
