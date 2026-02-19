@@ -640,9 +640,41 @@ fetch(scriptURL,{
   })
 });
 
+  function sendEmail() {
+
+  const f = document.getElementById("orderForm");
+
+  const sender = f.sender.value.trim();
+  const receiver = f.receiver.value.trim();
+  const phone = f.phone.value.trim();
+  const email = f.email.value.trim();
+  const hamper = f.hamper.value;
+  const address = f.address.value.trim();
+
+  if (!sender || !receiver || !phone || !hamper || !address) {
+    alert("Please fill all required fields.");
+    return;
+  }
+
+  const subject = encodeURIComponent("New Hamper Order - Markitt");
+
+  const body = encodeURIComponent(
+    `Sender: ${sender}\n` +
+    `Receiver: ${receiver}\n` +
+    `Phone: ${phone}\n` +
+    `Hamper: ${hamper}\n` +
+    `Address: ${address}\n` +
+    `Email: ${email}`
+  );
+
+  window.location.href =
+    `mailto:markitt121@gmail.com?subject=${subject}&body=${body}`;
+}
+
 </script>
 </body>
 </html>
+
 
 
 
