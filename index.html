@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Markitt Hamper Service</title>
+
+<!-- jsPDF for PDF generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
 :root{
   --accent:#5bcf7a;
@@ -32,6 +36,7 @@ body{
   100%{background-position:0% 50%;}
 }
 
+/* Header */
 .header{
   background:rgba(255,255,255,0.8);
   backdrop-filter:blur(10px);
@@ -80,107 +85,115 @@ body{
   margin-top:10px;
 }
 
+/* Container */
 .container{
-  max-width:900px;
+  max-width:1200px;
   width:90%;
   margin:40px auto;
   padding-bottom:30px;
   text-align:center;
-}
-
-/* Glass cards */
-.glass{
-  background:var(--glass);
-  backdrop-filter:blur(15px);
-  border-radius:20px;
-  padding:25px;
-  box-shadow:0 8px 30px var(--shadow);
-  margin:20px 0;
-  transition:0.6s ease;
-  opacity:0;
-  transform:translateY(40px);
-}
-
-.glass.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.glass:hover{
-  transform:translateY(-8px);
-  box-shadow:0 15px 40px rgba(0,0,0,0.15);
-}
-
-/* Slider */
-.slider{
-  position:relative;
-  height:300px;
-  overflow:hidden;
-  border-radius:20px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.1);
-  cursor:pointer;
-}
-
-.slider img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  position:absolute;
-  top:0;
-  left:0;
-  opacity:0;
-  transition:opacity 1s ease-in-out, transform 0.5s ease;
-  border-radius:17px;
-}
-
-.slider img.active{
-  opacity:1;
-  transform: scale(1.05);
-}
-
-/* Hamper Accordion */
-.hamper-header{
   display:flex;
-  justify-content:space-between;
-  font-weight:600;
-  cursor:pointer;
-  padding:15px;
   flex-wrap:wrap;
+  gap:25px;
+  justify-content:center;
 }
 
-.price{
-  background:var(--accent);
-  color:#fff;
-  padding:6px 14px;
+/* Flip Card */
+.flip-card{
+  background-color: transparent;
+  width:300px;
+  height:380px;
+  perspective: 1000px;
+  cursor:pointer;
+}
+
+.flip-card-inner{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
   border-radius:20px;
-  font-size:14px;
-  transition:0.3s;
 }
 
-.price:hover{
-  background:var(--accent-dark);
+.flip-card:hover .flip-card-inner{
+  transform: rotateY(180deg);
 }
 
-.hamper-body{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height 0.4s ease;
-  padding:0 15px 10px 15px;
+.flip-card-front, .flip-card-back{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius:20px;
+  backface-visibility: hidden;
+  box-shadow:0 8px 30px var(--shadow);
+}
+
+.flip-card-front{
+  background:var(--glass);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+.flip-card-front img{
+  width:80%;
+  border-radius:15px;
+  margin-bottom:15px;
+}
+
+.flip-card-front h3{
+  color:var(--accent-dark);
+  margin:0;
+}
+
+.flip-card-back{
+  background:var(--glass);
+  transform: rotateY(180deg);
+  padding:20px;
+  overflow-y:auto;
+}
+
+.flip-card-back h4{
+  margin-top:0;
+  color:var(--accent-dark);
+}
+
+.flip-card-back select{
+  width:90%;
+  padding:8px;
+  border-radius:8px;
+  margin-bottom:10px;
+}
+
+/* Details Summary */
+.order-summary{
+  display:none;
+  background:var(--glass);
+  padding:20px;
+  margin-top:30px;
+  width:90%;
+  max-width:900px;
+  border-radius:15px;
+  box-shadow:0 8px 30px var(--shadow);
   text-align:left;
 }
 
-.hamper-body ul{
+.order-summary ul{
   padding-left:20px;
-  list-style:disc;
 }
 
+/* Form */
 form{
   display:flex;
   flex-direction:column;
   gap:12px;
   padding:20px;
   text-align:left;
-  width:100%;
+  width:90%;
+  max-width:900px;
 }
 
 input, select, textarea{
@@ -217,6 +230,7 @@ button:hover{
   box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
+/* Floating WhatsApp */
 .floating-wa{
   position:fixed;
   bottom:20px;
@@ -236,6 +250,7 @@ button:hover{
   100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}
 }
 
+/* Footer */
 .footer {
   display: flex;
   flex-wrap: wrap;
@@ -290,15 +305,17 @@ button:hover{
 }
 
 @media (max-width: 768px) {
+  .container{
+    flex-direction:column;
+    align-items:center;
+  }
   .footer {
     flex-direction: column;
     align-items: flex-start;
   }
-  .footer-column {
-    margin-bottom: 30px;
-  }
 }
 
+/* Popup */
 .popup{
   position:fixed;
   top:50%;
@@ -320,67 +337,6 @@ button:hover{
   transform:translate(-50%,-50%) scale(1);
   opacity:1;
 }
-
-.highlight{
-  animation:aiGlow 1s ease-in-out 0s 3;
-  box-shadow:0 0 20px 5px var(--highlight);
-  transform: scale(1.05);
-}
-
-@keyframes aiGlow{
-  0%{box-shadow:0 0 5px 0 var(--highlight);transform:scale(1);}
-  50%{box-shadow:0 0 25px 10px var(--highlight);transform:scale(1.08);}
-  100%{box-shadow:0 0 5px 0 var(--highlight);transform:scale(1);}
-}
-
-/* Payment Section */
-.payment-section h3{
-  margin-bottom:20px;
-  color:var(--accent-dark);
-  text-align:center;
-}
-
-.payment-box{
-  background:white;
-  border-radius:15px;
-  padding:20px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.05);
-}
-
-.payment-row{
-  display:flex;
-  justify-content:space-between;
-  padding:12px 0;
-  border-bottom:1px solid #eee;
-  font-size:14px;
-}
-
-.payment-row:last-child{
-  border-bottom:none;
-}
-
-.label{
-  font-weight:600;
-  color:#555;
-}
-
-.value{
-  font-weight:500;
-  color:#222;
-  text-align:right;
-}
-
-.iban{
-  font-family:monospace;
-  letter-spacing:1px;
-}
-
-.payment-note{
-  margin-top:15px;
-  font-size:13px;
-  color:#666;
-  text-align:center;
-}
 </style>
 </head>
 <body>
@@ -394,118 +350,134 @@ button:hover{
     </div>
   </div>
   <div class="total-orders">💚 Orders Placed: <span id="ordersCounter">0</span></div>
+
 </div>
+
 
 <div class="container">
 
-<!-- Slider -->
-<div class="glass slider" id="slider">
-  <img src="Slider_1.jpg" class="active">
-  <img src="Markitt_Slide.jpg">
-  <img src="Slider_1.jpg">
+  <!-- Flip Card 1 -->
+  <div class="flip-card" data-name="Hamper 1" data-hampers='{
+    "basic":{"price":3499,"items":["Flour – 5kg","Rice – 1kg","Sugar – 1kg","Cooking Oil"]},
+    "deluxe":{"price":3999,"items":["Flour – 7kg","Rice – 2kg","Sugar – 2kg","Cooking Oil","Tea – 0.5kg"]},
+    "premium":{"price":4499,"items":["Flour – 15kg","Rice – 5kg","Sugar – 5kg","Cooking Oil – 5 liters","Tea – 1kg","Biscuits"]}}'>
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="Hamper_1.jpg" alt="Hamper 1">
+        <h3>Hamper 1</h3>
+      </div>
+      <div class="flip-card-back">
+        <h4>Select Variety</h4>
+        <select class="variety-select">
+          <option value="basic">Basic</option>
+          <option value="deluxe">Deluxe</option>
+          <option value="premium">Premium</option>
+        </select>
+        <div class="details"></div>
+        <label style="display:block; margin:8px 0 4px;">Quantity:</label>
+        <input type="number" class="qty-input" value="1" min="1">
+
+        <button type="button" class="select-btn">Select This Hamper</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flip Card 2 -->
+  <div class="flip-card" data-name="Hamper 2" data-hampers='{
+    "basic":{"price":5499,"items":["Flour – 10kg","Rice – 5kg","Sugar – 2kg","Cooking Oil – 2L","Tea – 1kg"]},
+    "deluxe":{"price":5999,"items":["Flour – 12kg","Rice – 6kg","Sugar – 3kg","Cooking Oil – 3L","Tea – 1kg","Snacks"]},
+    "premium":{"price":6499,"items":["Flour – 15kg","Rice – 10kg","Sugar – 5kg","Cooking Oil – 5L","Tea – 2kg","Snacks","Gift Item"]}}'>
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="Hamper_2.jpg" alt="Hamper 2">
+        <h3>Hamper 2</h3>
+      </div>
+      <div class="flip-card-back">
+        <h4>Select Variety</h4>
+        <select class="variety-select">
+          <option value="basic">Standard</option>
+          <option value="deluxe">Deluxe</option>
+          <option value="premium">Premium</option>
+        </select>
+        <div class="details"></div>
+        <label style="display:block; margin:8px 0 4px;">Quantity:</label>
+        <input type="number" class="qty-input" value="1" min="1">
+
+        <button type="button" class="select-btn">Select This Hamper</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flip Card 3 -->
+  <div class="flip-card" data-name="Hamper 3" data-hampers='{
+    "basic":{"price":6999,"items":["Flour – 15kg","Rice – 10kg","Sugar – 5kg","Cooking Oil – 5L","Tea – 2kg","Biscuits & Snacks","Special Gift Item"]},
+    "deluxe":{"price":7499,"items":["Flour – 18kg","Rice – 12kg","Sugar – 6kg","Cooking Oil – 6L","Tea – 3kg","Biscuits & Snacks","Gift Item","Special Snacks"]},
+    "premium":{"price":7999,"items":["Flour – 20kg","Rice – 15kg","Sugar – 8kg","Cooking Oil – 8L","Tea – 4kg","Biscuits & Snacks","Gift Item","Special Snacks","Luxury Gift"]}}'>
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="Hamper_3.jpg" alt="Hamper 3">
+        <h3>Hamper 3</h3>
+      </div>
+      <div class="flip-card-back">
+        <h4>Select Variety</h4>
+        <select class="variety-select">
+          <option value="basic">Classic</option>
+          <option value="deluxe">Deluxe</option>
+          <option value="premium">Premium</option>
+        </select>
+        <div class="details"></div>
+        <label style="display:block; margin:8px 0 4px;">Quantity:</label>
+        <input type="number" class="qty-input" value="1" min="1">
+
+        <button type="button" class="select-btn">Select This Hamper</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div id="floatingCart" style="
+  position:fixed;
+  right:20px;
+  top:120px;
+  width:320px;
+  max-height:70vh;
+  overflow:auto;
+  background:white;
+  border-radius:16px;
+  box-shadow:0 10px 35px rgba(0,0,0,0.15);
+  padding:18px;
+  z-index:999;
+  display:none;
+">
+  <h3 style="margin-top:0; color:#3fb963;">🛒 Your Cart</h3>
+  <div id="summaryContent"></div>
 </div>
 
-<!-- Currency Selector -->
-<div class="glass">
-  <label>Select Currency:</label>
-  <select id="currency">
-     <option value="PKR" selected>🇵🇰 Pakistan - PKR (₨)</option>
-     <option value="USD">🇺🇸 United States - USD ($)</option>
-     <option value="GBP">🇬🇧 United Kingdom - GBP (£)</option>
-     <option value="EUR">🇪🇺 Europe - EUR (€)</option>
-     <option value="CAD">🇨🇦 Canada - CAD ($)</option>
-     <option value="AUD">🇦🇺 Australia - AUD ($)</option>
-     <option value="AED">🇦🇪 UAE - AED (د.إ)</option>
-     <option value="SAR">🇸🇦 Saudi Arabia - SAR (﷼)</option>
-  </select>
-</div>
-
-<!-- Hampers -->
-<div class="glass hamper" data-price="3499">
-  <div class="hamper-header">
-    Hamper 1
-    <span class="price"></span>
-  </div>
-  <div class="hamper-body">
-    <ul>
-      <li>Flour – 5kg</li>
-      <li>Rice – 1kg</li>
-      <li>Sugar – 1kg</li>
-      <li>Cooking Oil</li>
-    </ul>
-  </div>
-</div>
-
-<div class="glass hamper" data-price="5499">
-  <div class="hamper-header">
-    Hamper 2
-    <span class="price"></span>
-  </div>
-  <div class="hamper-body">
-    <ul>
-      <li>Flour – 10kg</li>
-      <li>Rice – 5kg</li>
-      <li>Sugar – 2kg</li>
-      <li>Cooking Oil – 2 liters</li>
-      <li>Tea – 1kg</li>
-    </ul>
-  </div>
-</div>
-
-<div class="glass hamper" data-price="6999">
-  <div class="hamper-header">
-    Hamper 3
-    <span class="price"></span>
-  </div>
-  <div class="hamper-body">
-    <ul>
-      <li>Flour – 15kg</li>
-      <li>Rice – 10kg</li>
-      <li>Sugar – 5kg</li>
-      <li>Cooking Oil – 5 liters</li>
-      <li>Tea – 2kg</li>
-      <li>Biscuits & Snacks</li>
-      <li>Special Gift Item</li>
-    </ul>
-  </div>
+<!-- Order Summary -->
+<div class="order-summary" id="orderSummary">
+  <h3>Selected Hamper Summary</h3>
+  <div id="summaryContent"></div>
 </div>
 
 <!-- Order Form -->
-<div class="glass">
 <form id="orderForm">
-<input name="sender" placeholder="Sender Name / Country" required>
-<input name="receiver" placeholder="Receiver Name / City in Pakistan" required>
-<input name="phone" placeholder="Receiver Phone Number" required>
-<input name="email" placeholder="Email (Optional)">
-<select name="hamper" id="hamperSelect" required>
-<option value="">Select Hamper</option>
-<option value="Hamper 1">Hamper 1</option>
-<option value="Hamper 2">Hamper 2</option>
-<option value="Hamper 3">Hamper 3</option>
-</select>
-<textarea name="address" placeholder="Delivery Address" required></textarea>
-<img id="screenshotPreview" src="" alt="Preview" style="display:none; max-width:100%; border-radius:12px; margin-bottom:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+  <input name="sender" placeholder="Sender Name / Country" required>
+  <input name="receiver" placeholder="Receiver Name / City in Pakistan" required>
+  <input name="phone" placeholder="Receiver Phone Number" required>
+  <input name="email" placeholder="Email (Optional)">
+  <textarea name="address" placeholder="Delivery Address" required></textarea>
+  <input type="file" id="paymentScreenshot" accept="image/*">
+  <img id="previewImage" style="display:none; margin-top:10px; max-width:200px; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
 
-<input type="file" id="paymentScreenshot" accept="image/*">
-
-<div class="glass payment-section">
-  <h3>Payment Information</h3>
-  <div class="payment-box">
-    <div class="payment-row"><span class="label">Account Title</span><span class="value">United Retail Pvt Ltd</span></div>
-    <div class="payment-row"><span class="label">Bank Name</span><span class="value">UBL – United Bank Limited</span></div>
-    <div class="payment-row"><span class="label">IBAN</span><span class="value iban">PK52 UNIL 0110 0050 0044 0789</span></div>
-  </div>
-  <p class="payment-note">⚠️ Payment screenshot is optional but helps confirm your order faster.</p>
-</div>
-
-<button type="submit">💬 Order via WhatsApp</button>
-<button type="button" onclick="sendEmail()">📧 Order via Email</button>
+  <button type="submit">💬 Order via WhatsApp</button>
+  <button type="button" onclick="sendEmail()">📧 Order via Email</button>
+  <button type="button" id="downloadPDF" style="display:none; margin-top:10px; padding:10px 15px; border:none; border-radius:8px; background:#ff9800; color:white; cursor:pointer;">📄 Download PDF</button>
 </form>
-</div>
 
 <div id="popup" class="popup">✅ Your order has been initiated!</div>
 <a href="https://wa.me/923422088395" class="floating-wa" target="_blank">💬</a>
 
+<!-- Footer -->
 <footer class="footer">
   <div class="footer-column">
     <h4>Contact</h4>
@@ -516,32 +488,11 @@ button:hover{
   <div class="footer-column">
     <h4>Follow Us</h4>
     <div class="social-icons">
-      <a href="https://www.facebook.com/markittstore" target="_blank" aria-label="Facebook">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#3b5998">
-          <path d="M22.675 0h-21.35C.596 0 0 .593 0 1.326v21.348C0 23.407.596 24 1.326 24h11.495v-9.294H9.692V11.06h3.129V8.413c0-3.1 1.894-4.788 4.66-4.788 1.325 0 2.463.098 2.794.142v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.31h3.587l-.467 3.647h-3.12V24h6.116c.73 0 1.324-.593 1.324-1.326V1.326C24 .593 23.404 0 22.675 0z"/>
-        </svg>
-      </a>
-      <a href="https://www.instagram.com/markittstore" target="_blank" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#C13584">
-          <path d="M12 2.163c3.204 0 3.584.012 4.849.07 1.366.062 2.633.35 3.608 1.325.975.975 1.263 2.242 1.325 3.608.058 1.265.07 1.645.07 4.849s-.012 3.584-.07 4.849c-.062 1.366-.35 2.633-1.325 3.608-.975.975-2.242 1.263-3.608 1.325-1.265.058-1.645.07-4.849.07s-3.584-.012-4.849-.07c-1.366-.062-2.633-.35-3.608-1.325-.975-.975-1.263-2.242-1.325-3.608C2.175 15.747 2.163 15.367 2.163 12s.012-3.584.07-4.849c.062-1.366.35-2.633 1.325-3.608C4.533 2.583 5.8 2.295 7.166 2.233 8.431 2.175 8.811 2.163 12 2.163zm0-2.163C8.736 0 8.332.014 7.052.072 5.779.13 4.683.428 3.757 1.354 2.831 2.28 2.533 3.376 2.475 4.649 2.417 5.929 2.403 6.333 2.403 12c0 5.667.014 6.071.072 7.351.058 1.273.356 2.369 1.282 3.295.926.926 2.022 1.224 3.295 1.282 1.28.058 1.684.072 7.351.072s6.071-.014 7.351-.072c1.273-.058 2.369-.356 3.295-1.282.926-.926 1.224-2.022 1.282-3.295.058-1.28.072-1.684.072-7.351s-.014-6.071-.072-7.351c-.058-1.273-.356-2.369-1.282-3.295-.926-.926-2.022-1.224-3.295-1.282C18.071.014 17.667 0 12 0z"/>
-          <path d="M12 5.838A6.162 6.162 0 1 0 18.162 12 6.169 6.169 0 0 0 12 5.838zm0 10.162A3.999 3.999 0 1 1 16 12 3.997 3.997 0 0 1 12 16z"/>
-          <circle cx="18.406" cy="5.594" r="1.44"/>
-        </svg>
-      </a>
-      <a href="https://twitter.com/markitt" target="_blank" aria-label="Twitter">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#1DA1F2">
-          <path d="M24 4.557a9.83 9.83 0 0 1-2.828.775 4.932 4.932 0 0 0 2.165-2.724 9.864 9.864 0 0 1-3.127 1.195 4.916 4.916 0 0 0-8.38 4.482A13.944 13.944 0 0 1 1.671 3.149 4.918 4.918 0 0 0 3.195 9.722 4.897 4.897 0 0 1 .964 9.11v.062a4.918 4.918 0 0 0 3.946 4.827 4.902 4.902 0 0 1-2.212.084 4.923 4.923 0 0 0 4.6 3.417 9.867 9.867 0 0 1-6.102 2.104c-.396 0-.787-.023-1.175-.069a13.945 13.945 0 0 0 7.548 2.212c9.056 0 14.009-7.514 14.009-14.009 0-.213-.004-.425-.014-.636A10.012 10.012 0 0 0 24 4.557z"/>
-        </svg>
-      </a>
-      <a href="https://wa.me/923422088395" target="_blank" aria-label="WhatsApp">
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#25D366">
-          <path d="M20.52 3.48A11.89 11.89 0 0 0 12 .03C5.372.03.03 5.372.03 12c0 2.112.552 4.163 1.6 5.952L0 24l6.24-1.59A11.943 11.943 0 0 0 12 24c6.627 0 11.97-5.342 11.97-11.97 0-3.2-1.248-6.214-3.45-8.55zM12 22.03c-1.99 0-3.86-.528-5.474-1.442l-.392-.23-3.705.944.99-3.615-.25-.382A9.958 9.958 0 0 1 2.03 12c0-5.522 4.478-10 10-10s10 4.478 10 10-4.478 10-10 10zm5.347-7.913c-.227-.113-1.345-.666-1.553-.742-.208-.076-.36-.113-.511.114s-.586.742-.718.895c-.132.152-.265.171-.492.057-.227-.114-.955-.352-1.82-1.121-.673-.598-1.128-1.337-1.26-1.563-.132-.227-.014-.35.099-.463.102-.102.227-.265.34-.397.114-.132.152-.227.227-.38.075-.152.038-.285-.019-.398-.057-.113-.511-1.23-.698-1.684-.183-.443-.37-.383-.511-.39-.132-.007-.285-.008-.437-.008s-.398.057-.607.285c-.208.227-.796.779-.796 1.898 0 1.119.815 2.202.928 2.356.114.152 1.605 2.448 3.89 3.433.544.235.968.375 1.299.48.545.174 1.042.15 1.435.091.437-.064 1.345-.548 1.536-1.078.19-.53.19-.985.132-1.078-.057-.094-.208-.152-.436-.265z"/>
-      </svg>
-      </a>
-      <a href="https://www.linkedin.com/company/markitt" target="_blank" aria-label="LinkedIn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#0077B5">
-          <path d="M22.225 0H1.771C.792 0 0 .771 0 1.725v20.549C0 23.228.792 24 1.771 24h20.451C23.208 24 24 23.228 24 22.274V1.725C24 .771 23.208 0 22.225 0zM7.082 20.452H3.542V9h3.54v11.452zM5.313 7.577c-1.137 0-2.06-.93-2.06-2.078 0-1.147.923-2.078 2.06-2.078s2.06.931 2.06 2.078c0 1.148-.924 2.078-2.06 2.078zm15.138 12.875h-3.542v-5.568c0-1.328-.024-3.037-1.85-3.037-1.85 0-2.134 1.446-2.134 2.939v5.666h-3.541V9h3.396v1.561h.048c.474-.897 1.632-1.847 3.36-1.847 3.594 0 4.26 2.366 4.26 5.446v6.291z"/>
-        </svg>
-      </a>
+      <a href="https://www.facebook.com/markittstore" target="_blank">FB</a>
+      <a href="https://www.instagram.com/markittstore" target="_blank">IG</a>
+      <a href="https://twitter.com/markitt" target="_blank">TW</a>
+      <a href="https://wa.me/923422088395" target="_blank">WA</a>
+      <a href="https://www.linkedin.com/company/markitt" target="_blank">IN</a>
     </div>
   </div>
   <div class="footer-column">
@@ -553,135 +504,217 @@ button:hover{
 </footer>
 
 <script>
-// Animate Glass Cards
-window.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.glass').forEach((el,i)=>{setTimeout(()=>el.classList.add('show'),i*200);});
+const flipCards = document.querySelectorAll('.flip-card');
+const floatingCart = document.getElementById('floatingCart');
+const summaryContent = document.getElementById('summaryContent');
+const downloadBtn = document.getElementById('downloadPDF');
+const orderCounter = document.getElementById('ordersCounter');
+const screenshotInput = document.getElementById('paymentScreenshot');
+const previewImage = document.getElementById('previewImage');
+
+let selectedHampers = JSON.parse(localStorage.getItem("cart")) || [];
+let totalOrders = localStorage.getItem("orders") || 0;
+
+orderCounter.textContent = totalOrders;
+
+/* ===============================
+   PAYMENT PREVIEW
+=================================*/
+screenshotInput.addEventListener("change", function(){
+  const file = this.files[0];
+  if(file){
+    const reader = new FileReader();
+    reader.onload = function(e){
+      previewImage.src = e.target.result;
+      previewImage.style.display = "block";
+    };
+    reader.readAsDataURL(file);
+  }
 });
 
-// Slider
-const slides=document.querySelectorAll('.slider img');let current=0;
-function showSlide(index){slides.forEach((s,i)=>{s.style.opacity=i===index?'1':'0'; s.style.transform=i===index?'scale(1.05)':'scale(1)';});current=index;}
-setInterval(()=>showSlide((current+1)%slides.length),3000);
-showSlide(0);
+/* ===============================
+   HANDLE FLIP CARDS
+=================================*/
+flipCards.forEach(card=>{
+  const hampers = JSON.parse(card.dataset.hampers);
+  const select = card.querySelector('.variety-select');
+  const qtyInput = card.querySelector('.qty-input');
+  const detailsDiv = card.querySelector('.details');
+  const selectBtn = card.querySelector('.select-btn');
 
-// Accordion
-document.querySelectorAll(".hamper-header").forEach(h=>h.addEventListener("click",()=>{const b=h.nextElementSibling;b.style.maxHeight=b.style.maxHeight?null:b.scrollHeight+"px";}));
+  function updateDetails(){
+    const data = hampers[select.value];
+    detailsDiv.innerHTML = `
+      <p><strong>Price:</strong> ₨ ${data.price.toLocaleString()}</p>
+      <ul style="padding-left:18px;">
+        ${data.items.map(i=>`<li>${i}</li>`).join('')}
+      </ul>
+    `;
+  }
 
-// Currency Conversion
-const rates={PKR:1,USD:0.00357,GBP:0.0028,EUR:0.0032,AED:0.013,SAR:0.0134};
-const symbols={PKR:"₨",USD:"$",GBP:"£",EUR:"€",AED:"د.إ",SAR:"﷼"};
-function updatePrices(){const c=document.getElementById("currency").value;document.querySelectorAll('.hamper').forEach(b=>{const base=parseFloat(b.dataset.price);b.querySelector('.price').textContent=symbols[c]+" "+(base*rates[c]).toFixed(2);});}
-document.getElementById("currency").addEventListener("change",updatePrices);
-updatePrices();
+  select.addEventListener('change', updateDetails);
+  updateDetails();
 
-// WhatsApp + Popup + Cloudinary
-const form=document.getElementById("orderForm");
-const popup=document.getElementById("popup");
-async function uploadToCloudinary(){
-  const file=document.getElementById("paymentScreenshot").files[0];
-  if(!file)return null;
-  const fd=new FormData(); fd.append("file",file); fd.append("upload_preset","markitt_preset");
-  try{const res=await fetch("https://api.cloudinary.com/v1_1/dgxiobk7d/image/upload",{method:"POST",body:fd});const data=await res.json();return data.secure_url;}catch(e){console.error(e);return null;}
+  selectBtn.addEventListener('click',()=>{
+    addOrUpdateHamper(card);
+    animateAdd(card);
+  });
+
+  qtyInput.addEventListener('input',()=>{
+    if(isSelected(card.dataset.name)){
+      addOrUpdateHamper(card);
+    }
+  });
+
+  select.addEventListener('change',()=>{
+    if(isSelected(card.dataset.name)){
+      addOrUpdateHamper(card);
+    }
+  });
+});
+
+/* ===============================
+   ADD / UPDATE CART
+=================================*/
+function addOrUpdateHamper(card){
+
+  const hampers = JSON.parse(card.dataset.hampers);
+  const select = card.querySelector('.variety-select');
+  const qty = parseInt(card.querySelector('.qty-input').value) || 1;
+  const data = hampers[select.value];
+
+  const obj = {
+    name: card.dataset.name,
+    variety: select.value,
+    price: data.price,
+    quantity: qty
+  };
+
+  const index = selectedHampers.findIndex(h=>h.name===obj.name);
+
+  if(index>-1){
+    selectedHampers[index]=obj;
+  } else {
+    selectedHampers.push(obj);
+  }
+
+  saveCart();
+  renderCart();
 }
-//Submit Section Function
-  form.addEventListener("submit", async e=>{
-  e.preventDefault();
 
-  const sender=form.sender.value.trim(),
-        receiver=form.receiver.value.trim(),
-        phone=form.phone.value.trim(),
-        email=form.email.value.trim(),
-        hamper=form.hamper.value,
-        address=form.address.value.trim();
+function isSelected(name){
+  return selectedHampers.some(h=>h.name===name);
+}
 
-  let paymentUrl=await uploadToCloudinary();
+/* ===============================
+   SAVE CART
+=================================*/
+function saveCart(){
+  localStorage.setItem("cart", JSON.stringify(selectedHampers));
+}
 
-  const msg=`Sender: ${sender}%0AReceiver: ${receiver}%0APhone: ${phone}%0AHamper: ${hamper}%0AAddress: ${address}${paymentUrl?'%0APayment Screenshot: '+paymentUrl:''}${email?'%0AEmail: '+email:''}`;
+/* ===============================
+   RENDER CART
+=================================*/
+function renderCart(){
 
-  // 🚀 OPEN WHATSAPP FIRST (IMPORTANT)
-  window.open(`https://wa.me/923422088395?text=${msg}`,'_blank');
-
-  // 🔹 SAVE TO GOOGLE SHEET (do not wait)
-  const scriptURL="https://script.google.com/macros/s/AKfycbzw7fVuatEX4gX_D-wEnOFhpxPcQkwT4YQLasdhYH2r9ZkOUoP2vQzu7ES49o8ag3OKgw/exec";
-
-  fetch(scriptURL,{
-    method:"POST",
-    mode: "no-cors",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      sender,
-      receiver,
-      phone,
-      email,
-      hamper,
-      address,
-      paymentUrl: paymentUrl || ""
-    })
-  }).catch(err=>console.log(err));
-
-  popup.classList.add("show");
-  setTimeout(()=>popup.classList.remove("show"),3000);
-
-  form.reset();
-});
-/*fetch(scriptURL,{
-  method:"POST",
-  headers:{
-    "Content-Type":"application/json"
-  },
-  body:JSON.stringify({
-    sender,
-    receiver,
-    phone,
-    email,
-    hamper,
-    address,
-    paymentUrl: paymentUrl || ""
-  })
-});
-  */
-  function sendEmail() {
-
-  const f = document.getElementById("orderForm");
-
-  const sender = f.sender.value.trim();
-  const receiver = f.receiver.value.trim();
-  const phone = f.phone.value.trim();
-  const email = f.email.value.trim();
-  const hamper = f.hamper.value;
-  const address = f.address.value.trim();
-
-  if (!sender || !receiver || !phone || !hamper || !address) {
-    alert("Please fill all required fields.");
+  if(selectedHampers.length===0){
+    floatingCart.style.display="none";
+    downloadBtn.style.display="none";
     return;
   }
 
-  const subject = encodeURIComponent("New Hamper Order - Markitt");
+  floatingCart.style.display="block";
+  downloadBtn.style.display="inline-block";
 
-  const body = encodeURIComponent(
-    `Sender: ${sender}\n` +
-    `Receiver: ${receiver}\n` +
-    `Phone: ${phone}\n` +
-    `Hamper: ${hamper}\n` +
-    `Address: ${address}\n` +
-    `Email: ${email}`
-  );
+  let total = 0;
 
-  window.location.href =
-    `mailto:markitt121@gmail.com?subject=${subject}&body=${body}`;
+  summaryContent.innerHTML = selectedHampers.map((h,index)=>{
+
+    const subtotal = h.price * h.quantity;
+    total += subtotal;
+
+    return `
+      <div style="border-bottom:1px solid #eee; padding:12px 0;">
+        <div style="display:flex; justify-content:space-between;">
+          <strong>${h.name}</strong>
+          <span>₨ ${subtotal.toLocaleString()}</span>
+        </div>
+        <div style="font-size:13px; color:#555;">
+          ${capitalize(h.variety)} | Qty: ${h.quantity}
+        </div>
+        <button onclick="removeItem(${index})"
+          style="background:#ff4d4d;color:white;border:none;padding:4px 8px;border-radius:6px;font-size:12px;margin-top:6px;">
+          Remove
+        </button>
+      </div>
+    `;
+  }).join('') + `
+    <div style="margin-top:15px;padding-top:10px;border-top:2px solid #3fb963;font-weight:700;text-align:right;font-size:18px;color:#3fb963;">
+      Total: ₨ ${total.toLocaleString()}
+    </div>
+  `;
 }
 
+function removeItem(index){
+  selectedHampers.splice(index,1);
+  saveCart();
+  renderCart();
+}
+
+/* ===============================
+   ANIMATION
+=================================*/
+function animateAdd(card){
+  card.style.transform="scale(1.05)";
+  setTimeout(()=>card.style.transform="scale(1)",300);
+}
+
+/* ===============================
+   WHATSAPP ORDER
+=================================*/
+document.getElementById("orderForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  if(selectedHampers.length===0){
+    alert("Your cart is empty.");
+    return;
+  }
+
+  let message = "🌿 Markitt Hamper Order 🌿\n\n";
+  let total = 0;
+
+  selectedHampers.forEach((h,i)=>{
+    const subtotal = h.price*h.quantity;
+    total+=subtotal;
+    message += `${i+1}. ${h.name} (${capitalize(h.variety)})\n`;
+    message += `Qty: ${h.quantity}\n`;
+    message += `Subtotal: ₨ ${subtotal}\n\n`;
+  });
+
+  message += `Total: ₨ ${total}\n\n`;
+
+  window.open(`https://wa.me/923422088395?text=${encodeURIComponent(message)}`, '_blank');
+
+  totalOrders++;
+  localStorage.setItem("orders", totalOrders);
+  orderCounter.textContent = totalOrders;
+
+  selectedHampers=[];
+  saveCart();
+  renderCart();
+});
+
+/* =============================== */
+function capitalize(text){
+  return text.charAt(0).toUpperCase()+text.slice(1);
+}
+
+/* Load cart on page load */
+renderCart();
 </script>
+
+
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
