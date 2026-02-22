@@ -4,460 +4,130 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Markitt Hamper Service</title>
-
-<!-- jsPDF for PDF generation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <style>
-:root{
-  --accent:#5bcf7a;
-  --accent-dark:#3fb963;
-  --glass:rgba(255,255,255,0.6);
-  --shadow:rgba(0,0,0,0.08);
-  --whatsapp:#25D366;
-  --highlight:#ffd700;
+:root {
+  --primary:#5bcf7a;
+  --primary-dark:#3fb963;
+  --glass-bg:rgba(255,255,255,0.25);
+  --shadow:rgba(0,0,0,0.1);
+  --text-dark:#222;
+  --hover-shadow:rgba(0,0,0,0.3);
+  --bg-color:#f1f1f1;
+  --border-radius:12px;
 }
-
-body{
+body {
   margin:0;
-  font-family:'Segoe UI', sans-serif;
-  background:linear-gradient(135deg,#eafaf0,#ffffff,#f3faf4);
-  background-size:400% 400%;
-  animation:bgMove 15s ease infinite;
-  color:#222;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
-@keyframes bgMove{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
-
-/* Header */
-.header{
-  background:rgba(255,255,255,0.8);
-  backdrop-filter:blur(10px);
-  padding:20px 30px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  box-shadow:0 4px 30px var(--shadow);
-  flex-wrap:wrap;
-  width:90%;
-  max-width:1200px;
-  margin-top:20px;
-  border-radius:15px;
-}
-
-.logo-area{
-  display:flex;
-  align-items:center;
-}
-
-.logo-area img{
-  height:60px;
-  margin-right:15px;
-}
-
-.brand-text{
-  font-size:24px;
-  font-weight:700;
-  color:var(--accent);
-}
-
-.tagline{
-  font-size:13px;
-  color:#555;
-}
-
-.total-orders{
-  font-weight:700;
-  font-size:16px;
-  color:#3fb963;
-  padding:10px 20px;
-  border-radius:20px;
-  background:rgba(91,207,122,0.15);
-  min-width:120px;
-  text-align:center;
-  margin-top:10px;
-}
-
-/* Container */
-.container{
-  max-width:1200px;
-  width:90%;
-  margin:40px auto;
-  padding-bottom:30px;
-  text-align:center;
-  display:flex;
-  flex-wrap:wrap;
-  gap:25px;
-  justify-content:center;
-}
-
-/* Flip Card */
-.flip-card{
-  background-color: transparent;
-  width:300px;
-  height:380px;
-  perspective: 1000px;
-  cursor:pointer;
-}
-
-.flip-card-inner{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  border-radius:20px;
-}
-
-.flip-card:hover .flip-card-inner{
-  transform: rotateY(180deg);
-}
-
-.flip-card-front, .flip-card-back{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius:20px;
-  backface-visibility: hidden;
-  box-shadow:0 8px 30px var(--shadow);
-}
-
-.flip-card-front{
-  background:var(--glass);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-}
-
-.flip-card-front img{
-  width:80%;
-  border-radius:15px;
-  margin-bottom:15px;
-}
-
-.flip-card-front h3{
-  color:var(--accent-dark);
-  margin:0;
-}
-
-.flip-card-back{
-  background:var(--glass);
-  transform: rotateY(180deg);
-  padding:20px;
-  overflow-y:auto;
-}
-
-.flip-card-back h4{
-  margin-top:0;
-  color:var(--accent-dark);
-}
-
-.flip-card-back select{
-  width:90%;
-  padding:8px;
-  border-radius:8px;
-  margin-bottom:10px;
-}
-
-/* Details Summary */
-.order-summary{
-  display:none;
-  background:var(--glass);
-  padding:20px;
-  margin-top:30px;
-  width:90%;
-  max-width:900px;
-  border-radius:15px;
-  box-shadow:0 8px 30px var(--shadow);
-  text-align:left;
-}
-
-.order-summary ul{
-  padding-left:20px;
-}
-
-/* Form */
-form{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  padding:20px;
-  text-align:left;
-  width:90%;
-  max-width:900px;
-}
-
-input, select, textarea{
-  padding:12px;
-  border-radius:10px;
-  border:1px solid #ddd;
-  font-size:14px;
-  transition:0.3s;
-  width:100%;
-  box-sizing:border-box;
-}
-
-input:focus, select:focus, textarea:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 8px rgba(91,207,122,0.4);
-  outline:none;
-}
-
-button{
-  padding:14px;
-  border:none;
-  border-radius:10px;
-  font-weight:600;
-  cursor:pointer;
-  background:var(--accent);
-  color:white;
-  transition:0.3s;
-  width:100%;
-  font-size:16px;
-}
-
-button:hover{
-  background:var(--accent-dark);
-  box-shadow:0 8px 20px rgba(0,0,0,0.2);
-}
-
-/* Floating WhatsApp */
-.floating-wa{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:var(--whatsapp);
-  color:white;
-  padding:16px;
-  border-radius:50%;
-  font-size:22px;
-  text-decoration:none;
-  animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(37,211,102,0.6);}
-  70%{box-shadow:0 0 0 15px rgba(37,211,102,0);}
-  100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}
-}
-
-/* Footer */
-.footer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  background: #f9f9f9;
-  border-top: 1px solid #5bcf7a;
-  padding: 20px 20px;
-  max-width: 1500px;
-  width:96%;
   font-family: 'Segoe UI', sans-serif;
-  color: #333;
-  border-radius:13px;
+  background: linear-gradient(135deg, #eafaf0, #ffffff, #f3faf4);
+  background-size: 400% 400%;
+  animation: bgMove 20s ease infinite;
+  color: var(--text-dark);
 }
-
-.footer-column {
-  flex: 1;
-  min-width: 260px;
-  margin-bottom: 10px;
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-
-.footer-column h4 {
-  font-size: 16px;
-  color: #3fb963;
-  margin-bottom: 12px;
-  font-weight: 600;
-}
-
-.footer-column p, .footer-column a {
-  font-size: 14px;
-  color: #555;
-  text-decoration: none;
-  margin: 5px 0;
-}
-
-.footer-column a:hover {
-  color: #5bcf7a;
-}
-
-.social-icons {
+.header {
   display: flex;
-  gap: 12px;
-  margin-top: 8px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 30px var(--shadow);
+  border-radius: var(--border-radius);
+  margin: 20px;
+  flex-wrap: wrap;
 }
-
-.social-icons a svg {
-  transition: transform 0.3s, filter 0.3s;
+.header .brand { font-size: 28px; font-weight: 700; color: var(--primary); }
+.header .tagline { font-size: 14px; color: #555; }
+.total-orders { font-weight: 600; background: rgba(91, 207, 122, 0.15); padding: 10px 20px; border-radius: 25px; color: var(--primary-dark); font-size: 16px; text-align: center; }
+.container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+.slider { position: relative; height: 350px; border-radius: var(--border-radius); overflow: hidden; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); }
+.slider img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: all 1s ease; }
+.slider img.active { opacity: 1; }
+.slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 28px; color: white; background: rgba(0, 0, 0, 0.3); padding: 10px 15px; border-radius: 50%; cursor: pointer; user-select: none; }
+.slider-arrow.left { left: 10px; }
+.slider-arrow.right { right: 10px; }
+.currency-select { margin-bottom: 25px; }
+.currency-select select { padding: 10px 15px; border-radius: 10px; border: none; font-size: 14px; background: var(--glass-bg); backdrop-filter: blur(15px); cursor: pointer; }
+.hampers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.hamper-card { background: var(--glass-bg); backdrop-filter: blur(15px); border-radius: var(--border-radius); padding: 20px; box-shadow: 0 8px 30px var(--shadow); transition: 0.4s; position: relative; overflow: hidden; }
+.hamper-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px var(--hover-shadow); }
+.hamper-card h4 { margin-top: 0; color: var(--primary-dark); font-size: 20px; }
+.hamper-card ul { padding-left: 18px; }
+.quantity-price { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; flex-wrap: wrap; gap: 5px; }
+.hamper-quantity, .hamper-variety { padding: 5px; border-radius: 6px; border: 1px solid #ccc; }
+.price-display { font-weight: 600; color: var(--primary-dark); }
+.total-section { margin-top: 20px; text-align: right; font-size: 18px; font-weight: 700; color: var(--primary-dark); }
+form { margin-top: 30px; background: var(--glass-bg); backdrop-filter: blur(15px); border-radius: var(--border-radius); padding: 25px; box-shadow: 0 8px 30px var(--shadow); }
+form input, form select, form textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px; border: none; background: rgba(255, 255, 255, 0.7); font-size: 14px; }
+form button { width: 100%; padding: 14px; border: none; border-radius: 10px; font-weight: 600; background: var(--primary); color: white; cursor: pointer; margin-bottom: 10px; font-size: 16px; }
+form button:hover { background: var(--primary-dark); }
+.popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); background: var(--primary); color: white; padding: 25px 35px; border-radius: 15px; font-size: 16px; font-weight: 600; box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3); z-index: 999; opacity: 0; transition: 0.3s; }
+.popup.show { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+.footer { background: #f9f9f9; padding: 25px 30px; border-top: 2px solid var(--primary); display: flex; flex-wrap: wrap; justify-content: space-between; margin-top: 50px; border-radius: var(--border-radius); }
+.footer-column { flex: 1; min-width: 200px; margin-bottom: 20px; }
+.footer-column h4 { color: var(--primary-dark); font-size: 16px; margin-bottom: 10px; }
+.footer-column p, .footer-column a { color: #555; font-size: 14px; margin: 5px 0; text-decoration: none; }
+.footer-column a:hover { color: var(--primary); }
+.floating-wa { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; padding: 16px; border-radius: 50%; font-size: 22px; text-decoration: none; animation: pulse 2s infinite; }
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
 }
-
-.social-icons a:hover svg {
-  transform: scale(1.15);
-  filter: brightness(1.2);
-}
-
+.order-summary { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); padding: 15px; border-radius: 15px; margin-top: 15px; font-size: 14px; white-space: pre-line; }
 @media (max-width: 768px) {
-  .container{
-    flex-direction:column;
-    align-items:center;
-  }
-  .footer {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+  .header { flex-direction: column; text-align: center; }
+  .total-orders { margin-top: 15px; }
 }
-
-/* Popup */
-.popup{
-  position:fixed;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%) scale(0);
-  background:var(--accent);
-  color:white;
-  padding:25px 35px;
-  border-radius:15px;
-  font-size:16px;
-  font-weight:600;
-  box-shadow:0 15px 50px rgba(0,0,0,0.3);
-  z-index:999;
-  opacity:0;
-  transition:0.3s;
-}
-
-.popup.show{
-  transform:translate(-50%,-50%) scale(1);
-  opacity:1;
-}
+.hamper-card:hover .preview-popup { opacity: 1; visibility: visible; }
+.preview-popup { position: absolute; top: 10px; left: 10px; background: rgba(0, 0, 0, 0.7); color: white; padding: 15px; border-radius: 8px; visibility: hidden; opacity: 0; transition: all 0.3s ease; max-width: 250px; z-index: 2; font-size: 14px; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="logo-area">
-    <img src="Logo.png" alt="Logo">
-    <div>
-      <div class="brand-text">Markitt Hamper Service</div>
-      <div class="tagline">Serving Across Pakistan – Orders Worldwide</div>
-    </div>
+  <div>
+    <div class="brand">Markitt Hamper Service</div>
+    <div class="tagline">Serving Across Pakistan – Orders Worldwide</div>
   </div>
   <div class="total-orders">💚 Orders Placed: <span id="ordersCounter">0</span></div>
-
 </div>
-
 
 <div class="container">
 
-  <!-- Flip Card 1 -->
-  <div class="flip-card" data-name="Hamper 1" data-hampers='{
-    "basic":{"price":3499,"items":["Flour – 5kg","Rice – 1kg","Sugar – 1kg","Cooking Oil"]},
-    "deluxe":{"price":3999,"items":["Flour – 7kg","Rice – 2kg","Sugar – 2kg","Cooking Oil","Tea – 0.5kg"]},
-    "premium":{"price":4499,"items":["Flour – 15kg","Rice – 5kg","Sugar – 5kg","Cooking Oil – 5 liters","Tea – 1kg","Biscuits"]}}'>
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <img src="Hamper_1.jpg" alt="Hamper 1">
-        <h3>Hamper 1</h3>
-      </div>
-      <div class="flip-card-back">
-        <h4>Select Variety</h4>
-        <select class="variety-select">
-          <option value="basic">Basic</option>
-          <option value="deluxe">Deluxe</option>
-          <option value="premium">Premium</option>
-        </select>
-        <div class="details"></div>
-        <label style="display:block; margin:8px 0 4px;">Quantity:</label>
-        <input type="number" class="qty-input" value="1" min="1">
-
-        <button type="button" class="select-btn">Select This Hamper</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Flip Card 2 -->
-  <div class="flip-card" data-name="Hamper 2" data-hampers='{
-    "basic":{"price":5499,"items":["Flour – 10kg","Rice – 5kg","Sugar – 2kg","Cooking Oil – 2L","Tea – 1kg"]},
-    "deluxe":{"price":5999,"items":["Flour – 12kg","Rice – 6kg","Sugar – 3kg","Cooking Oil – 3L","Tea – 1kg","Snacks"]},
-    "premium":{"price":6499,"items":["Flour – 15kg","Rice – 10kg","Sugar – 5kg","Cooking Oil – 5L","Tea – 2kg","Snacks","Gift Item"]}}'>
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <img src="Hamper_2.jpg" alt="Hamper 2">
-        <h3>Hamper 2</h3>
-      </div>
-      <div class="flip-card-back">
-        <h4>Select Variety</h4>
-        <select class="variety-select">
-          <option value="basic">Standard</option>
-          <option value="deluxe">Deluxe</option>
-          <option value="premium">Premium</option>
-        </select>
-        <div class="details"></div>
-        <label style="display:block; margin:8px 0 4px;">Quantity:</label>
-        <input type="number" class="qty-input" value="1" min="1">
-
-        <button type="button" class="select-btn">Select This Hamper</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Flip Card 3 -->
-  <div class="flip-card" data-name="Hamper 3" data-hampers='{
-    "basic":{"price":6999,"items":["Flour – 15kg","Rice – 10kg","Sugar – 5kg","Cooking Oil – 5L","Tea – 2kg","Biscuits & Snacks","Special Gift Item"]},
-    "deluxe":{"price":7499,"items":["Flour – 18kg","Rice – 12kg","Sugar – 6kg","Cooking Oil – 6L","Tea – 3kg","Biscuits & Snacks","Gift Item","Special Snacks"]},
-    "premium":{"price":7999,"items":["Flour – 20kg","Rice – 15kg","Sugar – 8kg","Cooking Oil – 8L","Tea – 4kg","Biscuits & Snacks","Gift Item","Special Snacks","Luxury Gift"]}}'>
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <img src="Hamper_3.jpg" alt="Hamper 3">
-        <h3>Hamper 3</h3>
-      </div>
-      <div class="flip-card-back">
-        <h4>Select Variety</h4>
-        <select class="variety-select">
-          <option value="basic">Classic</option>
-          <option value="deluxe">Deluxe</option>
-          <option value="premium">Premium</option>
-        </select>
-        <div class="details"></div>
-        <label style="display:block; margin:8px 0 4px;">Quantity:</label>
-        <input type="number" class="qty-input" value="1" min="1">
-
-        <button type="button" class="select-btn">Select This Hamper</button>
-      </div>
-    </div>
-  </div>
-
-</div>
-<div id="floatingCart" style="
-  position:fixed;
-  right:20px;
-  top:120px;
-  width:320px;
-  max-height:70vh;
-  overflow:auto;
-  background:white;
-  border-radius:16px;
-  box-shadow:0 10px 35px rgba(0,0,0,0.15);
-  padding:18px;
-  z-index:999;
-  display:none;
-">
-  <h3 style="margin-top:0; color:#3fb963;">🛒 Your Cart</h3>
-  <div id="summaryContent"></div>
+<!-- Slider -->
+<div class="slider" id="slider">
+  <span class="slider-arrow left" onclick="prevSlide()">❮</span>
+  <span class="slider-arrow right" onclick="nextSlide()">❯</span>
+  <img src="Slider_1.jpg" class="active">
+  <img src="Markitt_Slide.jpg">
+  <img src="Slider_1.jpg">
 </div>
 
-<!-- Order Summary -->
-<div class="order-summary" id="orderSummary">
-  <h3>Selected Hamper Summary</h3>
-  <div id="summaryContent"></div>
+<!-- Currency -->
+<div class="currency-select">
+  <label>Select Currency: </label>
+  <select id="currency">
+    <option value="PKR" selected>🇵🇰 PKR (₨)</option>
+    <option value="USD">🇺🇸 USD ($)</option>
+    <option value="GBP">🇬🇧 GBP (£)</option>
+    <option value="EUR">🇪🇺 EUR (€)</option>
+    <option value="AED">🇦🇪 AED (د.إ)</option>
+    <option value="SAR">🇸🇦 SAR (﷼)</option>
+  </select>
 </div>
+
+<!-- Hampers -->
+<div class="hampers-grid" id="hampersGrid"></div>
+
+<div class="total-section">Total Price: <span id="totalPrice">₨0.00</span></div>
+
+<!-- Live Order Summary -->
+<div class="order-summary" id="liveOrderSummary">Your order summary will appear here...</div>
 
 <!-- Order Form -->
 <form id="orderForm">
@@ -466,34 +136,21 @@ button:hover{
   <input name="phone" placeholder="Receiver Phone Number" required>
   <input name="email" placeholder="Email (Optional)">
   <textarea name="address" placeholder="Delivery Address" required></textarea>
-  <input type="file" id="paymentScreenshot" accept="image/*">
-  <img id="previewImage" style="display:none; margin-top:10px; max-width:200px; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
 
+  <input type="file" id="paymentScreenshot" accept="image/*">
+  <a id="waButton" style="display:none;"></a>
   <button type="submit">💬 Order via WhatsApp</button>
-  <button type="button" onclick="sendEmail()">📧 Order via Email</button>
-  <button type="button" id="downloadPDF" style="display:none; margin-top:10px; padding:10px 15px; border:none; border-radius:8px; background:#ff9800; color:white; cursor:pointer;">📄 Download PDF</button>
 </form>
 
 <div id="popup" class="popup">✅ Your order has been initiated!</div>
 <a href="https://wa.me/923422088395" class="floating-wa" target="_blank">💬</a>
 
-<!-- Footer -->
 <footer class="footer">
   <div class="footer-column">
     <h4>Contact</h4>
-    <p><strong>Phone:</strong> <a href="tel:+923422088395">+92 342 2088395</a></p>
-    <p><strong>Email:</strong> <a href="mailto:markitt121@gmail.com">markitt121@gmail.com</a></p>
-    <p><strong>Hours:</strong> Mon-Sun, 9:00 AM - 12:00 PM</p>
-  </div>
-  <div class="footer-column">
-    <h4>Follow Us</h4>
-    <div class="social-icons">
-      <a href="https://www.facebook.com/markittstore" target="_blank">FB</a>
-      <a href="https://www.instagram.com/markittstore" target="_blank">IG</a>
-      <a href="https://twitter.com/markitt" target="_blank">TW</a>
-      <a href="https://wa.me/923422088395" target="_blank">WA</a>
-      <a href="https://www.linkedin.com/company/markitt" target="_blank">IN</a>
-    </div>
+    <p>📞 <a href="tel:+923422088395">+92 342 2088395</a></p>
+    <p>✉️ <a href="mailto:markitt121@gmail.com">markitt121@gmail.com</a></p>
+    <p>🕒 Mon-Sun 9AM-12PM</p>
   </div>
   <div class="footer-column">
     <h4>About</h4>
@@ -504,217 +161,150 @@ button:hover{
 </footer>
 
 <script>
-const flipCards = document.querySelectorAll('.flip-card');
-const floatingCart = document.getElementById('floatingCart');
-const summaryContent = document.getElementById('summaryContent');
-const downloadBtn = document.getElementById('downloadPDF');
-const orderCounter = document.getElementById('ordersCounter');
-const screenshotInput = document.getElementById('paymentScreenshot');
-const previewImage = document.getElementById('previewImage');
+// Slider
+let slides=document.querySelectorAll('.slider img'); let current=0;
+function showSlide(i){ slides.forEach((s,index)=>{s.classList.remove('active'); if(index===i)s.classList.add('active');}); }
+function nextSlide(){current=(current+1)%slides.length; showSlide(current);}
+function prevSlide(){current=(current-1+slides.length)%slides.length; showSlide(current);}
+setInterval(nextSlide,4000);
 
-let selectedHampers = JSON.parse(localStorage.getItem("cart")) || [];
-let totalOrders = localStorage.getItem("orders") || 0;
+// Hampers Data
+const hampersData=[
+  {name:"Hamper 1",varieties:[{type:"Basic",price:3499,items:["Flour 5kg","Rice 1kg","Sugar 1kg","Cooking Oil"]},{type:"Deluxe",price:3999,items:["Flour 7kg","Rice 2kg","Sugar 2kg","Cooking Oil","Tea 0.5kg"]}]},
+  {name:"Hamper 2",varieties:[{type:"Standard",price:5499,items:["Flour 10kg","Rice 5kg","Sugar 2kg","Cooking Oil 2L","Tea 1kg"]},{type:"Premium",price:5999,items:["Flour 12kg","Rice 6kg","Sugar 3kg","Cooking Oil 3L","Tea 1kg","Biscuits"]}]},
+  {name:"Hamper 3",varieties:[{type:"Classic",price:6999,items:["Flour 15kg","Rice 10kg","Sugar 5kg","Cooking Oil 5L","Tea 2kg","Biscuits & Snacks","Special Gift Item"]},{type:"Luxury",price:7999,items:["Flour 20kg","Rice 15kg","Sugar 7kg","Cooking Oil 7L","Tea 3kg","Biscuits & Snacks","Special Gift Item","Chocolate Box"]}]} 
+];
+const hampersGrid=document.getElementById('hampersGrid');
+const symbols={PKR:"₨",USD:"$",GBP:"£",EUR:"€",AED:"د.إ",SAR:"﷼"};
+const rates={PKR:1,USD:0.00357,GBP:0.0028,EUR:0.0032,AED:0.013,SAR:0.0134};
 
-orderCounter.textContent = totalOrders;
-
-/* ===============================
-   PAYMENT PREVIEW
-=================================*/
-screenshotInput.addEventListener("change", function(){
-  const file = this.files[0];
-  if(file){
-    const reader = new FileReader();
-    reader.onload = function(e){
-      previewImage.src = e.target.result;
-      previewImage.style.display = "block";
-    };
-    reader.readAsDataURL(file);
-  }
-});
-
-/* ===============================
-   HANDLE FLIP CARDS
-=================================*/
-flipCards.forEach(card=>{
-  const hampers = JSON.parse(card.dataset.hampers);
-  const select = card.querySelector('.variety-select');
-  const qtyInput = card.querySelector('.qty-input');
-  const detailsDiv = card.querySelector('.details');
-  const selectBtn = card.querySelector('.select-btn');
-
-  function updateDetails(){
-    const data = hampers[select.value];
-    detailsDiv.innerHTML = `
-      <p><strong>Price:</strong> ₨ ${data.price.toLocaleString()}</p>
-      <ul style="padding-left:18px;">
-        ${data.items.map(i=>`<li>${i}</li>`).join('')}
-      </ul>
-    `;
-  }
-
-  select.addEventListener('change', updateDetails);
-  updateDetails();
-
-  selectBtn.addEventListener('click',()=>{
-    addOrUpdateHamper(card);
-    animateAdd(card);
-  });
-
-  qtyInput.addEventListener('input',()=>{
-    if(isSelected(card.dataset.name)){
-      addOrUpdateHamper(card);
-    }
-  });
-
-  select.addEventListener('change',()=>{
-    if(isSelected(card.dataset.name)){
-      addOrUpdateHamper(card);
-    }
-  });
-});
-
-/* ===============================
-   ADD / UPDATE CART
-=================================*/
-function addOrUpdateHamper(card){
-
-  const hampers = JSON.parse(card.dataset.hampers);
-  const select = card.querySelector('.variety-select');
-  const qty = parseInt(card.querySelector('.qty-input').value) || 1;
-  const data = hampers[select.value];
-
-  const obj = {
-    name: card.dataset.name,
-    variety: select.value,
-    price: data.price,
-    quantity: qty
-  };
-
-  const index = selectedHampers.findIndex(h=>h.name===obj.name);
-
-  if(index>-1){
-    selectedHampers[index]=obj;
-  } else {
-    selectedHampers.push(obj);
-  }
-
-  saveCart();
-  renderCart();
-}
-
-function isSelected(name){
-  return selectedHampers.some(h=>h.name===name);
-}
-
-/* ===============================
-   SAVE CART
-=================================*/
-function saveCart(){
-  localStorage.setItem("cart", JSON.stringify(selectedHampers));
-}
-
-/* ===============================
-   RENDER CART
-=================================*/
-function renderCart(){
-
-  if(selectedHampers.length===0){
-    floatingCart.style.display="none";
-    downloadBtn.style.display="none";
-    return;
-  }
-
-  floatingCart.style.display="block";
-  downloadBtn.style.display="inline-block";
-
-  let total = 0;
-
-  summaryContent.innerHTML = selectedHampers.map((h,index)=>{
-
-    const subtotal = h.price * h.quantity;
-    total += subtotal;
-
-    return `
-      <div style="border-bottom:1px solid #eee; padding:12px 0;">
-        <div style="display:flex; justify-content:space-between;">
-          <strong>${h.name}</strong>
-          <span>₨ ${subtotal.toLocaleString()}</span>
-        </div>
-        <div style="font-size:13px; color:#555;">
-          ${capitalize(h.variety)} | Qty: ${h.quantity}
-        </div>
-        <button onclick="removeItem(${index})"
-          style="background:#ff4d4d;color:white;border:none;padding:4px 8px;border-radius:6px;font-size:12px;margin-top:6px;">
-          Remove
-        </button>
-      </div>
-    `;
-  }).join('') + `
-    <div style="margin-top:15px;padding-top:10px;border-top:2px solid #3fb963;font-weight:700;text-align:right;font-size:18px;color:#3fb963;">
-      Total: ₨ ${total.toLocaleString()}
+hampersData.forEach((h,i)=>{
+  const card=document.createElement('div'); card.className='hamper-card'; card.dataset.name=h.name;
+  card.innerHTML=`
+    <h4>${h.name}</h4>
+    <label>Choose Variety:</label>
+    <select class="hamper-variety">${h.varieties.map((v,index)=>`<option value="${index}">${v.type}</option>`).join('')}</select>
+    <ul class="hamper-items"></ul>
+    <div class="quantity-price">
+      Quantity: <input type="number" class="hamper-quantity" value="0" min="0">
+      <div class="price-display">₨0.00</div>
     </div>
-  `;
-}
-
-function removeItem(index){
-  selectedHampers.splice(index,1);
-  saveCart();
-  renderCart();
-}
-
-/* ===============================
-   ANIMATION
-=================================*/
-function animateAdd(card){
-  card.style.transform="scale(1.05)";
-  setTimeout(()=>card.style.transform="scale(1)",300);
-}
-
-/* ===============================
-   WHATSAPP ORDER
-=================================*/
-document.getElementById("orderForm").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  if(selectedHampers.length===0){
-    alert("Your cart is empty.");
-    return;
-  }
-
-  let message = "🌿 Markitt Hamper Order 🌿\n\n";
-  let total = 0;
-
-  selectedHampers.forEach((h,i)=>{
-    const subtotal = h.price*h.quantity;
-    total+=subtotal;
-    message += `${i+1}. ${h.name} (${capitalize(h.variety)})\n`;
-    message += `Qty: ${h.quantity}\n`;
-    message += `Subtotal: ₨ ${subtotal}\n\n`;
-  });
-
-  message += `Total: ₨ ${total}\n\n`;
-
-  window.open(`https://wa.me/923422088395?text=${encodeURIComponent(message)}`, '_blank');
-
-  totalOrders++;
-  localStorage.setItem("orders", totalOrders);
-  orderCounter.textContent = totalOrders;
-
-  selectedHampers=[];
-  saveCart();
-  renderCart();
+    <div class="preview-popup"><h4>Items:</h4><ul class="hamper-items-preview"></ul></div>`;
+  hampersGrid.appendChild(card);
 });
 
-/* =============================== */
-function capitalize(text){
-  return text.charAt(0).toUpperCase()+text.slice(1);
+const hamperCards=document.querySelectorAll('.hamper-card');
+const totalPriceEl=document.getElementById('totalPrice');
+const liveSummary=document.getElementById('liveOrderSummary');
+
+function updatePricesAndSummary(){
+  const currency=document.getElementById('currency').value;
+  let total=0; let summaryText="Your Order Summary:\n";
+  hamperCards.forEach((card,i)=>{
+    const qty=Number(card.querySelector('.hamper-quantity').value);
+    const varietyIndex=card.querySelector('.hamper-variety').value;
+    const selectedVariety=hampersData[i].varieties[varietyIndex];
+    card.querySelector('.hamper-items').innerHTML=selectedVariety.items.map(it=>`<li>${it}</li>`).join('');
+    card.querySelector('.hamper-items-preview').innerHTML=selectedVariety.items.map(it=>`<li>${it}</li>`).join('');
+    if(qty>0){
+      const price=(selectedVariety.price*qty*rates[currency]).toFixed(2);
+      card.querySelector('.price-display').textContent=`${symbols[currency]}${price}`;
+      total+=Number(price);
+      summaryText+=`${card.dataset.name} (${selectedVariety.type}) x ${qty} = ${symbols[currency]}${price}\nItems: ${selectedVariety.items.join(", ")}\n\n`;
+    } else { card.querySelector('.price-display').textContent=`${symbols[currency]}0.00`; }
+  });
+  totalPriceEl.textContent=`${symbols[currency]}${total.toFixed(2)}`;
+  summaryText+=`Total Price: ${symbols[currency]}${total.toFixed(2)}`;
+  liveSummary.textContent=summaryText;
 }
 
-/* Load cart on page load */
-renderCart();
+document.getElementById('currency').addEventListener('change',updatePricesAndSummary);
+hamperCards.forEach(card=>{
+  card.querySelector('.hamper-quantity').addEventListener('input',updatePricesAndSummary);
+  card.querySelector('.hamper-variety').addEventListener('change',updatePricesAndSummary);
+});
+
+updatePricesAndSummary();
+
+// Form Submission
+const form=document.getElementById('orderForm');
+form.addEventListener('submit', async function(e){
+  e.preventDefault();
+  updatePricesAndSummary();
+
+  let hampersOrder=[]; 
+  hamperCards.forEach((card,i)=>{
+    const qty=Number(card.querySelector('.hamper-quantity').value);
+    const varietyIndex=card.querySelector('.hamper-variety').value;
+    if(qty>0){ 
+      const selectedVariety=hampersData[i].varieties[varietyIndex];
+      hampersOrder.push({
+        hamperName: card.dataset.name,
+        variety: selectedVariety.type,
+        quantity: qty,
+        pricePerUnit: selectedVariety.price,
+        items: selectedVariety.items
+      });
+    }
+  });
+
+  if(hampersOrder.length===0){ alert("Please select at least one hamper and quantity."); return; }
+
+  let orderSummary=""; let total=0;
+  const currency=document.getElementById('currency').value;
+  const symbol=symbols[currency];
+
+  hampersOrder.forEach(h=>{
+    const price=(h.pricePerUnit*h.quantity*rates[currency]).toFixed(2);
+    total+=Number(price);
+    orderSummary+=`${h.hamperName} (${h.variety}) x ${h.quantity} = ${symbol}${price}\nItems: ${h.items.join(", ")}\n\n`;
+  });
+  orderSummary+=`Total Price: ${symbol}${total.toFixed(2)}`;
+
+  // Payment screenshot
+  const paymentFile=form.paymentScreenshot.files[0];
+  let paymentBase64="", paymentType="";
+  if(paymentFile){
+    const reader = new FileReader();
+    reader.onload = async function(){
+      paymentBase64 = reader.result.split(",")[1];
+      paymentType = paymentFile.type;
+      await sendOrder(paymentBase64, paymentType);
+    }
+    reader.readAsDataURL(paymentFile);
+  } else {
+    await sendOrder();
+  }
+
+  async function sendOrder(base64="", type=""){
+    const data={
+      sender: form.sender.value,
+      receiver: form.receiver.value,
+      phone: form.phone.value,
+      email: form.email.value,
+      address: form.address.value,
+      orderSummary: orderSummary,
+      totalPrice: `${symbol}${total.toFixed(2)}`,
+      paymentScreenshotBase64: base64,
+      paymentScreenshotType: type
+    };
+
+    const resp = await fetch("https://script.google.com/macros/s/AKfycby7vC3JMdCC4YJXLpprJPaMcAZa9j3GTShn72h_mMuxYq6nT1KZrqMAvLfpoMITA-HJ/exec",{
+      method:"POST",
+      body: JSON.stringify(data),
+      headers: {"Content-Type":"application/json"}
+    });
+    const result = await resp.json();
+    console.log(result);
+
+    // WhatsApp
+    let waMessage = encodeURIComponent(`Hello, I would like to place this order:\n\n${orderSummary}\nPayment Screenshot Link: ${result.paymentLink || "N/A"}`);
+    const waUrl = `https://wa.me/923422088395?text=${waMessage}`;
+    window.open(waUrl,"_blank");
+    document.getElementById('popup').classList.add('show');
+    setTimeout(()=>document.getElementById('popup').classList.remove('show'),3000);
+  }
+});
 </script>
-
-
-
 </body>
 </html>
