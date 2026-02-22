@@ -293,29 +293,38 @@ form.addEventListener('submit',async function(e){
     reader.readAsDataURL(paymentFile);
   } else await sendToSheet();
 
-  async function sendToSheet(base64="",type=""){
-    const data={
-      sender: form.sender.value,
-      receiver: form.receiver.value,
-      phone: form.phone.value,
-      email: form.email.value,
-      address: form.address.value,
-      orderSummary: orderSummary,
-      totalPrice: `${symbols[currency]}${totalPrice.toFixed(2)}`,
-      paymentBase64: base64,
-      paymentType: type
-    };
-    fetch("https://script.google.com/macros/s/AKfycbw1cIzuyn8P-N5WQ-K4ss0Y22mFvbd8XyQkL-jqWtVLyEt8rle_qwLYwNrO2V5zAL8/exec",{method:"POST",body:JSON.stringify(data)})
-    .then(res=>res.json()).then(r=>{
-      document.getElementById('popup').classList.add('show');
-      setTimeout(()=>{document.getElementById('popup').classList.remove('show');},2000);
-      let whatsappMessage=`Hello! I want to place this order:\n\n${orderSummary}\n\nSender: ${data.sender}\nReceiver: ${data.receiver}\nPhone: ${data.phone}\nAddress: ${data.address}`;
-      const waLink=`https://wa.me/923422088395?text=${encodeURIComponent(whatsappMessage)}`;
-      window.open(waLink,"_blank");
-      document.getElementById('ordersCounter').textContent=Number(document.getElementById('ordersCounter').textContent)+1;
-    }).catch(e=>alert("Error sending order!"));
-  }
-});
+  async function sendToSheet(base64="",type="") {
+  const data = {
+    sender: document.querySelector('input[name="sender"]').value,
+    receiver: document.querySelector('input[name="receiver"]').value,
+    phone: document.querySelector('input[name="phone"]').value,
+    email: document.querySelector('input[name="email"]').value,
+    address: document.querySelector('textarea[name="address"]').value,
+    orderSummary: orderSummary,
+    totalPrice: `${symbols[currency]}${totalPrice.toFixed(2)}`,
+    paymentBase64: base64,
+    paymentType: type
+  };
+    fetch("https://script.google.com/macros/s/AKfycbw1cIzuyn8P-N5WQ-K4ss0Y22mFvbd8XyQkL-jqWtVLyEt8rle_qwLYwNrO2V5zAL8/exec",{method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(r => {
+    document.getElementById('popup').classList.add('show');
+    setTimeout(() => { document.getElementById('popup').classList.remove('show'); }, 2000);
+
+    let whatsappMessage = `Hello! I want to place this order:\n\n${orderSummary}\n\nSender: ${data.sender}\nReceiver: ${data.receiver}\nPhone: ${data.phone}\nAddress: ${data.address}`;
+    const waLink = `https://wa.me/923422088395?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(waLink, "_blank");
+
+    // increment counter
+    document.getElementById('ordersCounter').textContent =
+      Number(document.getElementById('ordersCounter').textContent) + 1;
+  })
+  .catch(e => alert("Error sending order!"));
+};
 </script>
 </body>
 </html>
+
