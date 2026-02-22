@@ -5,90 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Markitt Hamper Service</title>
 <style>
-:root {
-  --primary:#5bcf7a;
-  --primary-dark:#3fb963;
-  --glass-bg:rgba(255,255,255,0.25);
-  --shadow:rgba(0,0,0,0.1);
-  --text-dark:#222;
-  --hover-shadow:rgba(0,0,0,0.3);
-  --bg-color:#f1f1f1;
-  --border-radius:12px;
-}
-body {
-  margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #eafaf0, #ffffff, #f3faf4);
-  background-size: 400% 400%;
-  animation: bgMove 20s ease infinite;
-  color: var(--text-dark);
-}
-@keyframes bgMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 30px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(15px);
-  box-shadow: 0 8px 30px var(--shadow);
-  border-radius: var(--border-radius);
-  margin: 20px;
-  flex-wrap: wrap;
-}
-.header .brand { font-size: 28px; font-weight: 700; color: var(--primary); }
-.header .tagline { font-size: 14px; color: #555; }
-.total-orders { font-weight: 600; background: rgba(91, 207, 122, 0.15); padding: 10px 20px; border-radius: 25px; color: var(--primary-dark); font-size: 16px; text-align: center; }
-.container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-.slider { position: relative; height: 350px; border-radius: var(--border-radius); overflow: hidden; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); }
-.slider img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: all 1s ease; }
-.slider img.active { opacity: 1; }
-.slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 28px; color: white; background: rgba(0, 0, 0, 0.3); padding: 10px 15px; border-radius: 50%; cursor: pointer; user-select: none; }
-.slider-arrow.left { left: 10px; }
-.slider-arrow.right { right: 10px; }
-.currency-select { margin-bottom: 25px; }
-.currency-select select { padding: 10px 15px; border-radius: 10px; border: none; font-size: 14px; background: var(--glass-bg); backdrop-filter: blur(15px); cursor: pointer; }
-.hampers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-.hamper-card { background: var(--glass-bg); backdrop-filter: blur(15px); border-radius: var(--border-radius); padding: 20px; box-shadow: 0 8px 30px var(--shadow); transition: 0.4s; position: relative; overflow: hidden; }
-.hamper-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px var(--hover-shadow); }
-.hamper-card h4 { margin-top: 0; color: var(--primary-dark); font-size: 20px; }
-.hamper-card ul { padding-left: 18px; }
-.quantity-price { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; flex-wrap: wrap; gap: 5px; }
-.hamper-quantity, .hamper-variety { padding: 5px; border-radius: 6px; border: 1px solid #ccc; }
-.price-display { font-weight: 600; color: var(--primary-dark); }
-.total-section { margin-top: 20px; text-align: right; font-size: 18px; font-weight: 700; color: var(--primary-dark); }
-form { margin-top: 30px; background: var(--glass-bg); backdrop-filter: blur(15px); border-radius: var(--border-radius); padding: 25px; box-shadow: 0 8px 30px var(--shadow); }
-form input, form select, form textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px; border: none; background: rgba(255, 255, 255, 0.7); font-size: 14px; }
-form button { width: 100%; padding: 14px; border: none; border-radius: 10px; font-weight: 600; background: var(--primary); color: white; cursor: pointer; margin-bottom: 10px; font-size: 16px; }
-form button:hover { background: var(--primary-dark); }
-.popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); background: var(--primary); color: white; padding: 25px 35px; border-radius: 15px; font-size: 16px; font-weight: 600; box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3); z-index: 999; opacity: 0; transition: 0.3s; }
-.popup.show { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-.footer { background: #f9f9f9; padding: 25px 30px; border-top: 2px solid var(--primary); display: flex; flex-wrap: wrap; justify-content: space-between; margin-top: 50px; border-radius: var(--border-radius); }
-.footer-column { flex: 1; min-width: 200px; margin-bottom: 20px; }
-.footer-column h4 { color: var(--primary-dark); font-size: 16px; margin-bottom: 10px; }
-.footer-column p, .footer-column a { color: #555; font-size: 14px; margin: 5px 0; text-decoration: none; }
-.footer-column a:hover { color: var(--primary); }
-.floating-wa { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; padding: 16px; border-radius: 50%; font-size: 22px; text-decoration: none; animation: pulse 2s infinite; }
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
-  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-}
-.order-summary { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); padding: 15px; border-radius: 15px; margin-top: 15px; font-size: 14px; white-space: pre-line; }
-@media (max-width: 768px) {
-  .header { flex-direction: column; text-align: center; }
-  .total-orders { margin-top: 15px; }
-}
-.hamper-card:hover .preview-popup { opacity: 1; visibility: visible; }
-.preview-popup { position: absolute; top: 10px; left: 10px; background: rgba(0, 0, 0, 0.7); color: white; padding: 15px; border-radius: 8px; visibility: hidden; opacity: 0; transition: all 0.3s ease; max-width: 250px; z-index: 2; font-size: 14px; }
+:root{--primary:#5bcf7a;--primary-dark:#3fb963;--glass-bg:rgba(255,255,255,0.25);--shadow:rgba(0,0,0,0.1);--text-dark:#222;--hover-shadow:rgba(0,0,0,0.3);--border-radius:12px;}
+body{margin:0;font-family:'Segoe UI',sans-serif;background:#f3faf4;color:var(--text-dark);}
+.header{display:flex;justify-content:space-between;align-items:center;padding:20px 30px;background:var(--glass-bg);backdrop-filter:blur(15px);border-radius:var(--border-radius);margin:20px;flex-wrap:wrap;}
+.header .brand{font-size:28px;font-weight:700;color:var(--primary);}
+.total-orders{font-weight:600;background:rgba(91,207,122,0.15);padding:10px 20px;border-radius:25px;color:var(--primary-dark);font-size:16px;text-align:center;}
+.container{max-width:1200px;margin:30px auto;padding:0 20px;}
+.hampers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+.hamper-card{background:var(--glass-bg);backdrop-filter:blur(15px);border-radius:var(--border-radius);padding:20px;box-shadow:0 8px 30px var(--shadow);position:relative;overflow:hidden;transition:0.4s;}
+.hamper-card:hover{transform:translateY(-10px);box-shadow:0 15px 40px var(--hover-shadow);}
+.hamper-card h4{margin-top:0;color:var(--primary-dark);font-size:20px;}
+.quantity-price{display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:5px;}
+.hamper-quantity,.hamper-variety{padding:5px;border-radius:6px;border:1px solid #ccc;}
+.price-display{font-weight:600;color:var(--primary-dark);}
+.total-section{margin-top:20px;text-align:right;font-size:18px;font-weight:700;color:var(--primary-dark);}
+form{margin-top:30px;background:var(--glass-bg);backdrop-filter:blur(15px);border-radius:var(--border-radius);padding:25px;box-shadow:0 8px 30px var(--shadow);}
+form input,form select,form textarea{width:100%;padding:12px;margin-bottom:15px;border-radius:10px;border:none;background:rgba(255,255,255,0.7);font-size:14px;}
+form button{width:100%;padding:14px;border:none;border-radius:10px;font-weight:600;background:var(--primary);color:white;cursor:pointer;margin-bottom:10px;font-size:16px;}
+form button:hover{background:var(--primary-dark);}
+.popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);background:var(--primary);color:white;padding:25px 35px;border-radius:15px;font-size:16px;font-weight:600;box-shadow:0 15px 50px rgba(0,0,0,0.3);z-index:999;opacity:0;transition:0.3s;}
+.popup.show{transform:translate(-50%,-50%) scale(1);opacity:1;}
+.order-summary{background:rgba(255,255,255,0.6);backdrop-filter:blur(12px);padding:15px;border-radius:15px;margin-top:15px;font-size:14px;white-space:pre-line;}
 </style>
 </head>
 <body>
-
 <div class="header">
   <div>
     <div class="brand">Markitt Hamper Service</div>
@@ -98,81 +38,40 @@ form button:hover { background: var(--primary-dark); }
 </div>
 
 <div class="container">
-
-<!-- Slider -->
-<div class="slider" id="slider">
-  <span class="slider-arrow left" onclick="prevSlide()">❮</span>
-  <span class="slider-arrow right" onclick="nextSlide()">❯</span>
-  <img src="Slider_1.jpg" class="active">
-  <img src="Markitt_Slide.jpg">
-  <img src="Slider_1.jpg">
-</div>
-
-<!-- Currency -->
 <div class="currency-select">
-  <label>Select Currency: </label>
-  <select id="currency">
-    <option value="PKR" selected>🇵🇰 PKR (₨)</option>
-    <option value="USD">🇺🇸 USD ($)</option>
-    <option value="GBP">🇬🇧 GBP (£)</option>
-    <option value="EUR">🇪🇺 EUR (€)</option>
-    <option value="AED">🇦🇪 AED (د.إ)</option>
-    <option value="SAR">🇸🇦 SAR (﷼)</option>
-  </select>
+<label>Select Currency:</label>
+<select id="currency">
+<option value="PKR" selected>PKR (₨)</option>
+<option value="USD">USD ($)</option>
+<option value="GBP">GBP (£)</option>
+<option value="EUR">EUR (€)</option>
+<option value="AED">AED (د.إ)</option>
+<option value="SAR">SAR (﷼)</option>
+</select>
 </div>
 
-<!-- Hampers -->
 <div class="hampers-grid" id="hampersGrid"></div>
-
 <div class="total-section">Total Price: <span id="totalPrice">₨0.00</span></div>
-
-<!-- Live Order Summary -->
 <div class="order-summary" id="liveOrderSummary">Your order summary will appear here...</div>
 
-<!-- Order Form -->
 <form id="orderForm">
-  <input name="sender" placeholder="Sender Name / Country" required>
-  <input name="receiver" placeholder="Receiver Name / City in Pakistan" required>
-  <input name="phone" placeholder="Receiver Phone Number" required>
-  <input name="email" placeholder="Email (Optional)">
-  <textarea name="address" placeholder="Delivery Address" required></textarea>
-
-  <input type="file" id="paymentScreenshot" accept="image/*">
-  <a id="waButton" style="display:none;"></a>
-  <button type="submit">💬 Order via WhatsApp</button>
+<input name="sender" placeholder="Sender Name / Country" required>
+<input name="receiver" placeholder="Receiver Name / City in Pakistan" required>
+<input name="phone" placeholder="Receiver Phone Number" required>
+<input name="email" placeholder="Email (Optional)">
+<textarea name="address" placeholder="Delivery Address" required></textarea>
+<input type="file" id="paymentScreenshot" accept="image/*">
+<button type="submit">💬 Order via WhatsApp & Google Sheet</button>
 </form>
-
 <div id="popup" class="popup">✅ Your order has been initiated!</div>
-<a href="https://wa.me/923422088395" class="floating-wa" target="_blank">💬</a>
-
-<footer class="footer">
-  <div class="footer-column">
-    <h4>Contact</h4>
-    <p>📞 <a href="tel:+923422088395">+92 342 2088395</a></p>
-    <p>✉️ <a href="mailto:markitt121@gmail.com">markitt121@gmail.com</a></p>
-    <p>🕒 Mon-Sun 9AM-12PM</p>
-  </div>
-  <div class="footer-column">
-    <h4>About</h4>
-    <p>© 2026 Markitt Hamper Service</p>
-    <p>United Retail Pvt Ltd</p>
-    <p>All Rights Reserved</p>
-  </div>
-</footer>
+</div>
 
 <script>
-// Slider
-let slides=document.querySelectorAll('.slider img'); let current=0;
-function showSlide(i){ slides.forEach((s,index)=>{s.classList.remove('active'); if(index===i)s.classList.add('active');}); }
-function nextSlide(){current=(current+1)%slides.length; showSlide(current);}
-function prevSlide(){current=(current-1+slides.length)%slides.length; showSlide(current);}
-setInterval(nextSlide,4000);
-
-// Hampers Data
+// --- Data ---
 const hampersData=[
-  {name:"Hamper 1",varieties:[{type:"Basic",price:3499,items:["Flour 5kg","Rice 1kg","Sugar 1kg","Cooking Oil"]},{type:"Deluxe",price:3999,items:["Flour 7kg","Rice 2kg","Sugar 2kg","Cooking Oil","Tea 0.5kg"]}]},
-  {name:"Hamper 2",varieties:[{type:"Standard",price:5499,items:["Flour 10kg","Rice 5kg","Sugar 2kg","Cooking Oil 2L","Tea 1kg"]},{type:"Premium",price:5999,items:["Flour 12kg","Rice 6kg","Sugar 3kg","Cooking Oil 3L","Tea 1kg","Biscuits"]}]},
-  {name:"Hamper 3",varieties:[{type:"Classic",price:6999,items:["Flour 15kg","Rice 10kg","Sugar 5kg","Cooking Oil 5L","Tea 2kg","Biscuits & Snacks","Special Gift Item"]},{type:"Luxury",price:7999,items:["Flour 20kg","Rice 15kg","Sugar 7kg","Cooking Oil 7L","Tea 3kg","Biscuits & Snacks","Special Gift Item","Chocolate Box"]}]} 
+{ name:"Hamper 1", varieties:[{type:"Basic",price:3499,items:["Flour 5kg","Rice 1kg","Sugar 1kg","Cooking Oil"]},{type:"Deluxe",price:3999,items:["Flour 7kg","Rice 2kg","Sugar 2kg","Cooking Oil","Tea 0.5kg"]}]},
+{ name:"Hamper 2", varieties:[{type:"Standard",price:5499,items:["Flour 10kg","Rice 5kg","Sugar 2kg","Cooking Oil 2L","Tea 1kg"]},{type:"Premium",price:5999,items:["Flour 12kg","Rice 6kg","Sugar 3kg","Cooking Oil 3L","Tea 1kg","Biscuits"]}]},
+{ name:"Hamper 3", varieties:[{type:"Classic",price:6999,items:["Flour 15kg","Rice 10kg","Sugar 5kg","Cooking Oil 5L","Tea 2kg","Biscuits & Snacks","Special Gift Item"]},{type:"Luxury",price:7999,items:["Flour 20kg","Rice 15kg","Sugar 7kg","Cooking Oil 7L","Tea 3kg","Biscuits & Snacks","Special Gift Item","Chocolate Box"]}]}
 ];
 const hampersGrid=document.getElementById('hampersGrid');
 const symbols={PKR:"₨",USD:"$",GBP:"£",EUR:"€",AED:"د.إ",SAR:"﷼"};
@@ -180,16 +79,12 @@ const rates={PKR:1,USD:0.00357,GBP:0.0028,EUR:0.0032,AED:0.013,SAR:0.0134};
 
 hampersData.forEach((h,i)=>{
   const card=document.createElement('div'); card.className='hamper-card'; card.dataset.name=h.name;
-  card.innerHTML=`
-    <h4>${h.name}</h4>
-    <label>Choose Variety:</label>
-    <select class="hamper-variety">${h.varieties.map((v,index)=>`<option value="${index}">${v.type}</option>`).join('')}</select>
-    <ul class="hamper-items"></ul>
-    <div class="quantity-price">
-      Quantity: <input type="number" class="hamper-quantity" value="0" min="0">
-      <div class="price-display">₨0.00</div>
-    </div>
-    <div class="preview-popup"><h4>Items:</h4><ul class="hamper-items-preview"></ul></div>`;
+  card.innerHTML=`<h4>${h.name}</h4>
+  <label>Choose Variety:</label>
+  <select class="hamper-variety">${h.varieties.map((v,idx)=>`<option value="${idx}">${v.type}</option>`).join('')}</select>
+  <ul class="hamper-items"></ul>
+  <div class="quantity-price">Quantity: <input type="number" class="hamper-quantity" value="0" min="0">
+  <div class="price-display">₨0.00</div></div>`;
   hampersGrid.appendChild(card);
 });
 
@@ -205,13 +100,13 @@ function updatePricesAndSummary(){
     const varietyIndex=card.querySelector('.hamper-variety').value;
     const selectedVariety=hampersData[i].varieties[varietyIndex];
     card.querySelector('.hamper-items').innerHTML=selectedVariety.items.map(it=>`<li>${it}</li>`).join('');
-    card.querySelector('.hamper-items-preview').innerHTML=selectedVariety.items.map(it=>`<li>${it}</li>`).join('');
     if(qty>0){
-      const price=(selectedVariety.price*qty*rates[currency]).toFixed(2);
-      card.querySelector('.price-display').textContent=`${symbols[currency]}${price}`;
-      total+=Number(price);
-      summaryText+=`${card.dataset.name} (${selectedVariety.type}) x ${qty} = ${symbols[currency]}${price}\nItems: ${selectedVariety.items.join(", ")}\n\n`;
-    } else { card.querySelector('.price-display').textContent=`${symbols[currency]}0.00`; }
+      const totalPriceForCard = selectedVariety.price * qty;
+      const convertedPrice = totalPriceForCard * rates[currency];
+      card.querySelector('.price-display').textContent=`${symbols[currency]}${convertedPrice.toFixed(2)}`;
+      total+=convertedPrice;
+      summaryText+=`${card.dataset.name} (${selectedVariety.type}) x ${qty} = ${symbols[currency]}${convertedPrice.toFixed(2)}\nItems: ${selectedVariety.items.join(", ")}\n\n`;
+    } else card.querySelector('.price-display').textContent=`${symbols[currency]}0.00`;
   });
   totalPriceEl.textContent=`${symbols[currency]}${total.toFixed(2)}`;
   summaryText+=`Total Price: ${symbols[currency]}${total.toFixed(2)}`;
@@ -223,60 +118,49 @@ hamperCards.forEach(card=>{
   card.querySelector('.hamper-quantity').addEventListener('input',updatePricesAndSummary);
   card.querySelector('.hamper-variety').addEventListener('change',updatePricesAndSummary);
 });
-
 updatePricesAndSummary();
 
-// Form Submission
+// --- Form Submission ---
 const form=document.getElementById('orderForm');
 form.addEventListener('submit', async function(e){
   e.preventDefault();
   updatePricesAndSummary();
 
-  let hampersOrder=[]; 
+  let hampersOrder=[];
   hamperCards.forEach((card,i)=>{
     const qty=Number(card.querySelector('.hamper-quantity').value);
     const varietyIndex=card.querySelector('.hamper-variety').value;
-    if(qty>0){ 
+    if(qty>0){
       const selectedVariety=hampersData[i].varieties[varietyIndex];
-      hampersOrder.push({
-        hamperName: card.dataset.name,
-        variety: selectedVariety.type,
-        quantity: qty,
-        pricePerUnit: selectedVariety.price,
-        items: selectedVariety.items
-      });
+      hampersOrder.push({name:card.dataset.name,variety:selectedVariety.type,quantity:qty,items:selectedVariety.items,price:selectedVariety.price});
     }
   });
 
-  if(hampersOrder.length===0){ alert("Please select at least one hamper and quantity."); return; }
+  if(hampersOrder.length===0){ alert("Select at least one hamper!"); return; }
 
-  let orderSummary=""; let total=0;
   const currency=document.getElementById('currency').value;
-  const symbol=symbols[currency];
-
+  let orderSummary=""; let totalPrice=0;
   hampersOrder.forEach(h=>{
-    const price=(h.pricePerUnit*h.quantity*rates[currency]).toFixed(2);
-    total+=Number(price);
-    orderSummary+=`${h.hamperName} (${h.variety}) x ${h.quantity} = ${symbol}${price}\nItems: ${h.items.join(", ")}\n\n`;
+    const total=h.price*h.quantity*rates[currency];
+    totalPrice+=total;
+    orderSummary+=`${h.name} (${h.variety}) x ${h.quantity} = ${symbols[currency]}${total.toFixed(2)}\nItems: ${h.items.join(", ")}\n\n`;
   });
-  orderSummary+=`Total Price: ${symbol}${total.toFixed(2)}`;
+  orderSummary+=`Total: ${symbols[currency]}${totalPrice.toFixed(2)}`;
 
-  // Payment screenshot
-  const paymentFile=form.paymentScreenshot.files[0];
+  // Payment Screenshot
+  const paymentFile = form.paymentScreenshot.files[0];
   let paymentBase64="", paymentType="";
   if(paymentFile){
     const reader = new FileReader();
     reader.onload = async function(){
       paymentBase64 = reader.result.split(",")[1];
       paymentType = paymentFile.type;
-      await sendOrder(paymentBase64, paymentType);
+      await sendToGoogleSheet(paymentBase64,paymentType);
     }
     reader.readAsDataURL(paymentFile);
-  } else {
-    await sendOrder();
-  }
+  } else await sendToGoogleSheet();
 
-  async function sendOrder(base64="", type=""){
+  async function sendToGoogleSheet(base64="", type=""){
     const data={
       sender: form.sender.value,
       receiver: form.receiver.value,
@@ -284,25 +168,27 @@ form.addEventListener('submit', async function(e){
       email: form.email.value,
       address: form.address.value,
       orderSummary: orderSummary,
-      totalPrice: `${symbol}${total.toFixed(2)}`,
+      totalPrice: `${symbols[currency]}${totalPrice.toFixed(2)}`,
       paymentScreenshotBase64: base64,
       paymentScreenshotType: type
     };
-
-    const resp = await fetch("https://script.google.com/macros/s/AKfycby7vC3JMdCC4YJXLpprJPaMcAZa9j3GTShn72h_mMuxYq6nT1KZrqMAvLfpoMITA-HJ/exec",{
-      method:"POST",
-      body: JSON.stringify(data),
-      headers: {"Content-Type":"application/json"}
-    });
-    const result = await resp.json();
+    // --- Replace with your Google Apps Script Web App URL ---
+    const resp=await fetch("YOUR_WEB_APP_URL_HERE", {method:"POST",body:JSON.stringify(data),headers:{"Content-Type":"application/json"}});
+    const result=await resp.json();
     console.log(result);
 
     // WhatsApp
-    let waMessage = encodeURIComponent(`Hello, I would like to place this order:\n\n${orderSummary}\nPayment Screenshot Link: ${result.paymentLink || "N/A"}`);
-    const waUrl = `https://wa.me/923422088395?text=${waMessage}`;
-    window.open(waUrl,"_blank");
+    let waMsg=`Hello! I would like to place this order:\n\n${orderSummary}`;
+    if(result.paymentLink) waMsg+="\nPayment Screenshot: "+result.paymentLink;
+    window.open(`https://wa.me/923422088395?text=${encodeURIComponent(waMsg)}`,"_blank");
+
+    // Popup
     document.getElementById('popup').classList.add('show');
     setTimeout(()=>document.getElementById('popup').classList.remove('show'),3000);
+
+    // Increment Orders Placed
+    const counter=document.getElementById('ordersCounter');
+    counter.textContent=Number(counter.textContent)+1;
   }
 });
 </script>
