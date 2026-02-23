@@ -47,6 +47,24 @@ body {
 .brand-text{ font-family:'Cinzel', serif; font-size:28px; font-weight:700; color:var(--gold); }
 .tagline{ font-size:13px; color:#aaa; }
 
+.container { max-width:1100px; margin:30px auto; padding:0 20px;}
+
+
+.slider { position:relative; height:350px; border-radius:20px; overflow:hidden; margin-bottom:30px; box-shadow:0 10px 30px rgba(0,0,0,0.15);}
+.slider img { width:100%; height:110%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:all 1s ease;}
+.slider img.active { opacity:1;}
+.slider-arrow { position:absolute; top:50%; transform:translateY(-50%); font-size:28px; color:white; background:rgba(0,0,0,0.3); padding:10px 15px; border-radius:50%; cursor:pointer; user-select:none;}
+.slider-arrow.left {left:10px;}
+.slider-arrow.right {right:10px;}
+.slider img.mrkit{
+  height:110% !important;
+  width:100%; 
+   position:absolute; 
+   margin-top: 0;
+   margin-bottom: 15;
+}
+
+
 .total-orders {
   border:1px solid var(--gold);
   padding:8px 22px;
@@ -241,11 +259,168 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
 /* Form */
 .order-form{ margin:20px 30px; padding:20px; border-radius:15px; background: var(--glass); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.1); }
 .order-form h2{ color:var(--gold); margin-bottom:15px; }
+.section-title{
+  font-family:'Cinzel', serif;
+  color:var(--gold);
+  margin-bottom:15px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  padding-bottom:5px;
+}
 
+.form-section{
+  margin-bottom:30px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+}
+
+.form-group.full-width{
+  grid-column:1/-1;
+}
+
+.form-group label{
+  font-weight:600;
+  margin-bottom:6px;
+  color:#ccc;
+}
 /* Responsive */
 @media(max-width:768px){
   .hamper-card img{ height:150px; }
   .header{ flex-direction:column; gap:15px; }
+}
+/* ============================= */
+/* ULTRA PREMIUM GLASS FOOTER   */
+/* ============================= */
+
+.footer{
+  position:relative;
+  background:linear-gradient(145deg,#0c0c0c,#141414);
+  padding:70px 40px 30px;
+  margin-top:70px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  overflow:hidden;
+}
+
+/* Glass Container */
+.footer-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:50px;
+  background:rgba(255,255,255,0.03);
+  backdrop-filter:blur(20px);
+  padding:40px;
+  border-radius:25px;
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 25px 60px rgba(0,0,0,0.6);
+}
+
+/* Gold Glow Animation */
+@keyframes glowPulse{
+  0%{ box-shadow:0 0 5px rgba(198,167,94,0.2); }
+  50%{ box-shadow:0 0 25px rgba(198,167,94,0.6); }
+  100%{ box-shadow:0 0 5px rgba(198,167,94,0.2); }
+}
+
+.footer-col h4{
+  color:var(--gold);
+  margin-bottom:18px;
+  font-size:16px;
+  letter-spacing:1px;
+}
+
+.footer-brand{
+  font-family:'Cinzel', serif;
+  color:var(--gold);
+  font-size:24px;
+  margin-bottom:10px;
+}
+
+.footer-col p,
+.footer-col ul li a{
+  color:#aaa;
+  font-size:14px;
+  transition:0.3s;
+}
+
+.footer-col ul{
+  list-style:none;
+  padding:0;
+}
+
+.footer-col ul li{
+  margin-bottom:10px;
+}
+
+/* Link Hover Glow */
+.footer-col ul li a:hover{
+  color:var(--gold);
+  text-shadow:0 0 10px rgba(198,167,94,0.8);
+}
+
+/* Social Icons */
+.social-icons{
+  display:flex;
+  gap:18px;
+  margin-top:15px;
+}
+
+.social-icon{
+  width:45px;
+  height:45px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(255,255,255,0.05);
+  color:var(--gold);
+  transition:0.4s;
+  position:relative;
+}
+
+.social-icon svg{
+  width:22px;
+  height:22px;
+}
+
+.social-icon:hover{
+  background:var(--gold);
+  color:#111;
+  transform:translateY(-5px) scale(1.1);
+  animation:glowPulse 1.5s infinite;
+}
+
+/* Google Map */
+.footer-map{
+  margin-top:15px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 15px 40px rgba(0,0,0,0.5);
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+.footer-map iframe{
+  width:100%;
+  height:220px;
+  border:0;
+}
+
+/* Bottom */
+.footer-bottom{
+  text-align:center;
+  margin-top:50px;
+  padding-top:25px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  color:#777;
+  font-size:13px;
+  letter-spacing:1px;
 }
 </style>
 </head>
@@ -263,14 +438,28 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
   <div class="total-orders">💚 Orders Placed: <span id="ordersCounter">0</span></div>
 </div>
 
+<div class="container">
+<!-- Slider -->
+<div class="slider" id="slider">
+  <span class="slider-arrow left" onclick="prevSlide()">❮</span>
+  <span class="slider-arrow right" onclick="nextSlide()">❯</span>
+  <img src="Slider_1.jpg" class="active">
+  <img src="Markitt_Slide.jpg" class="mrkit">
+  <img src="Slider_1.jpg">
+</div>
+
 <!-- Currency Selector -->
 <div class="currency-select">
 <label>Select Currency:</label>
 <select id="currencySelect">
-  <option value="PKR" data-country="Pakistan" data-rate="1">🇵🇰 Pakistan - PKR (₨)</option>
-  <option value="USD" data-country="United States" data-rate="0.0057">🇺🇸 USD ($)</option>
-  <option value="EUR" data-country="Germany" data-rate="0.0052">🇪🇺 EUR (€)</option>
-  <option value="GBP" data-country="United Kingdom" data-rate="0.0045">🇬🇧 GBP (£)</option>
+  <option value="PKR" data-country="Pakistan">🇵🇰 Pakistan - PKR (₨)</option>
+  <option value="USD" data-country="United States">🇺🇸 United States - USD ($)</option>
+  <option value="EUR" data-country="Germany">🇪🇺 Europe - EUR (€)</option>
+  <option value="GBP" data-country="United Kingdom">🇬🇧 United Kingdom - GBP (£)</option>
+  <option value="AED" data-country="UAE">🇦🇪 UAE - AED</option>
+  <option value="SAR" data-country="Saudi Arabia">🇸🇦 Saudi Arabia - SAR</option>
+  <option value="INR" data-country="India">🇮🇳 India - INR</option>
+  <option value="AUD" data-country="Australia">🇦🇺 Australia - AUD</option>
 </select>
 </div>
 
@@ -322,50 +511,66 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
   </table>
 </div>
 
-<!-- Customer Form -->
-<!-- Customer Details Form -->
+
+  <!-- Customer & Delivery Details -->
 <form id="orderForm" class="order-form">
-  <h2>Customer Details & Payment</h2>
-  
-  <div class="form-grid">
-    <div class="form-group">
-      <label>Country</label>
-      <input name="country" id="countryName" placeholder="Country" readonly>
-    </div>
-    <div class="form-group">
-      <label>Sender Name</label>
-      <input name="sender" placeholder="Sender Name" required>
-    </div>
-    <div class="form-group">
-      <label>Sender Phone</label>
-      <input name="senderPhone" placeholder="Sender Phone Number" required>
-    </div>
-    <div class="form-group">
-      <label>Sender City</label>
-      <input name="senderCity" placeholder="Sender City" required>
-    </div>
-    <div class="form-group">
-      <label>Receiver Name</label>
-      <input name="receiver" placeholder="Receiver Name" required>
-    </div>
-    <div class="form-group">
-      <label>Receiver Phone</label>
-      <input name="phone" placeholder="Receiver Phone Number" required>
-    </div>
-    <div class="form-group">
-      <label>Email</label>
-      <input name="email" placeholder="Email">
-    </div>
-    <div class="form-group full-width">
-      <label>Delivery Address (Karachi Only)</label>
-      <textarea name="address" placeholder="Delivery Address" required></textarea>
-    </div>
-    <div class="form-group full-width">
-      <label>Payment Slip (For Bank Invoice)</label>
-      <input type="file" name="paymentSlip" accept=".pdf,.jpg,.png">
+
+  <h2>Customer & Delivery Information</h2>
+
+  <div class="form-section">
+    <h3 class="section-title">Sender Information</h3>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Country</label>
+        <input name="country" id="countryName" readonly>
+      </div>
+      <div class="form-group">
+        <label>Sender Name</label>
+        <input name="sender" required>
+      </div>
+      <div class="form-group">
+        <label>Sender Phone</label>
+        <input name="senderPhone" required>
+      </div>
+      <div class="form-group">
+        <label>Sender City</label>
+        <input name="senderCity" required>
+      </div>
     </div>
   </div>
-  
+
+  <div class="form-section">
+    <h3 class="section-title">Receiver & Delivery Details</h3>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Receiver Name</label>
+        <input name="receiver" required>
+      </div>
+      <div class="form-group">
+        <label>Receiver Phone</label>
+        <input name="phone" required>
+      </div>
+      <div class="form-group full-width">
+        <label>Delivery Address (Karachi Only)</label>
+        <textarea name="address" rows="3" required></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3 class="section-title">Payment Confirmation</h3>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Email Address (For Invoice Copy)</label>
+        <input name="email">
+      </div>
+      <div class="form-group full-width">
+        <label>Upload Payment Slip (Bank Transfer Proof)</label>
+        <input type="file" name="paymentSlip" accept=".pdf,.jpg,.png">
+      </div>
+    </div>
+  </div>
+
   <button type="submit">Place Order via WhatsApp / Email</button>
 </form>
 
@@ -384,11 +589,22 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
 </div>
 
 <script>
+// Slider
+let slides=document.querySelectorAll('.slider img');
+let current=0;
+function showSlide(i){
+  slides.forEach((s,index)=>{s.classList.remove('active'); if(index===i)s.classList.add('active');});
+}
+function nextSlide(){current=(current+1)%slides.length; showSlide(current);}
+function prevSlide(){current=(current-1+slides.length)%slides.length; showSlide(current);}
+setInterval(nextSlide,4000);
+
+
 // Hamper Data
 const hampers = [
-  {name:"Hamper 1", basePrice:3499, items:["Flour 5kg","Rice 1kg","Sugar 1kg","Oil"]},
-  {name:"Hamper 2", basePrice:5499, items:["Flour 10kg","Rice 5kg","Sugar 2kg","Oil 2L","Tea"]},
-  {name:"Hamper 3", basePrice:6999, items:["Flour 15kg","Rice 10kg","Sugar 5kg","Oil 5L","Tea 2kg","Biscuits"]},
+  {name:"Hamper 1", basePrice:3499, items:["Flour 5kg","Rice 1kg","Sugar 1kg","Oil 1Pkt", "Daal Chana 500g","Basin 1kg","Salt 1 Pkt","Tea 1Pkt", "Vermicilli 1 pkt", "Rooh Afza 500ml","Dates 250g"]},
+  {name:"Hamper 2", basePrice:5499, items:["Flour 5kg","Rice 2kg","Sugar 2kg","Oil 2Pkt", "Daal Chana 1kg","Basin 1kg","Salt 1 Pkt","Tea 1Pkt", "Vermicilli 1 pkt", "Rooh Afza 500ml","Dates 250g","Black Chana 1kg","Red Chilli Powder 200g"]},
+  {name:"Hamper 3", basePrice:6999, items:["Flour 10kg","Rice 3kg","Sugar 2kg","Oil 3L", "Daal Chana 1kg","Basin 1kg","Salt 1 Pkt","Tea 1Pkt", "Vermicilli 1 pkt", "Rooh Afza 800ml","Dates 250g","Daal Mong 500g","Red Chilli Powder 200g","Black Chana 1kg"]},
 ];
 
 // Render Hampers
@@ -416,22 +632,50 @@ hampers.forEach((h,i)=>{
 let ordersPlaced = 0;
 function incrementOrders(){ ordersPlaced++; document.getElementById("ordersCounter").textContent = ordersPlaced; }
 
-// Currency Conversion
+
+
+let exchangeRates = {};
 const currencySelect = document.getElementById("currencySelect");
-currencySelect.addEventListener("change", function(){
-  const selected = this.options[this.selectedIndex];
-  const country = selected.dataset.country;
-  const rate = parseFloat(selected.dataset.rate);
+
+// Fetch live rates from API
+async function fetchRates() {
+  try {
+    const response = await fetch("https://app.exchangerate-api.com/activate/df6c0bad11c3113ba055153219");
+    const data = await response.json();
+    exchangeRates = data.rates;
+    console.log("Live exchange rates loaded.");
+  } catch (error) {
+    console.error("Error fetching exchange rates:", error);
+  }
+}
+
+fetchRates();
+
+// Update prices when currency changes
+currencySelect.addEventListener("change", function () {
+  const selectedCurrency = this.value;
+  const country = this.options[this.selectedIndex].dataset.country;
   document.getElementById("countryName").value = country;
 
-  document.querySelectorAll(".hamper-card").forEach(card=>{
+  document.querySelectorAll(".hamper-card").forEach(card => {
     const basePrice = parseFloat(card.dataset.price);
-    card.querySelector(".price").textContent = `₨ ${basePrice} / ${selected.value} ${Math.round(basePrice*rate)}`;
-    card.querySelectorAll(".variety option").forEach(opt=>{
-      if(opt.dataset.price) opt.textContent = `${opt.value} - ₨ ${opt.dataset.price} / ${selected.value} ${Math.round(opt.dataset.price*rate)}`;
-    });
+    const priceEl = card.querySelector(".price");
+
+    let converted = basePrice;
+
+    if (selectedCurrency !== "PKR" && exchangeRates[selectedCurrency]) {
+      converted = basePrice * exchangeRates[selectedCurrency];
+    }
+
+    priceEl.textContent = `${selectedCurrency} ${Math.round(converted)}`;
   });
+
+  updateSummary();
 });
+
+
+
+
 
 // Update Summary
 function updateSummary(){
@@ -479,50 +723,138 @@ document.querySelectorAll(".qty,.variety").forEach(el=> el.addEventListener("cha
 function toggleCart(){
   document.getElementById("cartModal").classList.toggle("active");
 }
-
-// Download PDF
 function downloadPDF(){
+
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  // Title
-  doc.setFontSize(18);
-  doc.setTextColor(198,167,94); // gold color
-  doc.text("Markitt Hamper Order Receipt", 14, 20);
+  // Generate Invoice Number
+  const invoiceNumber = "INV-" + Date.now().toString().slice(-6);
 
-  // Date
+  const currency = document.getElementById("totalPrice").innerText;
   const date = new Date().toLocaleString();
-  doc.setFontSize(10);
-  doc.setTextColor(150);
-  doc.text(`Date: ${date}`, 14, 28);
 
-  // Prepare table data
-  const tableData = [];
-  document.querySelectorAll("#summaryItems tr").forEach(tr=>{
-    const cells = tr.querySelectorAll("td");
-    tableData.push([
-      cells[0].innerText,
-      cells[1].innerText,
-      cells[2].innerText,
-      cells[3].innerText,
-      cells[4].innerText
-    ]);
-  });
+  // ADD LOGO
+  const logo = new Image();
+  logo.src = "Logo.png";
 
-  // Add table
-  doc.autoTable({
-    startY: 35,
-    head: [['Hamper', 'Variety', 'Qty', 'Price', 'Amount']],
-    body: tableData,
-    theme: 'grid',
-    headStyles: { fillColor: [198,167,94], textColor: 0 },
-    styles: { textColor: 0, fontSize: 10, cellPadding: 3 },
-    foot: [['', '', '', 'Total', document.getElementById("totalPrice").innerText]],
-    footStyles: { fillColor: [240,240,240], textColor: 0, fontStyle:'bold' }
-  });
+  logo.onload = function(){
 
-  doc.save("Markitt_Hamper_Order.pdf");
+    doc.addImage(logo, 'PNG', 14, 10, 30, 20);
+
+    // Company Header
+    doc.setFontSize(18);
+    doc.setTextColor(198,167,94);
+    doc.text("MARKITT HAMPER SERVICE", 50, 18);
+
+    doc.setFontSize(10);
+    doc.setTextColor(80);
+    doc.text("Serving Across Pakistan – Orders Worldwide", 50, 24);
+
+    doc.text("UBL – United Bank Limited", 14, 40);
+    doc.text("IBAN: PK52 UNIL 0110 0050 0044 0789", 14, 45);
+
+    doc.text(`Invoice No: ${invoiceNumber}`, 150, 18);
+    doc.text(`Date: ${date}`, 150, 24);
+
+    // Divider Line
+    doc.line(14, 50, 196, 50);
+
+    let yPosition = 60;
+
+    // Sender Details
+    doc.setFontSize(12);
+    doc.setTextColor(0);
+    doc.text("Sender Information", 14, yPosition);
+    yPosition += 6;
+
+    doc.setFontSize(10);
+    doc.text(`Name: ${orderForm.sender.value}`, 14, yPosition);
+    yPosition += 5;
+    doc.text(`Phone: ${orderForm.senderPhone.value}`, 14, yPosition);
+    yPosition += 5;
+    doc.text(`City: ${orderForm.senderCity.value}`, 14, yPosition);
+
+    // Receiver Details (Right Side)
+    let rightY = 60;
+
+    doc.setFontSize(12);
+    doc.text("Receiver & Delivery", 110, rightY);
+    rightY += 6;
+
+    doc.setFontSize(10);
+    doc.text(`Receiver: ${orderForm.receiver.value}`, 110, rightY);
+    rightY += 5;
+    doc.text(`Phone: ${orderForm.phone.value}`, 110, rightY);
+    rightY += 5;
+    doc.text(`Address: ${orderForm.address.value}`, 110, rightY);
+
+    yPosition += 15;
+
+    // Prepare Table Data
+    const tableData = [];
+    let subtotal = 0;
+
+    document.querySelectorAll("#summaryItems tr").forEach(tr=>{
+      const cells = tr.querySelectorAll("td");
+
+      const amountText = cells[4].innerText;
+      const numericAmount = parseFloat(amountText.replace(/[^\d.]/g, ""));
+      subtotal += numericAmount;
+
+      tableData.push([
+        cells[0].innerText,
+        cells[1].innerText,
+        cells[2].innerText,
+        cells[3].innerText,
+        cells[4].innerText
+      ]);
+    });
+
+    // Optional GST (5%)
+    const gst = subtotal * 0.05;
+    const finalTotal = subtotal + gst;
+
+    doc.autoTable({
+      startY: 85,
+      head: [['Hamper', 'Variety', 'Qty', 'Price', 'Amount']],
+      body: tableData,
+      theme: 'grid',
+      headStyles: { fillColor: [198,167,94], textColor: 0 },
+      styles: { fontSize: 9 }
+    });
+
+    const finalY = doc.lastAutoTable.finalY + 10;
+
+    doc.setFontSize(11);
+    doc.setFont(undefined, 'normal');
+
+    doc.text(`Subtotal: ${subtotal.toFixed(2)}`, 140, finalY);
+    doc.text(`GST (5%): ${gst.toFixed(2)}`, 140, finalY + 6);
+
+    doc.setFont(undefined, 'bold');
+    doc.text(`Total Amount: ${finalTotal.toFixed(2)}`, 140, finalY + 14);
+
+    // PAID Watermark
+    doc.setTextColor(200,200,200);
+    doc.setFontSize(60);
+    doc.text("PAID", 60, 150, {angle:45});
+
+    // Signature Section
+    doc.setFontSize(10);
+    doc.setTextColor(0);
+    doc.line(14, 260, 80, 260);
+    doc.text("Authorized Signature", 14, 265);
+
+    // Footer
+    doc.setFontSize(9);
+    doc.text("Thank you for choosing Markitt Hamper Service.", 14, 280);
+    doc.text("This is a system-generated invoice.", 14, 285);
+
+    doc.save(`Markitt_Invoice_${invoiceNumber}.pdf`);
+  }
 }
+
 // Order Form
 document.getElementById("orderForm").addEventListener("submit", async function(e){
   e.preventDefault();
@@ -545,5 +877,86 @@ document.getElementById("orderForm").addEventListener("submit", async function(e
   updateSummary();
 });
 </script>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- Brand Column -->
+    <div class="footer-col">
+      <h3 class="footer-brand">Markitt Hamper Service</h3>
+      <p>Serving Across Pakistan – Orders Worldwide</p>
+      <p>Premium Ramadan & Grocery Hampers with trusted delivery in Karachi.</p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Our Hampers</a></li>
+        <li><a href="#">Bank Details</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Info -->
+   <div class="footer-col">
+  <h4>Our Location</h4>
+  <p>📍 Karachi, Pakistan</p>
+  <p>📞 +92 342 2088395</p>
+  <p>📧 markitt121@gmail.com</p>
+
+  <div class="footer-map">
+    <iframe 
+      src="https://maps.google.com/maps?q=Karachi%20Pakistan&t=&z=13&ie=UTF8&iwloc=&output=embed">
+    </iframe>
+  </div>
+</div>
+
+    <!-- Social Media -->
+    <div class="footer-col">
+      <h4>Follow Us</h4>
+      <div class="social-icons">
+
+        <!-- Facebook -->
+        <a href="#" target="_blank" class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2.3V12h2.3V9.8c0-2.3 1.4-3.6 3.4-3.6.99 0 2.02.18 2.02.18v2.2h-1.14c-1.12 0-1.47.7-1.47 1.42V12h2.5l-.4 2.9h-2.1v7A10 10 0 0 0 22 12z"/>
+          </svg>
+        </a>
+
+        <!-- Instagram -->
+        <a href="#" target="_blank" class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm5 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm6.5-.75a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0z"/>
+          </svg>
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="https://wa.me/923422088395" target="_blank" class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 3.5A10 10 0 0 0 4.2 17.3L3 21l3.8-1.2A10 10 0 1 0 20 3.5zm-8 15a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm3.5-5.2c-.2-.1-1.2-.6-1.4-.7-.2-.1-.3-.1-.4.1-.1.2-.5.7-.6.8-.1.1-.2.1-.4 0-.2-.1-.8-.3-1.5-.9-.6-.5-1-1.1-1.1-1.3-.1-.2 0-.3.1-.4.1-.1.2-.2.3-.3.1-.1.1-.2.2-.3.1-.1 0-.2 0-.3 0-.1-.4-1-.6-1.4-.2-.4-.3-.3-.4-.3h-.3c-.1 0-.3 0-.4.2-.1.2-.5.5-.5 1.2s.5 1.4.6 1.5c.1.2 1 1.6 2.5 2.2.4.2.8.3 1.1.4.5.2 1 .2 1.4.1.4-.1 1.2-.5 1.3-1 .1-.5.1-.9 0-1-.1-.1-.2-.1-.4-.2z"/>
+          </svg>
+        </a>
+
+        <!-- Email -->
+        <a href="mailto:markitt121@gmail.com" class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2 4h20v16H2V4zm10 7L3 6v12h18V6l-9 5z"/>
+          </svg>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Markitt Hamper Service. All Rights Reserved.
+  </div>
+</footer>
+</div>
+
 </body>
 </html>
