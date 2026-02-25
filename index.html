@@ -421,26 +421,6 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
   font-size:13px;
   letter-spacing:1px;
 }
-.send-method{
-  display:flex;
-  gap:10px;
-  margin:10px 0;
-}
-.send-btn{
-  padding:8px 16px;
-  border:none;
-  border-radius:20px;
-  cursor:pointer;
-  background:#222;
-  color:#fff;
-  font-weight:600;
-  transition:0.3s;
-}
-.send-btn.active{
-  background:linear-gradient(90deg,#c6a75e,#e6d3a3);
-  color:#111;
-}
-.send-btn:hover{opacity:0.8;}
 
 </style>
 </head>
@@ -1018,36 +998,23 @@ doc.text(`Total Amount: ${currencySelect.value} ${finalTotal.toFixed(2)}`, 140, 
   }
 }
 
+// Order Form
+function placeOrder(){
+  updateSummary();
 
-// Initialize selected method
-let selectedMethod = "whatsapp"; // default
-
-// Add click events to toggle buttons
-document.querySelectorAll(".send-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    // Update the selected method
-    selectedMethod = btn.dataset.method;
-
-    // Remove 'active' class from all buttons
-    document.querySelectorAll(".send-btn").forEach(b => b.classList.remove("active"));
-
-    // Add 'active' class to clicked button
-    btn.classList.add("active");
-  });
-});
-
-function placeOrder() {
-  updateSummary(); // existing function to update order summary
+  const select = document.getElementById("sendMethodSelect");
+  const method = select.value;
 
   const form = document.getElementById("orderForm");
   const orderText = document.getElementById("summaryItems").innerText;
 
-  if (!orderText) {
+  if(!orderText){
     alert("Please select at least one hamper.");
     return;
   }
 
   const total = document.getElementById("totalPrice").textContent;
+
   const msg =
     `New Hamper Order\n\n` +
     `Sender Phone: ${form.senderPhone.value}\n` +
@@ -1058,8 +1025,7 @@ function placeOrder() {
     `${orderText}\n` +
     `Total: ${total}`;
 
-  // Send based on selected method
-  if (selectedMethod === "whatsapp") {
+  if(method === "whatsapp"){
     window.open(
       `https://wa.me/923422088395?text=${encodeURIComponent(msg)}`,
       '_blank'
@@ -1073,6 +1039,7 @@ function placeOrder() {
   form.reset();
   updateSummary();
 }
+
 
 </script>
 
