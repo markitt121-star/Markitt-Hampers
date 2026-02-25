@@ -295,6 +295,72 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
   .summary-table th,
   .summary-table td { font-size:12px; padding:8px 6px; }
 }
+  /* Slider Fixes */
+@media (max-width: 768px) {
+  .slider {
+    height:220px;       /* shorter slider on mobile */
+    border-radius:15px;
+  }
+  .slider img { 
+    object-fit:cover; 
+    border-radius:15px;
+  }
+  .slider-arrow { 
+    font-size:20px; 
+    padding:6px 10px; 
+  }
+}
+
+/* Hamper Cards Fix */
+@media (max-width: 768px) {
+  .hampers-grid {
+    grid-template-columns: 1fr; /* one card per row */
+    padding:15px;
+    gap:20px;
+  }
+  .hamper-card img {
+    height:200px; /* consistent image height */
+    object-fit:cover;
+  }
+  .hamper-content {
+    padding:15px;
+  }
+  .price {
+    font-size:16px;
+  }
+}
+
+/* Card hover effect removed for small screens (touch devices) */
+@media (max-width: 768px) {
+  .hamper-card:hover {
+    transform:none;
+    box-shadow:0 8px 20px rgba(0,0,0,0.4);
+  }
+}
+
+/* Floating Cart Adjustment */
+@media (max-width: 480px) {
+  .floating-cart {
+    padding:10px 14px;
+    font-size:14px;
+    border-radius:35px;
+  }
+}
+
+/* Make hamper items list wrap nicely */
+@media (max-width: 480px) {
+  .items-list {
+    font-size:13px;
+    white-space:normal;
+  }
+}
+
+/* Form section spacing adjustments */
+@media (max-width: 480px) {
+  .form-section { margin-bottom:25px; }
+  .form-group label { font-size:13px; }
+  .order-form h2 { font-size:20px; }
+}
 </style>
 </head>
 <body>
@@ -1015,4 +1081,5 @@ function placeOrder(){
 
 </body>
 </html>
+
 
