@@ -582,10 +582,26 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
         <input type="file" name="paymentSlip" accept=".pdf,.jpg,.png" required>
       </div>
 
+
     </div>
+  <label><strong>Select Send Method:</strong></label>
+
+<div class="send-options">
+  <label>
+    <input type="radio" name="sendMethod" value="whatsapp" checked>
+    WhatsApp
+  </label>
+
+  <label>
+    <input type="radio" name="sendMethod" value="email">
+    Email
+  </label>
+</div>
   </div>
 
-  <button type="submit">Place Order via WhatsApp / Email</button>
+<button type="button" onclick="placeOrder()">
+Place Order
+</button>
 
 </form>
 
@@ -901,7 +917,7 @@ function downloadPDF(){
     yPosition += 6;
 
     doc.setFontSize(10);
-    doc.text(`Name: ${orderForm.sender.value}`, 14, yPosition);
+    doc.text(`Sender Phone: ${orderForm.senderPhone.value}`, 14, yPosition);
     yPosition += 5;
     doc.text(`Phone: ${orderForm.senderPhone.value}`, 14, yPosition);
     yPosition += 5;
@@ -986,51 +1002,54 @@ doc.text(`Total Amount: ${currencySelect.value} ${finalTotal.toFixed(2)}`, 140, 
 }
 
 // Order Form
-document.getElementById("orderForm").addEventListener("submit", async function(e){
-  e.preventDefault();
+function placeOrder(){
+
   updateSummary();
+
+  const method = document.querySelector('input[name="sendMethod"]:checked').value;
+
+  const form = document.getElementById("orderForm");
+
   const orderText = document.getElementById("summaryItems").innerText;
-  if(!orderText){ 
-    alert("Select at least one hamper");
-     return;
-     }
+  if(!orderText){
+    alert("Please select at least one hamper.");
+    return;
+  }
 
   incrementOrders();
-  const total = document.getElementById("totalPrice").textContent;
 
-  let slipNote = "";
-  const slipFile = this.paymentSlip.files[0];
-  if(slipFile){
-    slipNote = "\nPayment Slip Uploaded: YES (Please attach in WhatsApp manually)";
-  }
+  const total = document.getElementById("totalPrice").textContent;
 
   const msg =
   `New Hamper Order\n\n` +
-  `Sender: ${this.sender.value}\n` +
-  `Sender Phone: ${this.senderPhone.value}\n` +
-  `Sender City: ${this.senderCity.value}\n\n` +
-  `Receiver: ${this.receiver.value}\n` +
-  `Phone: ${this.phone.value}\n` +
-  `Address: ${this.address.value}\n\n` +
+  `Sender Phone: ${form.senderPhone.value}\n` +
+  `Sender City: ${form.senderCity.value}\n\n` +
+  `Receiver: ${form.receiver.value}\n` +
+  `Phone: ${form.phone.value}\n` +
+  `Address: ${form.address.value}\n\n` +
   `${orderText}\n` +
-  `Total: ${total}\n` +
-  `${slipNote}`;
+  `Total: ${total}`;
 
-  window.open(`https://wa.me/923422088395?text=${encodeURIComponent(msg)}`,'_blank');
+  if(method === "whatsapp"){
 
-  window.location.href =
-  `mailto:markitt121@gmail.com?subject=New Hamper Order&body=${encodeURIComponent(msg)}`;
+    window.open(
+      `https://wa.me/923422088395?text=${encodeURIComponent(msg)}`,
+      '_blank'
+    );
 
-  alert("Order Sent Successfully! Please attach payment slip in WhatsApp if uploaded.");
+  } else {
 
-  this.reset();
+    window.location.href =
+      `mailto:markitt121@gmail.com?subject=New Hamper Order&body=${encodeURIComponent(msg)}`;
+  }
+
+  alert("Order Sent Successfully!");
+  form.reset();
   updateSummary();
-
-  if(total > 0){
-  document.querySelector(".live-summary")
-    .scrollIntoView({behavior:"smooth"});
 }
-});
+
+
+
 </script>
 
 <!-- Footer -->
