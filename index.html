@@ -4,12 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Markitt Hamper Service</title>
-
-<!-- Bootstrap 5 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Fonts & JS -->
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- jsPDF for PDF download -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 
@@ -20,6 +19,8 @@
   --dark:#0f0f0f;
   --charcoal:#1b1b1b;
   --glass: rgba(255,255,255,0.05);
+  --accent:#c6a75e;
+  --accent-dark:#e6d3a3;
   --shadow: rgba(0,0,0,0.4);
 }
 
@@ -29,79 +30,67 @@ body {
   color:#fff;
 }
 
-/* Header */
-.header {
+.header, .footer-container, .order-form, .payment-box, .live-summary {
   background: var(--glass);
   backdrop-filter: blur(10px);
   border-radius: 15px;
-  box-shadow: 0 4px 30px var(--shadow);
+  border:1px solid rgba(255,255,255,0.08);
   padding:15px;
   margin-bottom:20px;
 }
 
 .brand-text{ font-family:'Cinzel', serif; font-size:24px; font-weight:700; color:var(--gold); }
 .tagline{ font-size:12px; color:#aaa; }
-.total-orders { color:var(--gold-light); font-weight:600; }
 
-/* Hamper Cards */
-.hamper-card{
-  background: var(--glass);
-  backdrop-filter: blur(10px);
-  border-radius:15px;
-  overflow:hidden;
-  margin-bottom:20px;
-  border:1px solid rgba(255,255,255,0.1);
-  transition:0.3s;
+.total-orders{
+  border:1px solid var(--gold);
+  padding:5px 15px;
+  border-radius:30px;
+  color:var(--gold-light);
+  font-weight:600;
+  font-size:14px;
 }
-.hamper-card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 20px 40px rgba(0,0,0,0.5);
-}
+
+/* Hamper Card */
 .hamper-card img{
   width:100%;
+  height:180px;
   object-fit:cover;
-  height:200px;
-  filter:brightness(85%);
-}
-.hamper-content{ padding:15px; }
-.hamper-content h5{ font-family:'Cinzel', serif; color:var(--gold); }
-.items-list{ color:#aaa; font-size:13px; margin:8px 0; }
-.price{ font-weight:700; color:var(--gold-light); font-size:16px; margin-bottom:10px; }
-button{ width:100%; }
-
-/* Payment Box & Order Form */
-.payment-box, .order-form, .live-summary{
-  background: var(--glass);
-  backdrop-filter: blur(10px);
-  border-radius:15px;
-  border:1px solid rgba(255,255,255,0.1);
-  padding:15px;
-  margin-bottom:20px;
-}
-.payment-box h3, .live-summary h3, .order-form h2, .section-title{
-  color: var(--gold);
+  border-radius:12px;
   margin-bottom:10px;
 }
-
-input, select, textarea{ 
-  background:#111; 
-  color:#fff; 
-  border-radius:8px; 
-  border:1px solid #333; 
-  padding:8px; 
+.hamper-card .price{
+  color:var(--gold-light);
+  font-weight:700;
 }
+.hamper-card select, .hamper-card input{
+  margin-bottom:8px;
+}
+
+/* Slider */
+.slider img{ width:100%; height:250px; object-fit:cover; border-radius:15px; display:none;}
+.slider img.active{ display:block; }
+.slider-arrow{
+  position:absolute; top:50%; transform:translateY(-50%);
+  font-size:24px; color:#fff;
+  background: rgba(0,0,0,0.3);
+  padding:8px 12px;
+  border-radius:50%; cursor:pointer;
+  user-select:none;
+  z-index:10;
+}
+.slider-arrow.left{ left:10px; }
+.slider-arrow.right{ right:10px; }
 
 /* Footer */
-.footer{
-  background:linear-gradient(145deg,#0c0c0c,#141414);
-  padding:40px 20px 20px;
-  color:#aaa;
-}
-.footer h4{ color:var(--gold); margin-bottom:15px; }
-.footer a{ color:#aaa; text-decoration:none; }
-.footer a:hover{ color:var(--gold); text-shadow:0 0 10px rgba(198,167,94,0.8);}
-.social-icon{ width:40px; height:40px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(255,255,255,0.05); color:var(--gold); margin-right:10px; transition:0.3s; }
-.social-icon:hover{ background:var(--gold); color:#111; transform:scale(1.1); }
+.footer-brand{ font-family:'Cinzel', serif; font-size:20px; color:var(--gold); margin-bottom:10px; }
+.footer-col h4{ color:var(--gold); font-size:16px; margin-bottom:10px; }
+.footer-col p, .footer-col ul li a{ color:#aaa; font-size:14px; }
+.footer-col ul{ list-style:none; padding:0; }
+.footer-col ul li{ margin-bottom:8px; }
+.footer-col ul li a:hover{ color:var(--gold); text-shadow:0 0 10px rgba(198,167,94,0.8);}
+.social-icon{ width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%; background:rgba(255,255,255,0.05); color:var(--gold); margin-right:8px;}
+.social-icon:hover{ background:var(--gold); color:#111; transform:scale(1.1);}
 </style>
 </head>
 <body>
@@ -109,7 +98,7 @@ input, select, textarea{
 <!-- Header -->
 <div class="container header d-flex flex-column flex-md-row justify-content-between align-items-center">
   <div class="d-flex align-items-center mb-2 mb-md-0">
-    <img src="Logo.png" alt="Logo" style="height:50px; margin-right:10px;">
+    <img src="Logo.png" alt="Logo" height="60" class="me-3">
     <div>
       <div class="brand-text">Markitt Hamper Service</div>
       <div class="tagline">Serving Across Pakistan – Orders Worldwide</div>
@@ -121,24 +110,12 @@ input, select, textarea{
 <div class="container">
 
 <!-- Slider -->
-<div id="carouselExample" class="carousel slide mb-4" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="Slider_1.jpg" class="d-block w-100" alt="Slide 1">
-    </div>
-    <div class="carousel-item">
-      <img src="Markitt_Slide.jpg" class="d-block w-100" alt="Slide 2">
-    </div>
-    <div class="carousel-item">
-      <img src="Slider_1.jpg" class="d-block w-100" alt="Slide 3">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
+<div class="slider position-relative mb-3">
+  <span class="slider-arrow left" onclick="prevSlide()">❮</span>
+  <span class="slider-arrow right" onclick="nextSlide()">❯</span>
+  <img src="Slider_1.jpg" class="active">
+  <img src="Markitt_Slide.jpg">
+  <img src="Slider_1.jpg">
 </div>
 
 <!-- Currency Selector -->
@@ -156,12 +133,12 @@ input, select, textarea{
   </select>
 </div>
 
-<!-- Hamper Grid -->
+<!-- Hampers Grid -->
 <div class="row" id="hampersGrid"></div>
 
 <!-- Payment Box -->
 <div class="payment-box">
-  <h3>Bank Details (For Bank Transfer)</h3>
+  <h5>Bank Details (For Bank Transfer)</h5>
   <p><strong>Account Title:</strong> United Retail Pvt Ltd</p>
   <p><strong>Bank Name:</strong> UBL – United Bank Limited</p>
   <p><strong>IBAN:</strong> PK52 UNIL 0110 0050 0044 0789</p>
@@ -169,34 +146,34 @@ input, select, textarea{
 
 <!-- Live Summary -->
 <div class="live-summary">
-  <h3>Order Summary</h3>
+  <h5>Order Summary</h5>
   <div class="table-responsive">
-  <table class="table table-dark table-striped">
-    <thead>
-      <tr>
-        <th>Hamper</th>
-        <th>Variety</th>
-        <th>Qty</th>
-        <th>Price</th>
-        <th>Amount</th>
-      </tr>
-    </thead>
-    <tbody id="summaryItems"></tbody>
-    <tfoot>
-      <tr>
-        <td colspan="4" class="text-end">Total:</td>
-        <td id="totalPrice">₨ 0</td>
-      </tr>
-    </tfoot>
-  </table>
+    <table class="table table-sm table-bordered text-white">
+      <thead class="table-secondary text-dark">
+        <tr>
+          <th>Hamper</th>
+          <th>Variety</th>
+          <th>Qty</th>
+          <th>Price</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody id="summaryItems"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" class="text-end">Total:</td>
+          <td id="totalPrice">₨ 0</td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
 </div>
 
-<!-- Customer & Delivery Form -->
+<!-- Order Form -->
 <form id="orderForm" class="order-form">
-  <h2>Customer & Delivery Information</h2>
 
-  <h3 class="section-title">Sender Information</h3>
+  <h5>Customer & Delivery Information</h5>
+
   <div class="row mb-3">
     <div class="col-md-4 mb-2">
       <label>Country</label>
@@ -212,7 +189,6 @@ input, select, textarea{
     </div>
   </div>
 
-  <h3 class="section-title">Receiver & Delivery Details</h3>
   <div class="row mb-3">
     <div class="col-md-4 mb-2">
       <label>Receiver Name</label>
@@ -223,45 +199,87 @@ input, select, textarea{
       <input name="phone" class="form-control" required>
     </div>
     <div class="col-md-4 mb-2">
-      <label>Delivery Address (Karachi Only)</label>
-      <textarea name="address" class="form-control" rows="2" required></textarea>
+      <label>Delivery Address</label>
+      <textarea name="address" class="form-control" rows="1" required></textarea>
     </div>
   </div>
 
-  <h3 class="section-title">Payment Confirmation</h3>
   <div class="row mb-3">
     <div class="col-md-4 mb-2">
-      <label>Payment Confirmation (Transaction ID / Reference No)</label>
+      <label>Payment Confirmation (Txn ID)</label>
       <input name="paymentConfirmation" class="form-control" required>
     </div>
     <div class="col-md-4 mb-2">
-      <label>Email Address (For Invoice Copy)</label>
+      <label>Email Address</label>
       <input type="email" name="email" class="form-control" required>
     </div>
     <div class="col-md-4 mb-2">
-      <label>Upload Payment Slip (Bank Transfer Proof)</label>
+      <label>Upload Payment Slip</label>
       <input type="file" name="paymentSlip" class="form-control" accept=".pdf,.jpg,.png" required>
     </div>
   </div>
 
   <div class="mb-3">
-    <label>Select Send Method</label>
+    <label>Select Send Method:</label>
     <select id="sendMethodSelect" class="form-select">
       <option value="whatsapp" selected>WhatsApp</option>
       <option value="email">Email</option>
     </select>
   </div>
 
-  <button type="button" class="btn btn-warning" onclick="placeOrder()">Place Order</button>
+  <button type="button" class="btn btn-warning w-100" onclick="placeOrder()">Place Order</button>
 </form>
 
-</div>
+<!-- Footer -->
+<footer class="footer mt-5">
+  <div class="footer-container row">
+    <div class="col-md-3 mb-3">
+      <h5 class="footer-brand">Markitt Hamper Service</h5>
+      <p>Serving Across Pakistan – Orders Worldwide</p>
+    </div>
+    <div class="col-md-3 mb-3">
+      <h6>Quick Links</h6>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Our Hampers</a></li>
+        <li><a href="#">Bank Details</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="col-md-3 mb-3">
+      <h6>Contact</h6>
+      <p>📍 Karachi, Pakistan</p>
+      <p>📞 +92 342 2088395</p>
+      <p>📧 markitt121@gmail.com</p>
+    </div>
+    <div class="col-md-3 mb-3">
+      <h6>Follow Us</h6>
+      <div class="d-flex">
+        <a href="#" class="social-icon">F</a>
+        <a href="#" class="social-icon">I</a>
+        <a href="#" class="social-icon">W</a>
+        <a href="#" class="social-icon">E</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom text-center mt-3">© 2026 Markitt Hamper Service. All Rights Reserved.</div>
+</footer>
 
 <!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Slider JS
+let slides=document.querySelectorAll('.slider img');
+let current=0;
+function showSlide(i){
+  slides.forEach((s,index)=>{s.classList.remove('active'); if(index===i)s.classList.add('active');});
+}
+function nextSlide(){current=(current+1)%slides.length; showSlide(current);}
+function prevSlide(){current=(current-1+slides.length)%slides.length; showSlide(current);}
+setInterval(nextSlide,4000);
 
-<!-- Existing JS code for hampers, cart, summary, pdf etc. goes here -->
-<script src="your-existing-js.js"></script>
+// JS for hampers, summary, orders, PDF, currency remains same as previous (copy your full JS)
+</script>
 
 </body>
 </html>
