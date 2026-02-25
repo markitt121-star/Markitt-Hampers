@@ -99,16 +99,11 @@ body {
   overflow:hidden;
   transition:0.4s;
 }
-.hamper-card:hover{
-  transform:translateY(-12px);
-  box-shadow:0 25px 60px rgba(0,0,0,0.7);
+/* Optional hover effect: zoom slightly */
+.hamper-card:hover img {
+  transform: scale(1.03);
 }
-.hamper-card img{
-  width:100%;
-  height:200px;
-  object-fit:cover;
-  filter:brightness(85%);
-}
+
 .hamper-content{ padding:20px; }
 .hamper-content h3{ font-family:'Cinzel', serif; color:var(--gold); }
 .items-list{ color:#aaa; font-size:14px; margin:12px 0; }
@@ -318,10 +313,33 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
     padding:15px;
     gap:20px;
   }
+  /* Hamper Images Fully Responsive */
+.hamper-card img {
+  width: 100%;        /* take full width of the card */
+  height: auto;       /* maintain original aspect ratio */
+  max-height: 300px;  /* optional: limit height on desktop */
+  object-fit: contain; /* show entire image without cropping */
+  display: block;      /* remove extra space below image */
+  border-radius: 15px 15px 0 0; /* rounded top corners like the card */
+  background: #111;    /* fallback background for empty space */
+  transition: transform 0.3s ease;
+}
+  /* Optional hover effect: zoom slightly */
+.hamper-card:hover img {
+  transform: scale(1.03);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
   .hamper-card img {
-    height:200px; /* consistent image height */
-    object-fit:cover;
+    max-height: 250px;
   }
+}
+@media (max-width: 480px) {
+  .hamper-card img {
+    max-height: 200px;
+  }
+}
   .hamper-content {
     padding:15px;
   }
@@ -360,6 +378,74 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
   .form-section { margin-bottom:25px; }
   .form-group label { font-size:13px; }
   .order-form h2 { font-size:20px; }
+}
+
+  /* Live Summary Table Mobile Fix */
+@media (max-width: 768px) {
+  .live-summary {
+    margin: 20px 15px;
+    padding: 20px;
+  }
+  .summary-table {
+    font-size: 13px;
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+  }
+  .summary-table thead, .summary-table tbody, .summary-table tfoot, .summary-table tr, .summary-table th, .summary-table td {
+    display: table;
+    width: auto;
+    white-space: nowrap;
+  }
+  .summary-table th, .summary-table td {
+    padding: 8px 6px;
+  }
+}
+
+/* Order Form Fields Mobile Fix */
+@media (max-width: 768px) {
+  .order-form {
+    margin: 15px;
+    padding: 15px;
+  }
+  .form-grid {
+    grid-template-columns: 1fr; /* stack fields vertically */
+    gap: 15px;
+  }
+  select, input, textarea {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+  button {
+    width: 100%;
+    font-size: 15px;
+    padding: 12px 0;
+  }
+  .send-method select {
+    width: 100%;
+    padding: 8px 10px;
+  }
+}
+
+/* Small devices */
+@media (max-width: 480px) {
+  .summary-table th, .summary-table td {
+    font-size: 12px;
+    padding: 6px 4px;
+  }
+  .order-form h2 {
+    font-size: 18px;
+  }
+  .section-title {
+    font-size: 15px;
+  }
+  select, input, textarea {
+    font-size: 13px;
+  }
+  button {
+    font-size: 14px;
+    padding: 10px 0;
+  }
 }
 </style>
 </head>
@@ -1081,5 +1167,6 @@ function placeOrder(){
 
 </body>
 </html>
+
 
 
