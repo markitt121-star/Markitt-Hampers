@@ -918,6 +918,86 @@
   }
 
 }
+
+/* ================= WAVE SEPARATOR ================= */
+
+.footer-wave{
+  width:100%;
+  overflow:hidden;
+  line-height:0;
+}
+
+.footer-wave svg{
+  display:block;
+  width:100%;
+  height:80px;
+}
+
+.footer-wave path{
+  fill:#0c0c0c;
+}
+
+/* ================= ANIMATED GOLD TOP BORDER ================= */
+
+.footer{
+  position:relative;
+}
+
+.footer::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:3px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    #C5A059,
+    #ffd97d,
+    #C5A059,
+    transparent
+  );
+  background-size:200% 100%;
+  animation:goldMove 4s linear infinite;
+}
+
+@keyframes goldMove{
+  0%{background-position:0% 0;}
+  100%{background-position:200% 0;}
+}
+
+/* ================= BACK TO TOP BUTTON ================= */
+
+.back-to-top{
+  position:fixed;
+  right:25px;
+  bottom:25px;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#C5A059,#e6c37a);
+  color:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+  opacity:0;
+  visibility:hidden;
+  transition:0.3s ease;
+  z-index:999;
+}
+
+.back-to-top.show{
+  opacity:1;
+  visibility:visible;
+}
+
+.back-to-top:hover{
+  transform:translateY(-5px);
+}
   </style>
   </head>
   <body>
@@ -1538,6 +1618,12 @@
 
   </script>
 
+  <div class="footer-wave">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+      <path d="M0,40 C300,90 1100,0 1440,60 L1440,100 L0,100 Z"></path>
+    </svg>
+  </div>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-container">
@@ -1617,6 +1703,25 @@
     </div>
   </footer>
   </div>
+  <div class="back-to-top" onclick="scrollToTop()">↑</div>
+
+<script>
+window.addEventListener("scroll", function(){
+  const btn = document.querySelector(".back-to-top");
+  if(window.scrollY > 300){
+    btn.classList.add("show");
+  } else{
+    btn.classList.remove("show");
+  }
+});
+
+function scrollToTop(){
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+</script>
 
   </body>
   </html>
