@@ -791,23 +791,59 @@
 
   /* ================= FORM FIX ================= */
 
-  .form-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-  }
+ .form-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
 
   .form-group.full-width{
     grid-column:1/-1;
   }
 
-  input, select, textarea{
-    width:100%;
-    padding:10px;
-    font-size:15px;
-    border-radius:8px;
-    border:1px solid #ccc;
-  }
+ /* ================= ORDER FORM INPUT SIZE FIX ================= */
+
+.order-form input,
+.order-form select,
+.order-form textarea{
+  width:100%;
+  padding:14px 16px;      /* Bigger padding */
+  font-size:16px;         /* Better readability */
+  border-radius:12px;
+  border:1px solid #333;
+  background:#111;
+  color:#fff;
+  transition:0.3s ease;
+  min-height:48px;        /* Equal height */
+  box-sizing:border-box;
+}
+
+/* Textarea specific */
+.order-form textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+/* Focus Effect */
+.order-form input:focus,
+.order-form select:focus,
+.order-form textarea:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 12px rgba(198,167,94,0.5);
+  outline:none;
+}
+
+/* Labels spacing */
+.form-group label{
+  font-size:14px;
+  margin-bottom:8px;
+  color:#bbb;
+}
+
+/* Better form spacing */
+.form-group{
+  gap:6px;
+}
 
   /* ================= MOBILE RESPONSIVE ================= */
 
@@ -1024,12 +1060,12 @@
         </div>
 
         <div class="form-group">
-          <label>Email Address (For Invoice Copy)</label>
+          <label>Email Address <br>(For Invoice Copy)</label>
           <input type="email" name="email" required>
         </div>
 
-        <div class="form-group full-width">
-          <label>Upload Payment Slip (Bank Transfer Proof)</label>
+        <div class="form-group">
+          <label>Upload Payment Slip <br> (Bank Transfer Proof)</label>
           <input type="file" name="paymentSlip" accept=".pdf,.jpg,.png" required>
         </div>
 
