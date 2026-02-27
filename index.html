@@ -1,1617 +1,1578 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Markitt Hamper Service</title>
-
-  <!-- Fonts & JS -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-  <style>
-  /* ===================================================== */
-  /* ===== MOBILE RESPONSIVE FIX START (DO NOT REMOVE) ==== */
-  /* ===================================================== */
-
-  /* Prevent horizontal scroll */
-  body{
-    overflow-x:hidden;
-  }
-
-  /* Make all images responsive */
-  img{
-    max-width:100%;
-    height:auto;
-  }
-
-  /* Slider mobile fix */
-  @media(max-width:768px){
-
-    .slider{
-      height:240px;
-    }
-
-    .slider img{
-      object-fit:cover;
-    }
-
-    .slider img.mrkit{
-      height:100% !important;
-    }
-
-  }
-
-  /* Header mobile layout */
-  @media(max-width:768px){
-
-    .header{
-      flex-direction:column;
-      text-align:center;
-      padding:15px;
-      gap:10px;
-    }
-
-    @media(max-width:768px){
-
-    .logo-area{
-      gap:0px;
-    }
-
-    .logo-area img{
-      height:48px;
-    }
-
-    .brand-text{
-      font-size:18px;
-    }
-
-  }
-    .tagline{
-      font-size:12px;
-    }
-
-    .total-orders{
-      margin-top:8px;
-      font-size:13px;
-    }
-
-  }
-
-  /* Container spacing */
-  @media(max-width:768px){
-    .container{
-      padding:0 12px;
-    }
-  }
-
-  /* Currency selector mobile */
-  @media(max-width:768px){
-    .currency-select{
-      padding:15px 12px;
-    }
-
-    .currency-select select{
-      width:100%;
-      font-size:14px;
-    }
-  }
-
-  /* Hamper Grid mobile */
-  @media(max-width:768px){
-
-    .hampers-grid{
-      padding:15px;
-      gap:20px;
-    }
-
-    .hamper-card img{
-      height:160px;
-      object-fit:cover;
-    }
-
-    .hamper-content h3{
-      font-size:18px;
-    }
-
-    .items-list{
-      font-size:13px;
-    }
-
-    .price{
-      font-size:16px;
-    }
-
-  }
-
-  /* Quantity & select fields better alignment */
-  @media(max-width:768px){
-
-    select,
-    input{
-      font-size:14px;
-      padding:9px;
-    }
-
-  }
-
-  /* Live Summary Table scrollable on mobile */
-  @media(max-width:768px){
-
-    .live-summary{
-      margin:15px;
-      padding:15px;
-    }
-
-    .summary-table{
-      display:block;
-      overflow-x:auto;
-      white-space:nowrap;
-    }
-
-  }
-
-  /* Payment box mobile */
-  @media(max-width:768px){
-
-    .payment-box{
-      margin:15px;
-      padding:15px;
-    }
-
-    .payment-row{
-      flex-direction:column;
-      align-items:flex-start;
-      gap:3px;
-      font-size:13px;
-    }
-
-  }
-
-  /* Order Form mobile fix */
-  @media(max-width:768px){
-
-    .order-form{
-      margin:15px;
-      padding:15px;
-    }
-
-    .form-grid{
-      grid-template-columns:1fr !important;
-      gap:15px;
-    }
-
-    .form-group.full-width{
-      grid-column:1/-1;
-    }
-
-    .order-form h2{
-      font-size:18px;
-    }
-
-    .section-title{
-      font-size:15px;
-    }
-
-  }
-
-  /* Cart Drawer full width on mobile */
-  @media(max-width:768px){
-
-    .cart-modal{
-      width:100%;
-    }
-
-  }
-
-  /* Floating cart smaller on mobile */
-  @media(max-width:768px){
-
-    .floating-cart{
-      padding:12px 16px;
-      font-size:14px;
-      bottom:15px;
-      right:15px;
-    }
-
-  }
-
-  /* Footer mobile fix */
-  @media(max-width:768px){
-
-    .footer{
-      padding:40px 15px 20px;
-    }
-
-    .footer-container{
-      padding:20px;
-      gap:30px;
-    }
-
-    .footer-map iframe{
-      height:180px;
-    }
-
-  }
-
-  /* Extra small devices */
-  @media(max-width:480px){
-
-    .slider{
-      height:200px;
-    }
-
-    .brand-text{
-      font-size:18px;
-    }
-
-    .tagline{
-      font-size:11px;
-    }
-
-    .hamper-card img{
-      height:140px;
-    }
-
-    button{
-      font-size:13px;
-      padding:10px 14px;
-    }
-
-  }
-
-  /* ===================================================== */
-  /* ===== MOBILE RESPONSIVE FIX END ===================== */
-  /* ===================================================== */
-
-
-
-  :root {
-    --gold:#c6a75e;
-    --gold-light:#e6d3a3;
-    --dark:#0f0f0f;
-    --charcoal:#1b1b1b;
-    --glass: rgba(255,255,255,0.05);
-    --accent:#c6a75e;
-    --accent-dark:#e6d3a3;
-    --shadow: rgba(0,0,0,0.4);
-  }
-
-  body {
-    margin:0;
-    font-family:'Playfair Display', serif;
-    background:linear-gradient(145deg,#0f0f0f,#1a1a1a);
-    color:#fff;
-  }
-
-  /* Header */
-  .header {
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:20px 40px;
-    background:linear-gradient(135deg,#0f0f0f,#1a1a1a);
-    border-bottom:1px solid rgba(212,175,55,0.3);
-  }
-
-  .logo-area{
-    display:flex;
-    align-items:center;
-    gap:0;                 /* REMOVE GAP */
-  }
-
-  .brand-text{
-    font-family:'Cinzel', serif;
-    font-size:32px;
-    font-weight:700;
-    color:var(--gold);
-    letter-spacing:0.5px;
-    margin:0;
-  }
-
-  .tagline{
-    margin:5px 0 0 0;
-    font-size:16px;
-    color:#ccc;
-  }
-
-  .tagline{ font-size:13px; color:#aaa; }
-
-  .container { max-width:1100px; margin:30px auto; padding:0 20px;}
-
-
-  .slider { position:relative; height:350px; border-radius:20px; overflow:hidden; margin-bottom:30px; box-shadow:0 10px 30px rgba(0,0,0,0.15);}
-  .slider img { width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:all 1s ease;}
-  .slider img.active { opacity:1;}
-  .slider-arrow { position:absolute; top:50%; transform:translateY(-50%); font-size:28px; color:white; background:rgba(0,0,0,0.3); padding:10px 15px; border-radius:50%; cursor:pointer; user-select:none;}
-  .slider-arrow.left {left:10px;}
-  .slider-arrow.right {right:10px;}
-  .slider img.mrkit{
-    height:110% !important;
-    width:100%; 
-    position:absolute; 
-    margin-top: 0;
-    margin-bottom: 15;
-  }
-
-
-  .total-orders {
-    border:1px solid var(--gold);
-    padding:8px 22px;
-    border-radius:40px;
-    color:var(--gold-light);
-    font-weight:600;
-  }
-
-  /* Currency Selector */
-  .currency-select{
-    padding:20px 30px;
-  }
-  .currency-select select{
-    padding:10px 20px;
-    border-radius:40px;
-    border:1px solid var(--gold);
-    background:transparent;
-    color:var(--gold);
-    font-weight:600;
-    transition:0.3s;
-  }
-  .currency-select select:hover{
-    box-shadow:0 0 10px var(--gold);
-  }
-
-  /* Hamper Grid */
-  .hampers-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
-    padding:40px;
-  }
-
-  /* Hamper Cards */
-  .hamper-card{
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    border-radius:25px;
-    border:1px solid rgba(255,255,255,0.1);
-    overflow:hidden;
-    transition:0.4s;
-  }
-  .hamper-card:hover{
-    transform:translateY(-12px);
-    box-shadow:0 25px 60px rgba(0,0,0,0.7);
-  }
-  .hamper-card img{
-    width:100%;
-    height:200px;
-    object-fit:cover;
-    filter:brightness(85%);
-  }
-  .hamper-content{ padding:20px; }
-  .hamper-content h3{ font-family:'Cinzel', serif; color:var(--gold); }
-  .items-list{ color:#aaa; font-size:14px; margin:12px 0; }
-  .price{ font-weight:700; color:var(--gold-light); font-size:18px; margin-bottom:12px; transition:0.4s; }
-
-  select,input{ width:100%; padding:10px; margin-bottom:10px; border-radius:12px; border:1px solid #333; background:#111; color:#fff; transition:0.3s; }
-  select:focus,input:focus{ border:1px solid var(--gold); box-shadow:0 0 10px rgba(198,167,94,0.4); outline:none; }
-
-  button{
-    padding:12px 20px;
-    border:none;
-    border-radius:40px;
-    background:linear-gradient(90deg,var(--gold),var(--gold-light));
-    color:#111;
-    font-weight:700;
-    cursor:pointer;
-    transition:0.4s;
-    letter-spacing:1px;
-  }
-  button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2px); }
-
-  /* Floating Cart Drawer */
-  .floating-cart{
-    position:fixed;
-    bottom:25px;
-    right:25px;
-    background:linear-gradient(90deg,var(--gold),var(--gold-light));
-    color:#111;
-    padding:15px 20px;
-    border-radius:50px;
-    font-weight:700;
-    cursor:pointer;
-    box-shadow:0 10px 30px rgba(0,0,0,0.6);
-    z-index:999;
-    transition:0.3s;
-  }
-  .floating-cart:hover{ transform:scale(1.05); }
-
-  /* Cart Drawer */
-  .cart-modal{
-    position:fixed;
-    top:0; right:-450px;
-    width:400px; height:100%;
-    background: var(--charcoal);
-    box-shadow: -4px 0 20px rgba(0,0,0,0.5);
-    transition: right 0.4s;
-    padding:20px;
-    z-index:9999;
-    overflow-y:auto;
-  }
-  .cart-modal.active{ right:0; }
-  .cart-content h3{ color:var(--gold); }
-  .close{ float:right; cursor:pointer; font-size:20px; font-weight:bold; color:var(--gold-light); }
-  .cart-item{ display:flex; justify-content:space-between; margin:8px 0; }
-  .cart-item input{ width:50px; text-align:center; }
-
-  /* Live Summary & Payment Box */
-  /* Payment Box */
-  .payment-box{
-    margin:20px 30px;
-    padding:20px;
-    border-radius:15px;
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    border:1px solid rgba(255,255,255,0.1);
-  }
-  .payment-box h3{
-    color: var(--gold);
-    margin-bottom:15px;
-  }
-  .payment-row{
-    display:flex;
-    justify-content: space-between;
-    padding:10px 0;
-    border-bottom:1px solid rgba(255,255,255,0.1);
-    font-size:14px;
-  }
-  .payment-row:last-child{
-    border-bottom:none;
-  }
-  .label{
-    font-weight:600;
-    color:#ddd;
-  }
-  .value{
-    font-weight:500;
-    color:#fff;
-    text-align:right;
-  }
-  .iban{
-    font-family: monospace;
-    letter-spacing:1px;
-  }
-  .total-price{ font-weight:bold; text-align:right; color:var(--gold-light); font-size:18px; }
-
-  /* Order Summary Table */
-  .live-summary{
-    margin:30px;
-    padding:25px;
-    border-radius:25px;
-    background: var(--charcoal);
-    border:1px solid rgba(255,255,255,0.05);
-  }
-  .live-summary h3{
-    font-family:'Cinzel', serif;
-    color:var(--gold);
-    margin-bottom:15px;
-  }
-  .summary-table{
-    width:100%;
-    border-collapse: collapse;
-    color:#fff;
-    font-size:14px;
-  }
-  .summary-table th,
-  .summary-table td{
-    padding:12px 10px;
-    text-align:left;
-  }
-  .summary-table thead th{
-    border-bottom:2px solid var(--gold-light);
-    color: var(--gold-light);
-    font-weight:600;
-  }
-  .summary-table tbody tr{
-    border-bottom:1px solid rgba(255,255,255,0.1);
-  }
-  .summary-table tfoot tr{
-    border-top:2px solid var(--gold-light);
-    font-weight:bold;
-    font-size:16px;
-  }
-  .summary-table tfoot .total-label{
-    text-align:right;
-    color:var(--gold-light);
-  }
-  .summary-table td, .summary-table th{
-    color:#ddd;
-  }
-  /* Form */
-  .order-form{ margin:20px 30px; padding:20px; border-radius:15px; background: var(--glass); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.1); }
-  .order-form h2{ color:var(--gold); margin-bottom:15px; }
-  .section-title{
-    font-family:'Cinzel', serif;
-    color:var(--gold);
-    margin-bottom:15px;
-    border-bottom:1px solid rgba(255,255,255,0.1);
-    padding-bottom:5px;
-  }
-
-  .form-section{
-    margin-bottom:30px;
-  }
-
-  .form-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
-  }
-
-  .form-group{
-    display:flex;
-    flex-direction:column;
-  }
-
-  .form-group.full-width{
-    grid-column:1/-1;
-  }
-
-  .form-group label{
-    font-weight:600;
-    margin-bottom:6px;
-    color:#ccc;
-  }
-  /* Responsive */
-  @media(max-width:768px){
-    .hamper-card img{ height:150px; }
-    .header{ flex-direction:column; gap:15px; }
-  }
-  /* ============================= */
-  /* ULTRA PREMIUM GLASS FOOTER   */
-  /* ============================= */
-
-  .footer{
-    position:relative;
-    background:linear-gradient(145deg,#0c0c0c,#141414);
-    padding:70px 40px 30px;
-    margin-top:70px;
-    border-radius:25px;
-    border-top:1px solid rgba(255,255,255,0.08);
-    overflow:hidden;
-  }
-
-  /* Glass Container */
-  .footer-container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:50px;
-    align-items:start;   /* THIS FIXES VERTICAL MISALIGNMENT */
-    background:rgba(255,255,255,0.03);
-    backdrop-filter:blur(20px);
-    padding:30px;
-    border-radius:25px;
-    border:1px solid rgba(255,255,255,0.08);
-    box-shadow:0 25px 60px rgba(0,0,0,0.6);
-  }
-
-  /* Gold Glow Animation */
-  @keyframes glowPulse{
-    0%{ box-shadow:0 0 5px rgba(198,167,94,0.2); }
-    50%{ box-shadow:0 0 25px rgba(198,167,94,0.6); }
-    100%{ box-shadow:0 0 5px rgba(198,167,94,0.2); }
-  }
-
-  .footer-col h4{
-    color:var(--gold);
-    margin-bottom:18px;
-    font-size:16px;
-    letter-spacing:1px;
-  }
-
-  .footer-brand{
-    font-family:'Cinzel', serif;
-    color:var(--gold);
-    font-size:24px;
-    margin-bottom:10px;
-  }
-
-  .footer-col p,
-  .footer-col ul li a{
-    color:#aaa;
-    font-size:14px;
-    transition:0.3s;
-  }
-
-  .footer-col ul{
-    list-style:none;
-    padding:0;
-  }
-
-  .footer-col ul li{
-    margin-bottom:10px;
-  }
-
-  /* Link Hover Glow */
-  .footer-col ul li a:hover{
-    color:var(--gold);
-    text-shadow:0 0 10px rgba(198,167,94,0.8);
-  }
-
-  /* Social Icons */
-  .social-icons{
-    display:flex;
-    gap:18px;
-    margin-top:15px;
-  }
-
-  .social-icon{
-    width:45px;
-    height:45px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:50%;
-    background:rgba(255,255,255,0.05);
-    color:var(--gold);
-    transition:0.4s;
-    position:relative;
-  }
-
-  .social-icon svg{
-    width:22px;
-    height:22px;
-  }
-
-  .social-icon:hover{
-    background:var(--gold);
-    color:#111;
-    transform:translateY(-5px) scale(1.1);
-    animation:glowPulse 1.5s infinite;
-  }
-
-  /* Google Map */
-  .footer-map{
-    margin-top:15px;
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 15px 40px rgba(0,0,0,0.5);
-    border:1px solid rgba(255,255,255,0.1);
-  }
-
-  .footer-map iframe{
-    width:100%;
-    height:220px;
-    border:0;
-  }
-
-  /* Bottom */
-  .footer-bottom{
-    text-align:center;
-    margin-top:50px;
-    padding-top:25px;
-    border-top:1px solid rgba(255,255,255,0.05);
-    color:#777;
-    font-size:13px;
-    letter-spacing:1px;
-  }
-  /* ========================================= */
-  /* ===== FINAL PROFESSIONAL RESPONSIVE FIX ===== */
-  /* ========================================= */
-
-  /* Prevent horizontal scroll */
-  body{
-    overflow-x:hidden;
-  }
-
-  /* Make all images responsive */
-  img{
-    max-width:100%;
-    height:auto;
-    display:block;
-  }
-
-  /* ================= HEADER FIX ================= */
-
-  .header{
-    display:flex;
-    align-items:center;
-  
-    padding:5px 5px;
-    background:linear-gradient(135deg,#0f0f0f,#1a1a1a);
-    border-bottom:1px solid rgba(212,175,55,0.3);
-  }
-  .logo-area{
-    display:flex;
-    align-items:left;
-    gap:2px;              /* pehle zyada tha, ab kam */
-  }
-
-  .logo-area img{
-    height:130px;          /* BIGGER THAN TITLE */
-    width:auto;
-    object-fit:contain;
-    display:block;
-    margin:0;
-    padding:0;
-  }
-
-  .brand-text{
-  font-family:'Cinzel', serif;
-    font-size:26px;        /* Smaller than logo */
-    font-weight:600;
-    margin:0;
-    padding:0;
-    line-height:1;
-    color:var(--gold); /* extra vertical space remove */
-
-  }
-  .tagline{
-    font-size:13px;
-    margin:4px 0 0 0;
-    color:#ccc;
-  }
-
-  /* ================= SLIDER FIX ================= */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Markitt Hamper Service</title>
+
+<!-- Fonts & JS -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+<style>
+/* ===================================================== */
+/* ===== MOBILE RESPONSIVE FIX START (DO NOT REMOVE) ==== */
+/* ===================================================== */
+
+/* Prevent horizontal scroll */
+body{
+  overflow-x:hidden;
+}
+
+/* Make all images responsive */
+img{
+  max-width:100%;
+  height:auto;
+}
+
+/* Slider mobile fix */
+@media(max-width:768px){
 
   .slider{
-    width:100%;
-    height:420px;
-    overflow:hidden;
-    border-radius:20px;
+    height:240px;
   }
 
   .slider img{
-    width:100%;
-    height:100%;
     object-fit:cover;
   }
 
-  /* ================= HAMPER CARD FIX ================= */
-
-  .hampers-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
+  .slider img.mrkit{
+    height:100% !important;
   }
 
-  .hamper-card{
-    background:#111;
-    border-radius:16px;
-    overflow:hidden;
-    transition:0.3s ease;
+}
+
+/* Header mobile layout */
+@media(max-width:768px){
+
+  .header{
+    flex-direction:column;
+    text-align:center;
+    padding:15px;
+    gap:10px;
+  }
+
+  @media(max-width:768px){
+
+  .logo-area{
+    gap:0px;
+  }
+
+  .logo-area img{
+    height:48px;
+  }
+
+  .brand-text{
+    font-size:18px;
+  }
+
+}
+  .tagline{
+    font-size:12px;
+  }
+
+  .total-orders{
+    margin-top:8px;
+    font-size:13px;
+  }
+
+}
+
+/* Container spacing */
+@media(max-width:768px){
+  .container{
+    padding:0 12px;
+  }
+}
+
+/* Currency selector mobile */
+@media(max-width:768px){
+  .currency-select{
+    padding:15px 12px;
+  }
+
+  .currency-select select{
+    width:100%;
+    font-size:14px;
+  }
+}
+
+/* Hamper Grid mobile */
+@media(max-width:768px){
+
+  .hampers-grid{
+    padding:15px;
+    gap:20px;
   }
 
   .hamper-card img{
-    width:100%;
-    height:260px;
+    height:160px;
     object-fit:cover;
   }
 
-  .hamper-card:hover{
-    transform:translateY(-5px);
+  .hamper-content h3{
+    font-size:18px;
   }
 
-  /* ================= FORM FIX ================= */
+  .items-list{
+    font-size:13px;
+  }
 
- .form-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:25px;
+  .price{
+    font-size:16px;
+  }
+
 }
+
+/* Quantity & select fields better alignment */
+@media(max-width:768px){
+
+  select,
+  input{
+    font-size:14px;
+    padding:9px;
+  }
+
+}
+
+/* Live Summary Table scrollable on mobile */
+@media(max-width:768px){
+
+  .live-summary{
+    margin:15px;
+    padding:15px;
+  }
+
+  .summary-table{
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+
+}
+
+/* Payment box mobile */
+@media(max-width:768px){
+
+  .payment-box{
+    margin:15px;
+    padding:15px;
+  }
+
+  .payment-row{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:3px;
+    font-size:13px;
+  }
+
+}
+
+/* Order Form mobile fix */
+@media(max-width:768px){
+
+  .order-form{
+    margin:15px;
+    padding:15px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr !important;
+    gap:15px;
+  }
 
   .form-group.full-width{
     grid-column:1/-1;
   }
 
- /* ================= ORDER FORM INPUT SIZE FIX ================= */
+  .order-form h2{
+    font-size:18px;
+  }
 
-.order-form input,
-.order-form select,
-.order-form textarea{
-  width:100%;
-  padding:14px 16px;      /* Bigger padding */
-  font-size:16px;         /* Better readability */
-  border-radius:12px;
-  border:1px solid #333;
-  background:#111;
+  .section-title{
+    font-size:15px;
+  }
+
+}
+
+/* Cart Drawer full width on mobile */
+@media(max-width:768px){
+
+  .cart-modal{
+    width:100%;
+  }
+
+}
+
+/* Floating cart smaller on mobile */
+@media(max-width:768px){
+
+  .floating-cart{
+    padding:12px 16px;
+    font-size:14px;
+    bottom:15px;
+    right:15px;
+  }
+
+}
+
+/* Footer mobile fix */
+@media(max-width:768px){
+
+  .footer{
+    padding:40px 15px 20px;
+  }
+
+  .footer-container{
+    padding:20px;
+    gap:30px;
+  }
+
+  .footer-map iframe{
+    height:180px;
+  }
+
+}
+
+/* Extra small devices */
+@media(max-width:480px){
+
+  .slider{
+    height:200px;
+  }
+
+  .brand-text{
+    font-size:18px;
+  }
+
+  .tagline{
+    font-size:11px;
+  }
+
+  .hamper-card img{
+    height:140px;
+  }
+
+  button{
+    font-size:13px;
+    padding:10px 14px;
+  }
+
+}
+
+/* ===================================================== */
+/* ===== MOBILE RESPONSIVE FIX END ===================== */
+/* ===================================================== */
+
+
+
+:root {
+  --gold:#c6a75e;
+  --gold-light:#e6d3a3;
+  --dark:#0f0f0f;
+  --charcoal:#1b1b1b;
+  --glass: rgba(255,255,255,0.05);
+  --accent:#c6a75e;
+  --accent-dark:#e6d3a3;
+  --shadow: rgba(0,0,0,0.4);
+}
+
+body {
+  margin:0;
+  font-family:'Playfair Display', serif;
+  background:linear-gradient(145deg,#0f0f0f,#1a1a1a);
   color:#fff;
-  transition:0.3s ease;
-  min-height:48px;        /* Equal height */
-  box-sizing:border-box;
 }
 
-/* Textarea specific */
-.order-form textarea{
-  min-height:110px;
-  resize:vertical;
+/* Header */
+.header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 40px;
+  background:linear-gradient(135deg,#0f0f0f,#1a1a1a);
+  border-bottom:1px solid rgba(212,175,55,0.3);
 }
 
-/* Focus Effect */
-.order-form input:focus,
-.order-form select:focus,
-.order-form textarea:focus{
-  border-color:var(--gold);
-  box-shadow:0 0 12px rgba(198,167,94,0.5);
-  outline:none;
+.logo-area{
+   display:flex;
+  align-items:center;
+  gap:0;                 /* REMOVE GAP */
 }
 
-/* Labels spacing */
-.form-group label{
+.brand-text{
+  font-family:'Cinzel', serif;
+  font-size:32px;
+  font-weight:700;
+  color:var(--gold);
+  letter-spacing:0.5px;
+  margin:0;
+}
+
+.tagline{
+  margin:5px 0 0 0;
+  font-size:16px;
+  color:#ccc;
+}
+
+.tagline{ font-size:13px; color:#aaa; }
+
+.container { max-width:1100px; margin:30px auto; padding:0 20px;}
+
+
+.slider { position:relative; height:350px; border-radius:20px; overflow:hidden; margin-bottom:30px; box-shadow:0 10px 30px rgba(0,0,0,0.15);}
+.slider img { width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:all 1s ease;}
+.slider img.active { opacity:1;}
+.slider-arrow { position:absolute; top:50%; transform:translateY(-50%); font-size:28px; color:white; background:rgba(0,0,0,0.3); padding:10px 15px; border-radius:50%; cursor:pointer; user-select:none;}
+.slider-arrow.left {left:10px;}
+.slider-arrow.right {right:10px;}
+.slider img.mrkit{
+  height:110% !important;
+  width:100%; 
+   position:absolute; 
+   margin-top: 0;
+   margin-bottom: 15;
+}
+
+
+.total-orders {
+  border:1px solid var(--gold);
+  padding:8px 22px;
+  border-radius:40px;
+  color:var(--gold-light);
+  font-weight:600;
+}
+
+/* Currency Selector */
+.currency-select{
+  padding:20px 30px;
+}
+.currency-select select{
+  padding:10px 20px;
+  border-radius:40px;
+  border:1px solid var(--gold);
+  background:transparent;
+  color:var(--gold);
+  font-weight:600;
+  transition:0.3s;
+}
+.currency-select select:hover{
+  box-shadow:0 0 10px var(--gold);
+}
+
+/* Hamper Grid */
+.hampers-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+  padding:40px;
+}
+
+/* Hamper Cards */
+.hamper-card{
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  border-radius:25px;
+  border:1px solid rgba(255,255,255,0.1);
+  overflow:hidden;
+  transition:0.4s;
+}
+.hamper-card:hover{
+  transform:translateY(-12px);
+  box-shadow:0 25px 60px rgba(0,0,0,0.7);
+}
+.hamper-card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  filter:brightness(85%);
+}
+.hamper-content{ padding:20px; }
+.hamper-content h3{ font-family:'Cinzel', serif; color:var(--gold); }
+.items-list{ color:#aaa; font-size:14px; margin:12px 0; }
+.price{ font-weight:700; color:var(--gold-light); font-size:18px; margin-bottom:12px; transition:0.4s; }
+
+select,input{ width:100%; padding:10px; margin-bottom:10px; border-radius:12px; border:1px solid #333; background:#111; color:#fff; transition:0.3s; }
+select:focus,input:focus{ border:1px solid var(--gold); box-shadow:0 0 10px rgba(198,167,94,0.4); outline:none; }
+
+button{
+  padding:12px 20px;
+  border:none;
+  border-radius:40px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  color:#111;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.4s;
+  letter-spacing:1px;
+}
+button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2px); }
+
+/* Floating Cart Drawer */
+.floating-cart{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  color:#111;
+  padding:15px 20px;
+  border-radius:50px;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);
+  z-index:999;
+  transition:0.3s;
+}
+.floating-cart:hover{ transform:scale(1.05); }
+
+/* Cart Drawer */
+.cart-modal{
+  position:fixed;
+  top:0; right:-450px;
+  width:400px; height:100%;
+  background: var(--charcoal);
+  box-shadow: -4px 0 20px rgba(0,0,0,0.5);
+  transition: right 0.4s;
+  padding:20px;
+  z-index:9999;
+  overflow-y:auto;
+}
+.cart-modal.active{ right:0; }
+.cart-content h3{ color:var(--gold); }
+.close{ float:right; cursor:pointer; font-size:20px; font-weight:bold; color:var(--gold-light); }
+.cart-item{ display:flex; justify-content:space-between; margin:8px 0; }
+.cart-item input{ width:50px; text-align:center; }
+
+/* Live Summary & Payment Box */
+/* Payment Box */
+.payment-box{
+  margin:20px 30px;
+  padding:20px;
+  border-radius:15px;
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  border:1px solid rgba(255,255,255,0.1);
+}
+.payment-box h3{
+  color: var(--gold);
+  margin-bottom:15px;
+}
+.payment-row{
+  display:flex;
+  justify-content: space-between;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,0.1);
   font-size:14px;
-  margin-bottom:8px;
-  color:#bbb;
+}
+.payment-row:last-child{
+  border-bottom:none;
+}
+.label{
+  font-weight:600;
+  color:#ddd;
+}
+.value{
+  font-weight:500;
+  color:#fff;
+  text-align:right;
+}
+.iban{
+  font-family: monospace;
+  letter-spacing:1px;
+}
+.total-price{ font-weight:bold; text-align:right; color:var(--gold-light); font-size:18px; }
+
+/* Order Summary Table */
+.live-summary{
+  margin:30px;
+  padding:25px;
+  border-radius:25px;
+  background: var(--charcoal);
+  border:1px solid rgba(255,255,255,0.05);
+}
+.live-summary h3{
+  font-family:'Cinzel', serif;
+  color:var(--gold);
+  margin-bottom:15px;
+}
+.summary-table{
+  width:100%;
+  border-collapse: collapse;
+  color:#fff;
+  font-size:14px;
+}
+.summary-table th,
+.summary-table td{
+  padding:12px 10px;
+  text-align:left;
+}
+.summary-table thead th{
+  border-bottom:2px solid var(--gold-light);
+  color: var(--gold-light);
+  font-weight:600;
+}
+.summary-table tbody tr{
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.summary-table tfoot tr{
+  border-top:2px solid var(--gold-light);
+  font-weight:bold;
+  font-size:16px;
+}
+.summary-table tfoot .total-label{
+  text-align:right;
+  color:var(--gold-light);
+}
+.summary-table td, .summary-table th{
+  color:#ddd;
+}
+/* Form */
+.order-form{ margin:20px 30px; padding:20px; border-radius:15px; background: var(--glass); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.1); }
+.order-form h2{ color:var(--gold); margin-bottom:15px; }
+.section-title{
+  font-family:'Cinzel', serif;
+  color:var(--gold);
+  margin-bottom:15px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  padding-bottom:5px;
 }
 
-/* Better form spacing */
+.form-section{
+  margin-bottom:30px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
 .form-group{
-  gap:6px;
+  display:flex;
+  flex-direction:column;
 }
 
-  /* ================= MOBILE RESPONSIVE ================= */
+.form-group.full-width{
+  grid-column:1/-1;
+}
 
-  @media(max-width:768px){
+.form-group label{
+  font-weight:600;
+  margin-bottom:6px;
+  color:#ccc;
+}
+/* Responsive */
+@media(max-width:768px){
+  .hamper-card img{ height:150px; }
+  .header{ flex-direction:column; gap:15px; }
+}
+/* ============================= */
+/* ULTRA PREMIUM GLASS FOOTER   */
+/* ============================= */
 
-    .header{
-      flex-direction:column;
-      text-align:center;
-      padding:20px;
-      gap:5px;
-    }
+.footer{
+  position:relative;
+  background:linear-gradient(145deg,#0c0c0c,#141414);
+  padding:70px 40px 30px;
+  margin-top:70px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  overflow:hidden;
+}
 
-    .logo-area{
-      flex-direction:column;
-    }
+/* Glass Container */
+.footer-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:50px;
+  background:rgba(255,255,255,0.03);
+  backdrop-filter:blur(20px);
+  padding:40px;
+  border-radius:25px;
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 25px 60px rgba(0,0,0,0.6);
+}
 
-    .logo-area img{
-      height:40px;
-    }
+/* Gold Glow Animation */
+@keyframes glowPulse{
+  0%{ box-shadow:0 0 5px rgba(198,167,94,0.2); }
+  50%{ box-shadow:0 0 25px rgba(198,167,94,0.6); }
+  100%{ box-shadow:0 0 5px rgba(198,167,94,0.2); }
+}
 
-    .brand-text{
-      font-size:22px;
-    }
+.footer-col h4{
+  color:var(--gold);
+  margin-bottom:18px;
+  font-size:16px;
+  letter-spacing:1px;
+}
 
-    .tagline{
-      font-size:12px;
-    }
+.footer-brand{
+  font-family:'Cinzel', serif;
+  color:var(--gold);
+  font-size:24px;
+  margin-bottom:10px;
+}
 
-    .slider{
-      height:230px;
-    }
+.footer-col p,
+.footer-col ul li a{
+  color:#aaa;
+  font-size:14px;
+  transition:0.3s;
+}
 
-    .hamper-card img{
-      height:170px;
-    }
+.footer-col ul{
+  list-style:none;
+  padding:0;
+}
 
-    .form-grid{
-      grid-template-columns:1fr;
-    }
+.footer-col ul li{
+  margin-bottom:10px;
+}
 
+/* Link Hover Glow */
+.footer-col ul li a:hover{
+  color:var(--gold);
+  text-shadow:0 0 10px rgba(198,167,94,0.8);
+}
+
+/* Social Icons */
+.social-icons{
+  display:flex;
+  gap:18px;
+  margin-top:15px;
+}
+
+.social-icon{
+  width:45px;
+  height:45px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(255,255,255,0.05);
+  color:var(--gold);
+  transition:0.4s;
+  position:relative;
+}
+
+.social-icon svg{
+  width:22px;
+  height:22px;
+}
+
+.social-icon:hover{
+  background:var(--gold);
+  color:#111;
+  transform:translateY(-5px) scale(1.1);
+  animation:glowPulse 1.5s infinite;
+}
+
+/* Google Map */
+.footer-map{
+  margin-top:15px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 15px 40px rgba(0,0,0,0.5);
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+.footer-map iframe{
+  width:100%;
+  height:220px;
+  border:0;
+}
+
+/* Bottom */
+.footer-bottom{
+  text-align:center;
+  margin-top:50px;
+  padding-top:25px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  color:#777;
+  font-size:13px;
+  letter-spacing:1px;
+}
+/* ========================================= */
+/* ===== FINAL PROFESSIONAL RESPONSIVE FIX ===== */
+/* ========================================= */
+
+/* Prevent horizontal scroll */
+body{
+  overflow-x:hidden;
+}
+
+/* Make all images responsive */
+img{
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+
+/* ================= HEADER FIX ================= */
+
+.header{
+  display:flex;
+  align-items:center;
+ 
+  padding:5px 5px;
+  background:linear-gradient(135deg,#0f0f0f,#1a1a1a);
+  border-bottom:1px solid rgba(212,175,55,0.3);
+}
+.logo-area{
+  display:flex;
+  align-items:left;
+  gap:2px;              /* pehle zyada tha, ab kam */
+}
+
+.logo-area img{
+  height:130px;          /* BIGGER THAN TITLE */
+  width:auto;
+  object-fit:contain;
+  display:block;
+  margin:0;
+  padding:0;
+}
+
+.brand-text{
+ font-family:'Cinzel', serif;
+  font-size:26px;        /* Smaller than logo */
+  font-weight:600;
+  margin:0;
+  padding:0;
+  line-height:1;
+  color:var(--gold); /* extra vertical space remove */
+
+}
+.tagline{
+  font-size:13px;
+  margin:4px 0 0 0;
+  color:#ccc;
+}
+
+/* ================= SLIDER FIX ================= */
+
+.slider{
+  width:100%;
+  height:420px;
+  overflow:hidden;
+  border-radius:20px;
+}
+
+.slider img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* ================= HAMPER CARD FIX ================= */
+
+.hampers-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+}
+
+.hamper-card{
+  background:#111;
+  border-radius:16px;
+  overflow:hidden;
+  transition:0.3s ease;
+}
+
+.hamper-card img{
+  width:100%;
+  height:260px;
+  object-fit:cover;
+}
+
+.hamper-card:hover{
+  transform:translateY(-5px);
+}
+
+/* ================= FORM FIX ================= */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.form-group.full-width{
+  grid-column:1/-1;
+}
+
+input, select, textarea{
+  width:100%;
+  padding:10px;
+  font-size:15px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+  .header{
+    flex-direction:column;
+    text-align:center;
+    padding:20px;
+    gap:5px;
   }
 
-  /* ================= EXTRA SMALL DEVICES ================= */
-
-  @media(max-width:480px){
-
-    .slider{
-      height:200px;
-    }
-
-    .brand-text{
-      font-size:18px;
-    }
-
-    .hamper-card img{
-      height:150px;
-    }
-
+  .logo-area{
+    flex-direction:column;
   }
 
-  /* ========================================= */
-  /* ===== END PROFESSIONAL FIX ===== */
-  /* ========================================= */
+  .logo-area img{
+    height:40px;
+  }
 
-  </style>
-  </head>
-  <body>
+  .brand-text{
+    font-size:22px;
+  }
 
-  <!-- Header -->
-  <div class="header">
-    <div class="logo-area">
-      <img src="Logo_Markitt.png" alt="Markitt Logo">
-      <div>
-        <div class="brand-text">Markitt Hamper Service</div>
-        <p class="tagline">Serving Across Pakistan – Orders Worldwide</p>
-      </div>
+  .tagline{
+    font-size:12px;
+  }
+
+  .slider{
+    height:230px;
+  }
+
+  .hamper-card img{
+    height:170px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+/* ================= EXTRA SMALL DEVICES ================= */
+
+@media(max-width:480px){
+
+  .slider{
+    height:200px;
+  }
+
+  .brand-text{
+    font-size:18px;
+  }
+
+  .hamper-card img{
+    height:150px;
+  }
+
+}
+
+/* ========================================= */
+/* ===== END PROFESSIONAL FIX ===== */
+/* ========================================= */
+
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="logo-area">
+    <img src="Logo_Markitt.png" alt="Markitt Logo">
+    <div>
+      <div class="brand-text">Markitt Hamper Service</div>
+      <p class="tagline">Serving Across Pakistan – Orders Worldwide</p>
     </div>
-    <div class="total-orders">💚 Orders Placed: <span id="ordersCounter">0</span></div>
+  </div>
+  <div class="total-orders">💚 Orders Placed: <span id="ordersCounter">0</span></div>
+</div>
+
+<div class="container">
+<!-- Slider -->
+<div class="slider" id="slider">
+  <span class="slider-arrow left" onclick="prevSlide()">❮</span>
+  <span class="slider-arrow right" onclick="nextSlide()">❯</span>
+  <img src="Slider_1.jpg" class="active">
+  <img src="Markitt_Slide.jpg" class="mrkit">
+  <img src="Slider_1.jpg">
+</div>
+
+<!-- Currency Selector -->
+<div class="currency-select">
+<label>Select Currency:</label>
+<select id="currencySelect">
+  <option value="PKR" data-country="Pakistan">🇵🇰 Pakistan - PKR (₨)</option>
+  <option value="USD" data-country="United States">🇺🇸 United States - USD ($)</option>
+  <option value="EUR" data-country="Germany">🇪🇺 Europe - EUR (€)</option>
+  <option value="GBP" data-country="United Kingdom">🇬🇧 United Kingdom - GBP (£)</option>
+  <option value="AED" data-country="UAE">🇦🇪 UAE - AED</option>
+  <option value="SAR" data-country="Saudi Arabia">🇸🇦 Saudi Arabia - SAR</option>
+  <option value="INR" data-country="India">🇮🇳 India - INR</option>
+  <option value="AUD" data-country="Australia">🇦🇺 Australia - AUD</option>
+</select>
+</div>
+
+<!-- Hamper Grid -->
+<div class="hampers-grid" id="hampersGrid"></div>
+
+
+
+<!-- Payment Box -->
+<div class="payment-box">
+  <h3>Bank Details (For Bank Transfer)</h3>
+  <div class="payment-row">
+    <span class="label">Account Title:</span>
+    <span class="value">United Retail Pvt Ltd</span>
+  </div>
+  <div class="payment-row">
+    <span class="label">Bank Name:</span>
+    <span class="value">UBL – United Bank Limited</span>
+  </div>
+  <div class="payment-row">
+    <span class="label">IBAN:</span>
+    <span class="value iban">PK52 UNIL 0110 0050 0044 0789</span>
+  </div>
+</div>
+
+<!-- Live Summary -->
+<!-- Order Summary -->
+<div class="live-summary">
+  <h3>Order Summary</h3>
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>Hamper</th>
+        <th>Variety</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody id="summaryItems">
+      <!-- JS will populate items here -->
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4" class="total-label">Total:</td>
+        <td id="totalPrice">₨ 0</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+
+<!-- Customer & Delivery Details -->
+<form id="orderForm" class="order-form">
+
+  <h2>Customer & Delivery Information</h2>
+
+  <!-- Sender Information -->
+  <div class="form-section">
+    <h3 class="section-title">Sender Information</h3>
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Country</label>
+        <input name="country" id="countryName" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>Sender Phone</label>
+        <input name="senderPhone" required>
+      </div>
+
+      <div class="form-group">
+        <label>Sender City</label>
+        <input name="senderCity" required>
+      </div>
+
+    </div>
   </div>
 
-  <div class="container">
-  <!-- Slider -->
-  <div class="slider" id="slider">
-    <span class="slider-arrow left" onclick="prevSlide()">❮</span>
-    <span class="slider-arrow right" onclick="nextSlide()">❯</span>
-    <img src="Slider_1.jpg" class="active">
-    <img src="Markitt_Slide.jpg" class="mrkit">
-    <img src="Slider_1.jpg">
+  <!-- Receiver & Delivery -->
+  <div class="form-section">
+    <h3 class="section-title">Receiver & Delivery Details</h3>
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Receiver Name</label>
+        <input name="receiver" required>
+      </div>
+
+      <div class="form-group">
+        <label>Receiver Phone</label>
+        <input name="phone" required>
+      </div>
+
+      <div class="form-group full-width">
+        <label>Delivery Address (Karachi Only)</label>
+        <textarea name="address" rows="3" required></textarea>
+      </div>
+
+    </div>
   </div>
 
-  <!-- Currency Selector -->
-  <div class="currency-select">
-  <label>Select Currency:</label>
-  <select id="currencySelect">
-    <option value="PKR" data-country="Pakistan">🇵🇰 Pakistan - PKR (₨)</option>
-    <option value="USD" data-country="United States">🇺🇸 United States - USD ($)</option>
-    <option value="EUR" data-country="Germany">🇪🇺 Europe - EUR (€)</option>
-    <option value="GBP" data-country="United Kingdom">🇬🇧 United Kingdom - GBP (£)</option>
-    <option value="AED" data-country="UAE">🇦🇪 UAE - AED</option>
-    <option value="SAR" data-country="Saudi Arabia">🇸🇦 Saudi Arabia - SAR</option>
-    <option value="INR" data-country="India">🇮🇳 India - INR</option>
-    <option value="AUD" data-country="Australia">🇦🇺 Australia - AUD</option>
+  <!-- Payment Section -->
+  <div class="form-section">
+    <h3 class="section-title">Payment Confirmation</h3>
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Payment Confirmation (Transaction ID / Reference No)</label>
+        <input name="paymentConfirmation" required>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address (For Invoice Copy)</label>
+        <input type="email" name="email" required>
+      </div>
+
+      <div class="form-group full-width">
+        <label>Upload Payment Slip (Bank Transfer Proof)</label>
+        <input type="file" name="paymentSlip" accept=".pdf,.jpg,.png" required>
+      </div>
+
+
+    </div>
+
+<div class="send-method">
+  <label for="sendMethodSelect"><strong>Select Send Method:</strong></label>
+  <select id="sendMethodSelect">
+    <option value="whatsapp" selected>WhatsApp</option>
+    <option value="email">Email</option>
   </select>
+</div>
   </div>
 
-  <!-- Hamper Grid -->
-  <div class="hampers-grid" id="hampersGrid"></div>
+<button type="button" onclick="placeOrder()">
+Place Order
+</button>
+
+</form>
+
+<!-- Floating Cart -->
+<div class="floating-cart" onclick="toggleCart()">🛒 View Cart</div>
+
+<!-- Cart Drawer -->
+<div class="cart-modal" id="cartModal">
+<div class="cart-content">
+<span class="close" onclick="toggleCart()">X</span>
+<h3>Your Cart</h3>
+<div id="cartItems"></div>
+<p><strong>Total: <span id="cartTotal">₨ 0</span></strong></p>
+<button onclick="downloadPDF()">Download PDF</button>
+</div>
+</div>
+
+<script>
+// Slider
+let slides=document.querySelectorAll('.slider img');
+let current=0;
+function showSlide(i){
+  slides.forEach((s,index)=>{s.classList.remove('active'); if(index===i)s.classList.add('active');});
+}
+function nextSlide(){current=(current+1)%slides.length; showSlide(current);}
+function prevSlide(){current=(current-1+slides.length)%slides.length; showSlide(current);}
+setInterval(nextSlide,4000);
 
 
-
-  <!-- Payment Box -->
-  <div class="payment-box">
-    <h3>Bank Details (For Bank Transfer)</h3>
-    <div class="payment-row">
-      <span class="label">Account Title:</span>
-      <span class="value">United Retail Pvt Ltd</span>
-    </div>
-    <div class="payment-row">
-      <span class="label">Bank Name:</span>
-      <span class="value">UBL – United Bank Limited</span>
-    </div>
-    <div class="payment-row">
-      <span class="label">IBAN:</span>
-      <span class="value iban">PK52 UNIL 0110 0050 0044 0789</span>
-    </div>
-  </div>
-
-  <!-- Live Summary -->
-  <!-- Order Summary -->
-  <div class="live-summary">
-    <h3>Order Summary</h3>
-    <table class="summary-table">
-      <thead>
-        <tr>
-          <th>Hamper</th>
-          <th>Variety</th>
-          <th>Qty</th>
-          <th>Price</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody id="summaryItems">
-        <!-- JS will populate items here -->
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="4" class="total-label">Total:</td>
-          <td id="totalPrice">₨ 0</td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-
-
-  <!-- Customer & Delivery Details -->
-  <form id="orderForm" class="order-form">
-
-    <h2>Customer & Delivery Information</h2>
-
-    <!-- Sender Information -->
-    <div class="form-section">
-      <h3 class="section-title">Sender Information</h3>
-      <div class="form-grid">
-
-        <div class="form-group">
-          <label>Country</label>
-          <input name="country" id="countryName" readonly>
-        </div>
-
-        <div class="form-group">
-          <label>Sender Phone</label>
-          <input name="senderPhone" required>
-        </div>
-
-        <div class="form-group">
-          <label>Sender City</label>
-          <input name="senderCity" required>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Receiver & Delivery -->
-    <div class="form-section">
-      <h3 class="section-title">Receiver & Delivery Details</h3>
-      <div class="form-grid">
-
-        <div class="form-group">
-          <label>Receiver Name</label>
-          <input name="receiver" required>
-        </div>
-
-        <div class="form-group">
-          <label>Receiver Phone</label>
-          <input name="phone" required>
-        </div>
-
-        <div class="form-group full-width">
-          <label>Delivery Address (Karachi Only)</label>
-          <textarea name="address" rows="3" required></textarea>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Payment Section -->
-    <div class="form-section">
-      <h3 class="section-title">Payment Confirmation</h3>
-      <div class="form-grid">
-
-        <div class="form-group">
-          <label>Payment Confirmation (Transaction ID / Reference No)</label>
-          <input name="paymentConfirmation" required>
-        </div>
-
-        <div class="form-group">
-          <label>Email Address <br>(For Invoice Copy)</label>
-          <input type="email" name="email" required>
-        </div>
-
-        <div class="form-group">
-          <label>Upload Payment Slip <br> (Bank Transfer Proof)</label>
-          <input type="file" name="paymentSlip" accept=".pdf,.jpg,.png" required>
-        </div>
-
-
-      </div>
-
-  <div class="send-method">
-    <label for="sendMethodSelect"><strong>Select Send Method:</strong></label>
-    <select id="sendMethodSelect">
-      <option value="whatsapp" selected>WhatsApp</option>
-      <option value="email">Email</option>
-    </select>
-  </div>
-    </div>
-
-  <button type="button" onclick="placeOrder()">
-  Place Order
-  </button>
-
-  </form>
-
-  <!-- Floating Cart -->
-  <div class="floating-cart" onclick="toggleCart()">🛒 View Cart</div>
-
-  <!-- Cart Drawer -->
-  <div class="cart-modal" id="cartModal">
-  <div class="cart-content">
-  <span class="close" onclick="toggleCart()">X</span>
-  <h3>Your Cart</h3>
-  <div id="cartItems"></div>
-  <p><strong>Total: <span id="cartTotal">₨ 0</span></strong></p>
-  <button onclick="downloadPDF()">Download PDF</button>
-  </div>
-  </div>
-
-  <script>
-  // Slider
-  let slides=document.querySelectorAll('.slider img');
-  let current=0;
-  function showSlide(i){
-    slides.forEach((s,index)=>{s.classList.remove('active'); if(index===i)s.classList.add('active');});
-  }
-  function nextSlide(){current=(current+1)%slides.length; showSlide(current);}
-  function prevSlide(){current=(current-1+slides.length)%slides.length; showSlide(current);}
-  setInterval(nextSlide,4000);
-
-
-  // Hamper Data
-  // Dynamic Hamper Data (UPDATED)
-  const hampers = [
-  {
-    name: "Hamper 1",
-    varieties: {
-      Basic: {
-        price: 3499,
-        items: ["Flour 5kg","Rice 1kg","Sugar 1kg","Oil 1Pkt","Daal Chana 500g","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 500ml","Dates 250g"]
-      },
-      Standard: {
-        price: 3999,
-        items: ["Flour 5kg","Rice 2kg","Sugar 2kg","Oil 1Pkt","Daal Chana 500g","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 500ml","Dates 250g"]
-      },
-      Premium: {
-        price: 5499,
-        items: ["Flour 10kg","Rice 3kg","Sugar 3kg","Oil 2Pkt","Daal Chana 1kg","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 800ml","Dates 500g"]
-      }
-    }
-  },
-  {
-    name: "Hamper 2",
-    varieties: {
-      Basic: {
-        price: 5499,
-        items: ["Flour 5kg","Rice 2kg","Sugar 2kg","Oil 2Pkt","Daal Chana 1kg","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 500ml","Dates 250g"]
-      },
-      Standard: {
-        price: 5999,
-        items: ["Flour 7kg","Rice 2kg","Sugar 2kg","Oil 2Pkt","Daal Chana 1kg","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 800ml","Dates 250g","Black Chana 1kg"]
-      },
-      Premium: {
-        price: 6999,
-        items: ["Flour 10kg","Rice 3kg","Sugar 3kg","Oil 3L","Daal Chana 1kg","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 800ml","Dates 500g","Black Chana 1kg","Red Chilli Powder 200g"]
-      }
-    }
-  },
-  {
-    name: "Hamper 3",
-    varieties: {
-      Basic: {
-        price: 6999,
-        items: ["Flour 10kg","Rice 3kg","Sugar 2kg","Oil 3L","Daal Chana 1kg","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 800ml","Dates 250g"]
-      },
-      Standard: {
-        price: 7499,
-        items: ["Flour 12kg","Rice 3kg","Sugar 3kg","Oil 3L","Daal Chana 1kg","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 800ml","Dates 500g","Black Chana 1kg"]
-      },
-      Premium: {
-        price: 8999,
-        items: ["Flour 15kg","Rice 5kg","Sugar 4kg","Oil 4L","Daal Chana 2kg","Basin 2kg","Salt 2 Pkt","Tea 2Pkt","Vermicilli 2 pkt","Rooh Afza 1L","Dates 1kg","Black Chana 2kg","Red Chilli Powder 250g"]
-      }
+// Hamper Data
+// Dynamic Hamper Data (UPDATED)
+const hampers = [
+{
+  name: "Hamper 1",
+  varieties: {
+    Basic: {
+      price: 3499,
+      items: ["Flour 5kg","Rice 1kg","Sugar 1kg","Oil 1Pkt","Daal Chana 500g","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 500ml","Dates 250g"]
+    },
+    Standard: {
+      price: 3999,
+      items: ["Flour 5kg","Rice 2kg","Sugar 2kg","Oil 1Pkt","Daal Chana 500g","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 500ml","Dates 250g"]
+    },
+    Premium: {
+      price: 5499,
+      items: ["Flour 10kg","Rice 3kg","Sugar 3kg","Oil 2Pkt","Daal Chana 1kg","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 800ml","Dates 500g"]
     }
   }
-  ];
-
-  // Render Hampers
-  // Render Hampers (UPDATED)
-  const grid = document.getElementById("hampersGrid");
-
-  hampers.forEach((h, index) => {
-
-    const defaultVariety = "Basic";
-    const defaultData = h.varieties[defaultVariety];
-
-    grid.innerHTML += `
-    <div class="hamper-card" 
-      data-index="${index}" 
-      data-name="${h.name}"
-      data-price="${defaultData.price}">
-      <img src="Hamper_${index+1}.jpg">
-      <div class="hamper-content">
-        <h3>${h.name}</h3>
-        <div class="items-list">${defaultData.items.join("<br>")}</div>
-        <div class="price">₨ ${defaultData.price}</div>
-
-        <select class="variety">
-          ${Object.keys(h.varieties).map(v =>
-            `<option value="${v}">${v}</option>`
-          ).join("")}
-        </select>
-
-        <input type="number" class="qty" min="0" value="0">
-      </div>
-    </div>`;
-  });
-
-  document.querySelectorAll(".variety").forEach(select => {
-
-    select.addEventListener("change", function() {
-
-      const card = this.closest(".hamper-card");
-      const index = card.dataset.index;
-      const selectedVariety = this.value;
-      const data = hampers[index].varieties[selectedVariety];
-
-      card.querySelector(".items-list").innerHTML =
-        data.items.join("<br>");
-
-      const currency = currencySelect.value;
-  let convertedPrice = data.price;
-
-  if (currency !== "PKR" && exchangeRates[currency]) {
-    convertedPrice = data.price * exchangeRates[currency];
-  }
-
-  card.querySelector(".price").textContent =
-    `${currency} ${Math.round(convertedPrice)}`;
-
-  card.dataset.price = data.price; // keep base PKR price stored
-
-      card.dataset.price = data.price;
-
-      updateSummary();
-    });
-
-  });
-
-
-  // Orders Counter
-  let ordersPlaced = localStorage.getItem("ordersPlaced") || 0;
-  document.getElementById("ordersCounter").textContent = ordersPlaced;
-
-  function incrementOrders(){
-    ordersPlaced++;
-    localStorage.setItem("ordersPlaced", ordersPlaced);
-    document.getElementById("ordersCounter").textContent = ordersPlaced;
-  }
-
-
-  let exchangeRates = {};
-  const currencySelect = document.getElementById("currencySelect");
-
-  // Fetch live rates from API
-  async function fetchRates() {
-    try {
-      const response = await fetch("https://v6.exchangerate-api.com/v6/93ae828a75db73a73c0ce344/latest/PKR");
-      const data = await response.json();
-      exchangeRates = data.conversion_rates;
-      console.log("Live exchange rates loaded.");
-    } catch (error) {
-      console.error("Error fetching exchange rates:", error);
+},
+{
+  name: "Hamper 2",
+  varieties: {
+    Basic: {
+      price: 5499,
+      items: ["Flour 5kg","Rice 2kg","Sugar 2kg","Oil 2Pkt","Daal Chana 1kg","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 500ml","Dates 250g"]
+    },
+    Standard: {
+      price: 5999,
+      items: ["Flour 7kg","Rice 2kg","Sugar 2kg","Oil 2Pkt","Daal Chana 1kg","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 800ml","Dates 250g","Black Chana 1kg"]
+    },
+    Premium: {
+      price: 6999,
+      items: ["Flour 10kg","Rice 3kg","Sugar 3kg","Oil 3L","Daal Chana 1kg","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 800ml","Dates 500g","Black Chana 1kg","Red Chilli Powder 200g"]
     }
   }
+},
+{
+  name: "Hamper 3",
+  varieties: {
+    Basic: {
+      price: 6999,
+      items: ["Flour 10kg","Rice 3kg","Sugar 2kg","Oil 3L","Daal Chana 1kg","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 800ml","Dates 250g"]
+    },
+    Standard: {
+      price: 7499,
+      items: ["Flour 12kg","Rice 3kg","Sugar 3kg","Oil 3L","Daal Chana 1kg","Basin 1kg","Salt 1 Pkt","Tea 1Pkt","Vermicilli 1 pkt","Rooh Afza 800ml","Dates 500g","Black Chana 1kg"]
+    },
+    Premium: {
+      price: 8999,
+      items: ["Flour 15kg","Rice 5kg","Sugar 4kg","Oil 4L","Daal Chana 2kg","Basin 2kg","Salt 2 Pkt","Tea 2Pkt","Vermicilli 2 pkt","Rooh Afza 1L","Dates 1kg","Black Chana 2kg","Red Chilli Powder 250g"]
+    }
+  }
+}
+];
 
-  fetchRates();
-  // Set default country on page load
-  window.addEventListener("load", function () {
-    const defaultOption = currencySelect.options[currencySelect.selectedIndex];
-    document.getElementById("countryName").value = defaultOption.dataset.country;
-  });
+// Render Hampers
+// Render Hampers (UPDATED)
+const grid = document.getElementById("hampersGrid");
 
-  // Update prices when currency changes
-  currencySelect.addEventListener("change", function () {
+hampers.forEach((h, index) => {
 
-    const selectedCurrency = this.value;
-    const country = this.options[this.selectedIndex].dataset.country;
-    document.getElementById("countryName").value = country;
+  const defaultVariety = "Basic";
+  const defaultData = h.varieties[defaultVariety];
 
-    document.querySelectorAll(".hamper-card").forEach(card => {
+  grid.innerHTML += `
+  <div class="hamper-card" 
+     data-index="${index}" 
+     data-name="${h.name}"
+     data-price="${defaultData.price}">
+    <img src="Hamper_${index+1}.jpg">
+    <div class="hamper-content">
+      <h3>${h.name}</h3>
+      <div class="items-list">${defaultData.items.join("<br>")}</div>
+      <div class="price">₨ ${defaultData.price}</div>
 
-      const basePrice = parseFloat(card.dataset.price);
-      const priceEl = card.querySelector(".price");
+      <select class="variety">
+        ${Object.keys(h.varieties).map(v =>
+          `<option value="${v}">${v}</option>`
+        ).join("")}
+      </select>
 
-      let converted = basePrice;
+      <input type="number" class="qty" min="0" value="0">
+    </div>
+  </div>`;
+});
 
-      if (selectedCurrency !== "PKR" && exchangeRates[selectedCurrency]) {
-        converted = basePrice * exchangeRates[selectedCurrency];
-      }
+document.querySelectorAll(".variety").forEach(select => {
 
-      priceEl.textContent = `${selectedCurrency} ${Math.round(converted)}`;
-    });
+  select.addEventListener("change", function() {
 
-    updateSummary();
-  });
+    const card = this.closest(".hamper-card");
+    const index = card.dataset.index;
+    const selectedVariety = this.value;
+    const data = hampers[index].varieties[selectedVariety];
 
+    card.querySelector(".items-list").innerHTML =
+      data.items.join("<br>");
 
-
-
-  // Update Summary
-  function updateSummary(){
-    const summary = document.getElementById("summaryItems");
-    const totalEl = document.getElementById("totalPrice");
-    const cartTotal = document.getElementById("cartTotal");
-
-    summary.innerHTML = "";
-    let total = 0;
     const currency = currencySelect.value;
+let convertedPrice = data.price;
 
-    document.querySelectorAll(".hamper-card").forEach(card => {
+if (currency !== "PKR" && exchangeRates[currency]) {
+  convertedPrice = data.price * exchangeRates[currency];
+}
 
-      const name = card.dataset.name;
-      const varietySelect = card.querySelector(".variety");
-      const variety = varietySelect.value;
-      const qty = parseInt(card.querySelector(".qty").value) || 0;
+card.querySelector(".price").textContent =
+  `${currency} ${Math.round(convertedPrice)}`;
 
-      if (variety && qty > 0) {
+card.dataset.price = data.price; // keep base PKR price stored
 
-        const index = card.dataset.index;
-        const basePrice = hampers[index].varieties[variety].price;
-        
+    card.dataset.price = data.price;
 
-        let convertedPrice = basePrice;
+    updateSummary();
+  });
 
-        // Apply exchange rate only if not PKR
-        if (currency !== "PKR" && exchangeRates[currency]) {
-          convertedPrice = basePrice * exchangeRates[currency];
-        }
+});
 
-        const amount = Math.round(convertedPrice * qty);
-        total += amount;
 
-        summary.innerHTML += `
-          <tr>
-            <td>${name}</td>
-            <td>${variety}</td>
-            <td>${qty}</td>
-            <td>${currency} ${Math.round(convertedPrice)}</td>
-            <td>${currency} ${amount}</td>
-          </tr>
-        `;
+// Orders Counter
+let ordersPlaced = localStorage.getItem("ordersPlaced") || 0;
+document.getElementById("ordersCounter").textContent = ordersPlaced;
+
+function incrementOrders(){
+  ordersPlaced++;
+  localStorage.setItem("ordersPlaced", ordersPlaced);
+  document.getElementById("ordersCounter").textContent = ordersPlaced;
+}
+
+
+let exchangeRates = {};
+const currencySelect = document.getElementById("currencySelect");
+
+// Fetch live rates from API
+async function fetchRates() {
+  try {
+    const response = await fetch("https://v6.exchangerate-api.com/v6/93ae828a75db73a73c0ce344/latest/PKR");
+    const data = await response.json();
+    exchangeRates = data.conversion_rates;
+    console.log("Live exchange rates loaded.");
+  } catch (error) {
+    console.error("Error fetching exchange rates:", error);
+  }
+}
+
+fetchRates();
+// Set default country on page load
+window.addEventListener("load", function () {
+  const defaultOption = currencySelect.options[currencySelect.selectedIndex];
+  document.getElementById("countryName").value = defaultOption.dataset.country;
+});
+
+// Update prices when currency changes
+currencySelect.addEventListener("change", function () {
+
+  const selectedCurrency = this.value;
+  const country = this.options[this.selectedIndex].dataset.country;
+  document.getElementById("countryName").value = country;
+
+  document.querySelectorAll(".hamper-card").forEach(card => {
+
+    const basePrice = parseFloat(card.dataset.price);
+    const priceEl = card.querySelector(".price");
+
+    let converted = basePrice;
+
+    if (selectedCurrency !== "PKR" && exchangeRates[selectedCurrency]) {
+      converted = basePrice * exchangeRates[selectedCurrency];
+    }
+
+    priceEl.textContent = `${selectedCurrency} ${Math.round(converted)}`;
+  });
+
+  updateSummary();
+});
+
+
+
+
+// Update Summary
+function updateSummary(){
+  const summary = document.getElementById("summaryItems");
+  const totalEl = document.getElementById("totalPrice");
+  const cartTotal = document.getElementById("cartTotal");
+
+  summary.innerHTML = "";
+  let total = 0;
+  const currency = currencySelect.value;
+
+  document.querySelectorAll(".hamper-card").forEach(card => {
+
+    const name = card.dataset.name;
+    const varietySelect = card.querySelector(".variety");
+    const variety = varietySelect.value;
+    const qty = parseInt(card.querySelector(".qty").value) || 0;
+
+    if (variety && qty > 0) {
+
+      const index = card.dataset.index;
+      const basePrice = hampers[index].varieties[variety].price;
+      
+
+      let convertedPrice = basePrice;
+
+      // Apply exchange rate only if not PKR
+      if (currency !== "PKR" && exchangeRates[currency]) {
+        convertedPrice = basePrice * exchangeRates[currency];
       }
+
+      const amount = Math.round(convertedPrice * qty);
+      total += amount;
+
+      summary.innerHTML += `
+        <tr>
+          <td>${name}</td>
+          <td>${variety}</td>
+          <td>${qty}</td>
+          <td>${currency} ${Math.round(convertedPrice)}</td>
+          <td>${currency} ${amount}</td>
+        </tr>
+      `;
+    }
+  });
+
+  totalEl.textContent = `${currency} ${total}`;
+  cartTotal.textContent = `${currency} ${total}`;
+}
+// Event Listeners
+document.querySelectorAll(".qty").forEach(el =>
+  el.addEventListener("input", updateSummary)
+);
+
+document.querySelectorAll(".variety").forEach(el =>
+  el.addEventListener("change", updateSummary)
+);
+
+// Cart Drawer
+function toggleCart(){
+  document.getElementById("cartModal").classList.toggle("active");
+}
+function downloadPDF(){
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  // Generate Invoice Number
+  const invoiceNumber = "INV-" + Date.now().toString().slice(-6);
+
+  const currency = document.getElementById("totalPrice").innerText;
+  const date = new Date().toLocaleString();
+
+  // ADD LOGO
+  const logo = new Image();
+  logo.src = "Logo_Markitt.png";
+
+  logo.onload = function(){
+
+    doc.addImage(logo, 'PNG', 14, 10, 30, 20);
+
+    // Company Header
+    doc.setFontSize(18);
+    doc.setTextColor(198,167,94);
+    doc.text("MARKITT HAMPER SERVICE", 50, 18);
+
+    doc.setFontSize(10);
+    doc.setTextColor(80);
+    doc.text("Serving Across Pakistan – Orders Worldwide", 50, 24);
+
+    doc.text("UBL – United Bank Limited", 14, 40);
+    doc.text("IBAN: PK52 UNIL 0110 0050 0044 0789", 14, 45);
+
+    doc.text(`Invoice No: ${invoiceNumber}`, 150, 18);
+    doc.text(`Date: ${date}`, 150, 24);
+
+    // Divider Line
+    doc.line(14, 50, 196, 50);
+
+    let yPosition = 60;
+
+    // Sender Details
+    doc.setFontSize(12);
+    doc.setTextColor(0);
+    doc.text("Sender Information", 14, yPosition);
+    yPosition += 6;
+
+    doc.setFontSize(10);
+    doc.text(`Sender Phone: ${orderForm.senderPhone.value}`, 14, yPosition);
+    yPosition += 5;
+    doc.text(`Phone: ${orderForm.senderPhone.value}`, 14, yPosition);
+    yPosition += 5;
+    doc.text(`City: ${orderForm.senderCity.value}`, 14, yPosition);
+
+    // Receiver Details (Right Side)
+    let rightY = 60;
+
+    doc.setFontSize(12);
+    doc.text("Receiver & Delivery", 110, rightY);
+    rightY += 6;
+
+    doc.setFontSize(10);
+    doc.text(`Receiver: ${orderForm.receiver.value}`, 110, rightY);
+    rightY += 5;
+    doc.text(`Phone: ${orderForm.phone.value}`, 110, rightY);
+    rightY += 5;
+    doc.text(`Address: ${orderForm.address.value}`, 110, rightY);
+
+    yPosition += 15;
+
+    // Prepare Table Data
+    const tableData = [];
+    let subtotal = 0;
+
+    document.querySelectorAll("#summaryItems tr").forEach(tr=>{
+      const cells = tr.querySelectorAll("td");
+
+      const amountText = cells[4].innerText;
+      const numericAmount = parseFloat(amountText.replace(/[^\d.]/g, ""));
+      subtotal += numericAmount;
+
+      tableData.push([
+        cells[0].innerText,
+        cells[1].innerText,
+        cells[2].innerText,
+        cells[3].innerText,
+        cells[4].innerText
+      ]);
     });
 
-    totalEl.textContent = `${currency} ${total}`;
-    cartTotal.textContent = `${currency} ${total}`;
+    // Optional GST (5%)
+    const gst = subtotal * 0.05;
+    const finalTotal = subtotal + gst;
+
+    doc.autoTable({
+      startY: 85,
+      head: [['Hamper', 'Variety', 'Qty', 'Price', 'Amount']],
+      body: tableData,
+      theme: 'grid',
+      headStyles: { fillColor: [198,167,94], textColor: 0 },
+      styles: { fontSize: 9 }
+    });
+
+    const finalY = doc.lastAutoTable.finalY + 10;
+
+    doc.setFontSize(11);
+    doc.setFont(undefined, 'normal');
+
+doc.text(`Subtotal: ${currencySelect.value} ${subtotal.toFixed(2)}`, 140, finalY);
+doc.text(`GST (5%): ${currencySelect.value} ${gst.toFixed(2)}`, 140, finalY + 6);
+doc.text(`Total Amount: ${currencySelect.value} ${finalTotal.toFixed(2)}`, 140, finalY + 14);
+
+    // PAID Watermark
+    doc.setTextColor(200,200,200);
+    doc.setFontSize(60);
+    doc.text("PAID", 60, 150, {angle:45});
+
+    // Signature Section
+    doc.setFontSize(10);
+    doc.setTextColor(0);
+    doc.line(14, 260, 80, 260);
+    doc.text("Authorized Signature", 14, 265);
+
+    // Footer
+    doc.setFontSize(9);
+    doc.text("Thank you for choosing Markitt Hamper Service.", 14, 280);
+    doc.text("This is a system-generated invoice.", 14, 285);
+
+    doc.save(`Markitt_Invoice_${invoiceNumber}.pdf`);
   }
-  // Event Listeners
-  document.querySelectorAll(".qty").forEach(el =>
-    el.addEventListener("input", updateSummary)
-  );
+}
 
-  document.querySelectorAll(".variety").forEach(el =>
-    el.addEventListener("change", updateSummary)
-  );
+// Order Form
+function placeOrder(){
+  updateSummary();
 
-  // Cart Drawer
-  function toggleCart(){
-    document.getElementById("cartModal").classList.toggle("active");
-  }
-  function downloadPDF(){
+  const select = document.getElementById("sendMethodSelect");
+  const method = select.value;
 
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+  const form = document.getElementById("orderForm");
+  const orderText = document.getElementById("summaryItems").innerText;
 
-    // Generate Invoice Number
-    const invoiceNumber = "INV-" + Date.now().toString().slice(-6);
-
-    const currency = document.getElementById("totalPrice").innerText;
-    const date = new Date().toLocaleString();
-
-    // ADD LOGO
-    const logo = new Image();
-    logo.src = "Logo_Markitt.png";
-
-    logo.onload = function(){
-
-      doc.addImage(logo, 'PNG', 14, 10, 30, 20);
-
-      // Company Header
-      doc.setFontSize(18);
-      doc.setTextColor(198,167,94);
-      doc.text("MARKITT HAMPER SERVICE", 50, 18);
-
-      doc.setFontSize(10);
-      doc.setTextColor(80);
-      doc.text("Serving Across Pakistan – Orders Worldwide", 50, 24);
-
-      doc.text("UBL – United Bank Limited", 14, 40);
-      doc.text("IBAN: PK52 UNIL 0110 0050 0044 0789", 14, 45);
-
-      doc.text(`Invoice No: ${invoiceNumber}`, 150, 18);
-      doc.text(`Date: ${date}`, 150, 24);
-
-      // Divider Line
-      doc.line(14, 50, 196, 50);
-
-      let yPosition = 60;
-
-      // Sender Details
-      doc.setFontSize(12);
-      doc.setTextColor(0);
-      doc.text("Sender Information", 14, yPosition);
-      yPosition += 6;
-
-      doc.setFontSize(10);
-      doc.text(`Sender Phone: ${orderForm.senderPhone.value}`, 14, yPosition);
-      yPosition += 5;
-      doc.text(`Phone: ${orderForm.senderPhone.value}`, 14, yPosition);
-      yPosition += 5;
-      doc.text(`City: ${orderForm.senderCity.value}`, 14, yPosition);
-
-      // Receiver Details (Right Side)
-      let rightY = 60;
-
-      doc.setFontSize(12);
-      doc.text("Receiver & Delivery", 110, rightY);
-      rightY += 6;
-
-      doc.setFontSize(10);
-      doc.text(`Receiver: ${orderForm.receiver.value}`, 110, rightY);
-      rightY += 5;
-      doc.text(`Phone: ${orderForm.phone.value}`, 110, rightY);
-      rightY += 5;
-      doc.text(`Address: ${orderForm.address.value}`, 110, rightY);
-
-      yPosition += 15;
-
-      // Prepare Table Data
-      const tableData = [];
-      let subtotal = 0;
-
-      document.querySelectorAll("#summaryItems tr").forEach(tr=>{
-        const cells = tr.querySelectorAll("td");
-
-        const amountText = cells[4].innerText;
-        const numericAmount = parseFloat(amountText.replace(/[^\d.]/g, ""));
-        subtotal += numericAmount;
-
-        tableData.push([
-          cells[0].innerText,
-          cells[1].innerText,
-          cells[2].innerText,
-          cells[3].innerText,
-          cells[4].innerText
-        ]);
-      });
-
-      // Optional GST (5%)
-      const gst = subtotal * 0.05;
-      const finalTotal = subtotal + gst;
-
-      doc.autoTable({
-        startY: 85,
-        head: [['Hamper', 'Variety', 'Qty', 'Price', 'Amount']],
-        body: tableData,
-        theme: 'grid',
-        headStyles: { fillColor: [198,167,94], textColor: 0 },
-        styles: { fontSize: 9 }
-      });
-
-      const finalY = doc.lastAutoTable.finalY + 10;
-
-      doc.setFontSize(11);
-      doc.setFont(undefined, 'normal');
-
-  doc.text(`Subtotal: ${currencySelect.value} ${subtotal.toFixed(2)}`, 140, finalY);
-  doc.text(`GST (5%): ${currencySelect.value} ${gst.toFixed(2)}`, 140, finalY + 6);
-  doc.text(`Total Amount: ${currencySelect.value} ${finalTotal.toFixed(2)}`, 140, finalY + 14);
-
-      // PAID Watermark
-      doc.setTextColor(200,200,200);
-      doc.setFontSize(60);
-      doc.text("PAID", 60, 150, {angle:45});
-
-      // Signature Section
-      doc.setFontSize(10);
-      doc.setTextColor(0);
-      doc.line(14, 260, 80, 260);
-      doc.text("Authorized Signature", 14, 265);
-
-      // Footer
-      doc.setFontSize(9);
-      doc.text("Thank you for choosing Markitt Hamper Service.", 14, 280);
-      doc.text("This is a system-generated invoice.", 14, 285);
-
-      doc.save(`Markitt_Invoice_${invoiceNumber}.pdf`);
-    }
+  if(!orderText){
+    alert("Please select at least one hamper.");
+    return;
   }
 
-  // Order Form
-  function placeOrder(){
-    updateSummary();
+  const total = document.getElementById("totalPrice").textContent;
 
-    const select = document.getElementById("sendMethodSelect");
-    const method = select.value;
+  const msg =
+    `New Hamper Order\n\n` +
+    `Sender Phone: ${form.senderPhone.value}\n` +
+    `Sender City: ${form.senderCity.value}\n\n` +
+    `Receiver: ${form.receiver.value}\n` +
+    `Phone: ${form.phone.value}\n` +
+    `Address: ${form.address.value}\n\n` +
+    `${orderText}\n` +
+    `Total: ${total}`;
 
-    const form = document.getElementById("orderForm");
-    const orderText = document.getElementById("summaryItems").innerText;
-
-    if(!orderText){
-      alert("Please select at least one hamper.");
-      return;
-    }
-
-    const total = document.getElementById("totalPrice").textContent;
-
-    const msg =
-      `New Hamper Order\n\n` +
-      `Sender Phone: ${form.senderPhone.value}\n` +
-      `Sender City: ${form.senderCity.value}\n\n` +
-      `Receiver: ${form.receiver.value}\n` +
-      `Phone: ${form.phone.value}\n` +
-      `Address: ${form.address.value}\n\n` +
-      `${orderText}\n` +
-      `Total: ${total}`;
-
-    if(method === "whatsapp"){
-      window.open(
-        `https://wa.me/923422088395?text=${encodeURIComponent(msg)}`,
-        '_blank'
-      );
-    } else {
-      window.location.href =
-        `mailto:markitt121@gmail.com?subject=New Hamper Order&body=${encodeURIComponent(msg)}`;
-    }
-
-    alert("Order Sent Successfully!");
-    form.reset();
-    updateSummary();
+  if(method === "whatsapp"){
+    window.open(
+      `https://wa.me/923422088395?text=${encodeURIComponent(msg)}`,
+      '_blank'
+    );
+  } else {
+    window.location.href =
+      `mailto:markitt121@gmail.com?subject=New Hamper Order&body=${encodeURIComponent(msg)}`;
   }
 
+  alert("Order Sent Successfully!");
+  form.reset();
+  updateSummary();
+}
 
-  </script>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-container">
+</script>
 
-      <!-- Brand Column -->
-      <div class="footer-col">
-        <h3 class="footer-brand">Markitt Hamper Service</h3>
-        <p>Serving Across Pakistan – Orders Worldwide</p>
-        <p>Premium Ramadan & Grocery Hampers with trusted delivery in Karachi.</p>
-      </div>
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
 
-      <!-- Quick Links -->
-      <div class="footer-col">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Our Hampers</a></li>
-          <li><a href="#">Bank Details</a></li>
-          <li><a href="#">Contact Us</a></li>
-        </ul>
-      </div>
-
-      <!-- Contact Info -->
+    <!-- Brand Column -->
     <div class="footer-col">
-    <h4>Our Location</h4>
-    <p>📍 Karachi, Pakistan</p>
-    <p>📞 +92 342 2088395</p>
-    <p>📧 markitt121@gmail.com</p>
-
-    <div class="footer-map">
-      <iframe 
-        src="https://maps.google.com/maps?q=Karachi%20Pakistan&t=&z=13&ie=UTF8&iwloc=&output=embed">
-      </iframe>
+      <h3 class="footer-brand">Markitt Hamper Service</h3>
+      <p>Serving Across Pakistan – Orders Worldwide</p>
+      <p>Premium Ramadan & Grocery Hampers with trusted delivery in Karachi.</p>
     </div>
+
+    <!-- Quick Links -->
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Our Hampers</a></li>
+        <li><a href="#">Bank Details</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Info -->
+   <div class="footer-col">
+  <h4>Our Location</h4>
+  <p>📍 Karachi, Pakistan</p>
+  <p>📞 +92 342 2088395</p>
+  <p>📧 markitt121@gmail.com</p>
+
+  <div class="footer-map">
+    <iframe 
+      src="https://maps.google.com/maps?q=Karachi%20Pakistan&t=&z=13&ie=UTF8&iwloc=&output=embed">
+    </iframe>
   </div>
+</div>
 
-      <!-- Social Media -->
-      <div class="footer-col">
-        <h4>Follow Us</h4>
-        <div class="social-icons">
+    <!-- Social Media -->
+    <div class="footer-col">
+      <h4>Follow Us</h4>
+      <div class="social-icons">
 
-          <!-- Facebook -->
-          <a href="https://www.facebook.com/markittstore/" target="_blank" class="social-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2.3V12h2.3V9.8c0-2.3 1.4-3.6 3.4-3.6.99 0 2.02.18 2.02.18v2.2h-1.14c-1.12 0-1.47.7-1.47 1.42V12h2.5l-.4 2.9h-2.1v7A10 10 0 0 0 22 12z"/>
-            </svg>
-          </a>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/markittstore/" target="_blank" class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2.3V12h2.3V9.8c0-2.3 1.4-3.6 3.4-3.6.99 0 2.02.18 2.02.18v2.2h-1.14c-1.12 0-1.47.7-1.47 1.42V12h2.5l-.4 2.9h-2.1v7A10 10 0 0 0 22 12z"/>
+          </svg>
+        </a>
 
-          <!-- Instagram -->
-          <a href="https://www.instagram.com/markittstore" target="_blank" class="social-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm5 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm6.5-.75a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0z"/>
-            </svg>
-          </a>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/markittstore" target="_blank" class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm5 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm6.5-.75a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0z"/>
+          </svg>
+        </a>
 
-          <!-- WhatsApp -->
-          <a href="https://wa.me/923422088395" target="_blank" class="social-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20 3.5A10 10 0 0 0 4.2 17.3L3 21l3.8-1.2A10 10 0 1 0 20 3.5zm-8 15a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm3.5-5.2c-.2-.1-1.2-.6-1.4-.7-.2-.1-.3-.1-.4.1-.1.2-.5.7-.6.8-.1.1-.2.1-.4 0-.2-.1-.8-.3-1.5-.9-.6-.5-1-1.1-1.1-1.3-.1-.2 0-.3.1-.4.1-.1.2-.2.3-.3.1-.1.1-.2.2-.3.1-.1 0-.2 0-.3 0-.1-.4-1-.6-1.4-.2-.4-.3-.3-.4-.3h-.3c-.1 0-.3 0-.4.2-.1.2-.5.5-.5 1.2s.5 1.4.6 1.5c.1.2 1 1.6 2.5 2.2.4.2.8.3 1.1.4.5.2 1 .2 1.4.1.4-.1 1.2-.5 1.3-1 .1-.5.1-.9 0-1-.1-.1-.2-.1-.4-.2z"/>
-            </svg>
-          </a>
+        <!-- WhatsApp -->
+        <a href="https://wa.me/923422088395" target="_blank" class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 3.5A10 10 0 0 0 4.2 17.3L3 21l3.8-1.2A10 10 0 1 0 20 3.5zm-8 15a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm3.5-5.2c-.2-.1-1.2-.6-1.4-.7-.2-.1-.3-.1-.4.1-.1.2-.5.7-.6.8-.1.1-.2.1-.4 0-.2-.1-.8-.3-1.5-.9-.6-.5-1-1.1-1.1-1.3-.1-.2 0-.3.1-.4.1-.1.2-.2.3-.3.1-.1.1-.2.2-.3.1-.1 0-.2 0-.3 0-.1-.4-1-.6-1.4-.2-.4-.3-.3-.4-.3h-.3c-.1 0-.3 0-.4.2-.1.2-.5.5-.5 1.2s.5 1.4.6 1.5c.1.2 1 1.6 2.5 2.2.4.2.8.3 1.1.4.5.2 1 .2 1.4.1.4-.1 1.2-.5 1.3-1 .1-.5.1-.9 0-1-.1-.1-.2-.1-.4-.2z"/>
+          </svg>
+        </a>
 
-          <!-- Email -->
-          <a href="mailto:markitt121@gmail.com" class="social-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M2 4h20v16H2V4zm10 7L3 6v12h18V6l-9 5z"/>
-            </svg>
-          </a>
+        <!-- Email -->
+        <a href="mailto:markitt121@gmail.com" class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2 4h20v16H2V4zm10 7L3 6v12h18V6l-9 5z"/>
+          </svg>
+        </a>
 
-        </div>
       </div>
-
     </div>
 
-    <div class="footer-bottom">
-      © 2026 Markitt Hamper Service. All Rights Reserved.
-    </div>
-  </footer>
   </div>
 
-  </body>
-  </html>
+  <div class="footer-bottom">
+    © 2026 Markitt Hamper Service. All Rights Reserved.
+  </div>
+</footer>
+</div>
 
+</body>
+</html>
 
 
