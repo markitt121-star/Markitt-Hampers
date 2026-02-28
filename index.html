@@ -911,61 +911,73 @@ currencySelect.addEventListener("change", function () {
 });
 
 
+let cart = [];
+
+function addToCart(name,varietyId,qtyId){
+  const price = parseInt(document.getElementById(varietyId).value);
+  const qty = parseInt(document.getElementById(qtyId).value);
+  const amount = price * qty;
+
+  cart.push({name,price,qty,amount});
+  updateCart();
+  updateSummary();
+}
+
+function updateCart(){
+  const container = document.getElementById("cartItems");
+  container.innerHTML="";
+  let total=0;
+
+  cart.forEach(item=>{
+    total+=item.amount;
+    container.innerHTML+=`
+      <div class="cart-item">
+        <span>${item.name} x${item.qty}</span>
+        <span>${item.amount}</span>
+      </div>
+    `;
+  });
+
+  document.getElementById("cartTotal").innerText="PKR "+total;
+}
 
 
 // Update Summary
 function updateSummary(){
-  const summary = document.getElementById("summaryItems");
-  const totalEl = document.getElementById("totalPrice");
-  
+  const summary=document.getElementById("summaryItems");
+  summary.innerHTML="";
+  let total=0;
 
-  
-
-  summary.innerHTML = "";
-  let total = 0;
-  const currency = currencySelect.value;
-
-  document.querySelectorAll(".hamper-card").forEach(card => {
-
-    const name = card.dataset.name;
-    const varietySelect = card.querySelector(".variety");
-    const variety = varietySelect.value;
-    const qty = parseInt(card.querySelector(".qty").value) || 0;
-
-    if (variety && qty > 0) {
-
-      const index = card.dataset.index;
-      const basePrice = hampers[index].varieties[variety].price;
-      
-
-      let convertedPrice = basePrice;
-
-      // Apply exchange rate only if not PKR
-      if (currency !== "PKR" && exchangeRates[currency]) {
-        convertedPrice = basePrice * exchangeRates[currency];
-      }
-
-      const amount = Math.round(convertedPrice * qty);
-      total += amount;
-
-      summary.innerHTML += `
-        <tr>
-          <td>${name}</td>
-          <td>${variety}</td>
-          <td>${qty}</td>
-          <td>${currency} ${Math.round(convertedPrice)}</td>
-          <td>${currency} ${amount}</td>
-        </tr>
-      `;
-    }
+  cart.forEach(item=>{
+    total+=item.amount;
+    summary.innerHTML+=`
+      <tr>
+        <td>${item.name}</td>
+        <td>${item.qty}</td>
+        <td>${item.amount}</td>
+      </tr>
+    `;
   });
 
-  totalEl.textContent = `${currency} ${total}`;
-
-
-  document.getElementById("mobileTotal").textContent = `${currency} ${total}`;
-  updateCartDrawer();
+  document.getElementById("totalPrice").innerText="PKR "+total;
 }
+
+function openCart(){
+  document.querySelector(".cart-drawer").classList.add("active");
+  document.querySelector(".cart-overlay").classList.add("active");
+}
+
+function closeCart(){
+  document.querySelector(".cart-drawer").classList.remove("active");
+  document.querySelector(".cart-overlay").classList.remove("active");
+}
+
+function placeOrder(){
+  let message="Markitt Hamper Order:%0A";
+  cart.forEach(item=>{
+    message+=`${item.name} x${item.qty} = ${item.amount}%0A`;
+  });
+
 // Event Listeners
 document.querySelectorAll(".qty").forEach(el =>
   el.addEventListener("input", updateSummary)
@@ -1148,62 +1160,7 @@ function placeOrder(){
   updateSummary();
 }
 
-// ================= NEW PREMIUM CART =================
 
-function openCart(){
-  document.getElementById("cartDrawer").classList.add("active");
-  document.querySelector(".cart-overlay").classList.add("active");
-}
-
-function closeCart(){
-  document.getElementById("cartDrawer").classList.remove("active");
-  document.querySelector(".cart-overlay").classList.remove("active");
-}
-
-function updateCartDrawer(){
-
-  const drawerItems = document.getElementById("cartItems");
-  const drawerTotal = document.getElementById("drawerTotal");
-
-  drawerItems.innerHTML = "";
-  let total = 0;
-  const currency = currencySelect.value;
-
-  document.querySelectorAll(".hamper-card").forEach(card => {
-
-    const name = card.dataset.name;
-    const variety = card.querySelector(".variety").value;
-    const qty = parseInt(card.querySelector(".qty").value) || 0;
-
-    if(qty > 0){
-
-      const index = card.dataset.index;
-      const basePrice = hampers[index].varieties[variety].price;
-
-      let convertedPrice = basePrice;
-
-      if(currency !== "PKR" && exchangeRates[currency]){
-        convertedPrice = basePrice * exchangeRates[currency];
-      }
-
-      const amount = Math.round(convertedPrice * qty);
-      total += amount;
-
-      drawerItems.innerHTML += `
-        <div class="cart-item">
-          <div>
-            <strong>${name}</strong><br>
-            ${variety} × ${qty}
-          </div>
-          <div>${currency} ${amount}</div>
-        </div>
-      `;
-    }
-
-  });
-
-  drawerTotal.textContent = `${currency} ${total}`;
-}
 </script>
 <!-- Footer -->
 <footer class="footer">
