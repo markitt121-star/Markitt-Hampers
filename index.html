@@ -604,7 +604,7 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
 <!-- Live Summary -->
 <!-- Order Summary -->
 <div class="live-summary">
-  <h3>Live Order Summary</h3>
+  <h3>Order Summary</h3>
   <table class="summary-table">
     <thead>
       <tr>
@@ -626,8 +626,6 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
     </tfoot>
   </table>
 </div>
-  <button onclick="openCart()">View Cart</button>
-
 
 <!-- Customer & Delivery Details -->
 <form id="orderForm" class="order-form">
@@ -850,7 +848,55 @@ card.dataset.price = data.price; // keep base PKR price stored
     updateSummary();
   });
 
-});
+  // Update Summary
+function updateSummary(){
+  const summary = document.getElementById("summaryItems");
+  const totalEl = document.getElementById("totalPrice");
+  const cartTotal = document.getElementById("cartTotal");
+
+  summary.innerHTML = "";
+  let total = 0;
+  const currency = currencySelect.value;
+
+  document.querySelectorAll(".hamper-card").forEach(card => {
+
+    const name = card.dataset.name;
+    const varietySelect = card.querySelector(".variety");
+    const variety = varietySelect.value;
+    const qty = parseInt(card.querySelector(".qty").value) || 0;
+
+    if (variety && qty > 0) {
+
+      const index = card.dataset.index;
+      const basePrice = hampers[index].varieties[variety].price;
+      
+
+      let convertedPrice = basePrice;
+
+      // Apply exchange rate only if not PKR
+      if (currency !== "PKR" && exchangeRates[currency]) {
+        convertedPrice = basePrice * exchangeRates[currency];
+      }
+
+      const amount = Math.round(convertedPrice * qty);
+      total += amount;
+
+      summary.innerHTML += `
+        <tr>
+          <td>${name}</td>
+          <td>${variety}</td>
+          <td>${qty}</td>
+          <td>${currency} ${Math.round(convertedPrice)}</td>
+          <td>${currency} ${amount}</td>
+        </tr>
+      `;
+    }
+  });
+
+  totalEl.textContent = `${currency} ${total}`;
+  cartTotal.textContent = `${currency} ${total}`;
+}
+
 
 
 // Orders Counter
