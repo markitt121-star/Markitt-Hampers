@@ -11,6 +11,119 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 
 <style>
+/* ========================================= */
+/* ===== PREMIUM MOBILE UPGRADE ===== */
+/* ========================================= */
+
+/* Better Header */
+.header{
+  padding:18px 25px;
+}
+
+.logo-area{
+  gap:10px;
+}
+
+.brand-text{
+  letter-spacing:2px;
+}
+
+/* ========================================= */
+/* ===== MOBILE SUMMARY CARD STYLE ===== */
+/* ========================================= */
+
+@media(max-width:768px){
+
+  .summary-table{
+    display:none;
+  }
+
+  .live-summary{
+    padding:15px;
+  }
+
+  .summary-card{
+    background:rgba(255,255,255,0.05);
+    border-radius:18px;
+    padding:15px;
+    margin-bottom:15px;
+    border:1px solid rgba(255,255,255,0.1);
+  }
+
+  .summary-card h4{
+    margin-bottom:8px;
+    color:var(--gold);
+  }
+
+  .summary-card p{
+    margin:4px 0;
+    font-size:13px;
+  }
+
+}
+
+/* ========================================= */
+/* ===== STICKY TOTAL BAR ===== */
+/* ========================================= */
+
+.mobile-total-bar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#000;
+  border-top:1px solid rgba(255,255,255,0.1);
+  padding:15px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:9999;
+  display:none;
+}
+
+.mobile-total-bar button{
+  background:var(--gold);
+  border:none;
+  padding:10px 20px;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+@media(max-width:768px){
+  .mobile-total-bar{
+    display:flex;
+  }
+
+  body{
+    padding-bottom:80px;
+  }
+}
+
+/* ========================================= */
+/* ===== HAMPER GRID IMPROVEMENT ===== */
+/* ========================================= */
+
+@media(max-width:768px){
+
+  .hampers-grid{
+    grid-template-columns:1fr;
+    padding:20px;
+  }
+
+  .hamper-card{
+    border-radius:20px;
+    overflow:hidden;
+  }
+
+  .hamper-card img{
+    height:180px;
+    object-fit:cover;
+  }
+
+}
+
+
 :root {
   --gold:#c6a75e;
   --gold-light:#e6d3a3;
@@ -814,6 +927,8 @@ function updateSummary(){
   const totalEl = document.getElementById("totalPrice");
   const cartTotal = document.getElementById("cartTotal");
 
+  
+
   summary.innerHTML = "";
   let total = 0;
   const currency = currencySelect.value;
@@ -855,6 +970,8 @@ function updateSummary(){
 
   totalEl.textContent = `${currency} ${total}`;
   cartTotal.textContent = `${currency} ${total}`;
+
+  document.getElementById("mobileTotal").textContent = `${currency} ${total}`;
 }
 // Event Listeners
 document.querySelectorAll(".qty").forEach(el =>
@@ -1122,6 +1239,14 @@ function placeOrder(){
   </div>
 </footer>
 </div>
+
+<div class="mobile-total-bar">
+  <div>
+    <strong>Total:</strong> <span id="mobileTotal">Rs 0</span>
+  </div>
+  <button onclick="sendOrder()">Checkout</button>
+</div>
+
 
 
 </body>
