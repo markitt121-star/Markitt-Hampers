@@ -50,10 +50,10 @@ img{
   }
 
   .logo-area{
-    gap:12px;
+    gap:8px;
   }
   .logo-area img{
-    height:75px;
+    height:95px;
   }
 
   .brand-text{
@@ -285,9 +285,20 @@ body {
 .logo-area{
    display:flex;
   align-items:center;
-  gap:0;            /* REMOVE GAP */
+  gap:16;            /* REMOVE GAP */
+}
+/* LOGO */
+.logo{
+  height:120px;           /* clearly larger */
+  width:auto;
+  display:block;
 }
 
+.brand{
+  display:flex;
+  align-items:center;     /* same vertical line */
+  gap:16px;               /* clean professional spacing */
+}
 .brand-text{
   font-family:'Cinzel', serif;
   font-size:32px;
@@ -718,13 +729,18 @@ img{
 
 /* LOGO */
 .logo-area img{
-  height:115px;
+  height:1S20px;
   width:auto;
   object-fit:contain;
   display:block;
 }
 
-
+/* LOGO */
+.logo{
+  height:120px;           /* clearly larger */
+  width:auto;
+  display:block;
+}
 /* BRAND NAME */
 .brand-text{
  font-family:'Cinzel', serif;
@@ -880,8 +896,9 @@ input, select, textarea{
 
 <!-- Header -->
 <div class="header">
-  <div class="logo-area">
-      <img src="Logo_Markitt.png" alt="Markitt Logo">
+  <!-- <div class="logo-area"> -->
+    <div class="brand">
+      <img src="Logo_Markitt.png" class="logo"     alt="Markitt Logo">
       <div class="brand-wrapper">
           <h1 class="brand-text">Markitt Hamper Service</h1>
           <p class="tagline">Serving Across Pakistan – Orders Worldwide</p>
