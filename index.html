@@ -601,32 +601,27 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
   </div>
 </div>
 
-<!-- Live Summary -->
-<!-- Order Summary -->
-<div class="live-summary">
-  <h3>Order Summary</h3>
-  <table class="summary-table">
-    <thead>
-      <tr>
-        <th>Hamper</th>
-        <th>Variety</th>
-        <th>Qty</th>
-        <th>Price</th>
-        <th>Amount</th>
-      </tr>
-    </thead>
-    <tbody id="summaryItems">
-      <!-- JS will populate items here -->
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="4" class="total-label">Total:</td>
-        <td id="totalPrice">₨ 0</td>
-      </tr>
-    </tfoot>
-  </table>
-</div>
+<!-- ================= CART DRAWER ================= -->
 
+<div class="cart-overlay" onclick="closeCart()"></div>
+
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <span onclick="closeCart()">✕</span>
+  </div>
+
+  <div class="cart-items" id="cartItems">
+    <!-- JS will inject items here -->
+  </div>
+
+  <div class="cart-footer">
+    <div class="cart-total">
+      Total: <span id="drawerTotal">Rs 0</span>
+    </div>
+    <button onclick="sendOrder()">Checkout</button>
+  </div>
+</div>
 
 <!-- Customer & Delivery Details -->
 <form id="orderForm" class="order-form">
@@ -1291,27 +1286,6 @@ function updateCartDrawer(){
   <button onclick="placeOrder()">Checkout</button>
 </div>
 
-<!-- ================= CART DRAWER ================= -->
-
-<div class="cart-overlay" onclick="closeCart()"></div>
-
-<div class="cart-drawer" id="cartDrawer">
-  <div class="cart-header">
-    <h3>Your Cart</h3>
-    <span onclick="closeCart()">✕</span>
-  </div>
-
-  <div class="cart-items" id="cartItems">
-    <!-- JS will inject items here -->
-  </div>
-
-  <div class="cart-footer">
-    <div class="cart-total">
-      Total: <span id="drawerTotal">Rs 0</span>
-    </div>
-    <button onclick="sendOrder()">Checkout</button>
-  </div>
-</div>
 
 </body>
 </html>
