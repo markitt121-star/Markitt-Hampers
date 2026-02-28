@@ -717,17 +717,8 @@ Place Order
 
 </form>
 <!-- Floating Cart -->
-<div class="floating-cart" onclick="toggleCart()">🛒 View Cart</div>
-
-<!-- Cart Drawer -->
-<div class="cart-modal" id="cartModal">
-<div class="cart-content">
-<span class="close" onclick="toggleCart()">X</span>
-<h3>Your Cart</h3>
-<div id="cartItems"></div>
-<p><strong>Total: <span id="cartTotal">₨ 0</span></strong></p>
-<button onclick="downloadPDF()">Download PDF</button>
-</div>
+<div class="floating-cart" onclick="openCart()">
+  🛒 View Cart
 </div>
 
 <script>
@@ -925,7 +916,7 @@ currencySelect.addEventListener("change", function () {
 function updateSummary(){
   const summary = document.getElementById("summaryItems");
   const totalEl = document.getElementById("totalPrice");
-  const cartTotal = document.getElementById("cartTotal");
+  
 
   
 
@@ -969,9 +960,10 @@ function updateSummary(){
   });
 
   totalEl.textContent = `${currency} ${total}`;
-  cartTotal.textContent = `${currency} ${total}`;
+
 
   document.getElementById("mobileTotal").textContent = `${currency} ${total}`;
+  updateCartDrawer();
 }
 // Event Listeners
 document.querySelectorAll(".qty").forEach(el =>
@@ -982,10 +974,7 @@ document.querySelectorAll(".variety").forEach(el =>
   el.addEventListener("change", updateSummary)
 );
 
-// Cart Drawer
-function toggleCart(){
-  document.getElementById("cartModal").classList.toggle("active");
-}
+
 function downloadPDF(){
 
   const { jsPDF } = window.jspdf;
@@ -1158,7 +1147,62 @@ function placeOrder(){
   updateSummary();
 }
 
+// ================= NEW PREMIUM CART =================
 
+function openCart(){
+  document.getElementById("cartDrawer").classList.add("active");
+  document.querySelector(".cart-overlay").classList.add("active");
+}
+
+function closeCart(){
+  document.getElementById("cartDrawer").classList.remove("active");
+  document.querySelector(".cart-overlay").classList.remove("active");
+}
+
+function updateCartDrawer(){
+
+  const drawerItems = document.getElementById("cartItems");
+  const drawerTotal = document.getElementById("drawerTotal");
+
+  drawerItems.innerHTML = "";
+  let total = 0;
+  const currency = currencySelect.value;
+
+  document.querySelectorAll(".hamper-card").forEach(card => {
+
+    const name = card.dataset.name;
+    const variety = card.querySelector(".variety").value;
+    const qty = parseInt(card.querySelector(".qty").value) || 0;
+
+    if(qty > 0){
+
+      const index = card.dataset.index;
+      const basePrice = hampers[index].varieties[variety].price;
+
+      let convertedPrice = basePrice;
+
+      if(currency !== "PKR" && exchangeRates[currency]){
+        convertedPrice = basePrice * exchangeRates[currency];
+      }
+
+      const amount = Math.round(convertedPrice * qty);
+      total += amount;
+
+      drawerItems.innerHTML += `
+        <div class="cart-item">
+          <div>
+            <strong>${name}</strong><br>
+            ${variety} × ${qty}
+          </div>
+          <div>${currency} ${amount}</div>
+        </div>
+      `;
+    }
+
+  });
+
+  drawerTotal.textContent = `${currency} ${total}`;
+}
 </script>
 <!-- Footer -->
 <footer class="footer">
@@ -1244,10 +1288,30 @@ function placeOrder(){
   <div>
     <strong>Total:</strong> <span id="mobileTotal">Rs 0</span>
   </div>
-  <button onclick="sendOrder()">Checkout</button>
+  <button onclick="placeOrder()">Checkout</button>
 </div>
 
+<!-- ================= CART DRAWER ================= -->
 
+<div class="cart-overlay" onclick="closeCart()"></div>
+
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <span onclick="closeCart()">✕</span>
+  </div>
+
+  <div class="cart-items" id="cartItems">
+    <!-- JS will inject items here -->
+  </div>
+
+  <div class="cart-footer">
+    <div class="cart-total">
+      Total: <span id="drawerTotal">Rs 0</span>
+    </div>
+    <button onclick="sendOrder()">Checkout</button>
+  </div>
+</div>
 
 </body>
 </html>
