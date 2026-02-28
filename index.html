@@ -43,40 +43,28 @@ img{
 }
 
 /* Header mobile layout */
-@media(max-width:768px){
+@media (max-width:768px){
 
   .header{
-    flex-direction:column;
-    text-align:center;
-    padding:15px;
-    gap:10px;
+    padding:15px 18px;
   }
-
-  @media(max-width:768px){
 
   .logo-area{
-    gap:0px;
+    gap:12px;
   }
-
   .logo-area img{
-    height:48px;
+    height:75px;
   }
 
   .brand-text{
     font-size:18px;
   }
 
-}
   .tagline{
-    font-size:12px;
+    font-size:11px;
   }
-
-  .total-orders{
-    margin-top:8px;
-    font-size:13px;
-  }
-
 }
+
 
 /* Container spacing */
 @media(max-width:768px){
@@ -297,7 +285,7 @@ body {
 .logo-area{
    display:flex;
   align-items:center;
-  gap:0;                 /* REMOVE GAP */
+  gap:0;            /* REMOVE GAP */
 }
 
 .brand-text{
@@ -710,43 +698,58 @@ img{
 
 /* ================= HEADER FIX ================= */
 
+/* ================= HEADER FIX ================= */
+
 .header{
   display:flex;
+  justify-content:space-between;   /* left content + right button */
   align-items:center;
- 
-  padding:5px 5px;
+  padding:12px 40px;
   background:linear-gradient(135deg,#0f0f0f,#1a1a1a);
   border-bottom:1px solid rgba(212,175,55,0.3);
 }
+
+/* LEFT SIDE (Logo + Text) */
 .logo-area{
-  display:flex;
-  align-items:left;
-  gap:2px;              /* pehle zyada tha, ab kam */
+   display:flex;
+  align-items:center;
+  gap:22px;              /* space between logo & text */
 }
 
+/* LOGO */
 .logo-area img{
-  height:130px;          /* BIGGER THAN TITLE */
+  height:115px;
   width:auto;
   object-fit:contain;
   display:block;
-  margin:0;
-  padding:0;
 }
 
+
+/* BRAND NAME */
 .brand-text{
  font-family:'Cinzel', serif;
-  font-size:26px;        /* Smaller than logo */
-  font-weight:600;
+  font-size:24px;
   margin:0;
-  padding:0;
-  line-height:1;
-  color:var(--gold); /* extra vertical space remove */
-
+  line-height:1.1;
+  color:var(--gold);
 }
+
+/* TAGLINE */
 .tagline{
+   margin:4px 0 0 0;
   font-size:13px;
-  margin:4px 0 0 0;
-  color:#ccc;
+  color:#bfbfbf;
+}
+
+/* TEXT WRAPPER */
+.brand-wrapper{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;   /* vertical balance */
+}
+.order-count{
+  display:flex;
+  align-items:center;
 }
 
 /* ================= SLIDER FIX ================= */
@@ -811,30 +814,29 @@ input, select, textarea{
 
 /* ================= MOBILE RESPONSIVE ================= */
 
-@media(max-width:768px){
+
+@media (max-width:768px){
 
   .header{
-    flex-direction:column;
-    text-align:center;
-    padding:20px;
-    gap:5px;
+    padding:14px 20px;
   }
 
   .logo-area{
-    flex-direction:column;
+    gap:14px;
   }
 
   .logo-area img{
-    height:40px;
+    height:80px;
   }
 
   .brand-text{
-    font-size:22px;
+    font-size:18px;
   }
 
   .tagline{
-    font-size:12px;
+    font-size:11px;
   }
+}
 
   .slider{
     height:230px;
@@ -879,13 +881,16 @@ input, select, textarea{
 <!-- Header -->
 <div class="header">
   <div class="logo-area">
-    <img src="Logo_Markitt.png" alt="Markitt Logo">
-    <div>
-      <div class="brand-text">Markitt Hamper Service</div>
-      <p class="tagline">Serving Across Pakistan – Orders Worldwide</p>
-    </div>
+      <img src="Logo_Markitt.png" alt="Markitt Logo">
+      <div class="brand-wrapper">
+          <h1 class="brand-text">Markitt Hamper Service</h1>
+          <p class="tagline">Serving Across Pakistan – Orders Worldwide</p>
+      </div>
   </div>
-  <div class="total-orders">💚 Orders Placed: <span id="ordersCounter">0</span></div>
+
+  <div class="order-count">
+      💚 Orders Placed: 4
+  </div>
 </div>
 
 <div class="container">
