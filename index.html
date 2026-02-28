@@ -9,121 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-
 <style>
-/* ========================================= */
-/* ===== PREMIUM MOBILE UPGRADE ===== */
-/* ========================================= */
-
-/* Better Header */
-.header{
-  padding:18px 25px;
-}
-
-.logo-area{
-  gap:10px;
-}
-
-.brand-text{
-  letter-spacing:2px;
-}
-
-/* ========================================= */
-/* ===== MOBILE SUMMARY CARD STYLE ===== */
-/* ========================================= */
-
-@media(max-width:768px){
-
-  .summary-table{
-    display:none;
-  }
-
-  .live-summary{
-    padding:15px;
-  }
-
-  .summary-card{
-    background:rgba(255,255,255,0.05);
-    border-radius:18px;
-    padding:15px;
-    margin-bottom:15px;
-    border:1px solid rgba(255,255,255,0.1);
-  }
-
-  .summary-card h4{
-    margin-bottom:8px;
-    color:var(--gold);
-  }
-
-  .summary-card p{
-    margin:4px 0;
-    font-size:13px;
-  }
-
-}
-
-/* ========================================= */
-/* ===== STICKY TOTAL BAR ===== */
-/* ========================================= */
-
-.mobile-total-bar{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:#000;
-  border-top:1px solid rgba(255,255,255,0.1);
-  padding:15px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  z-index:9999;
-  display:none;
-}
-
-.mobile-total-bar button{
-  background:var(--gold);
-  border:none;
-  padding:10px 20px;
-  border-radius:10px;
-  font-weight:600;
-  cursor:pointer;
-}
-
-@media(max-width:768px){
-  .mobile-total-bar{
-    display:flex;
-  }
-
-  body{
-    padding-bottom:80px;
-  }
-}
-
-/* ========================================= */
-/* ===== HAMPER GRID IMPROVEMENT ===== */
-/* ========================================= */
-
-@media(max-width:768px){
-
-  .hampers-grid{
-    grid-template-columns:1fr;
-    padding:20px;
-  }
-
-  .hamper-card{
-    border-radius:20px;
-    overflow:hidden;
-  }
-
-  .hamper-card img{
-    height:180px;
-    object-fit:cover;
-  }
-
-}
-
-
 :root {
   --gold:#c6a75e;
   --gold-light:#e6d3a3;
@@ -147,39 +33,29 @@ body {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:15px 20px;
+  padding:20px 30px;
   backdrop-filter:blur(10px);
   background: var(--glass);
   border-radius: 15px;
   box-shadow: 0 4px 30px var(--shadow);
-  flex-wrap: wrap;
+  flex-wrap:wrap;
 }
+.logo-area { display:flex; align-items:center; flex-wrap:wrap; }
+.logo-area img{ height:60px; margin-right:15px; }
+.brand-text{ font-family:'Cinzel', serif; font-size:28px; font-weight:700; color:var(--gold); }
+.tagline{ font-size:13px; color:#aaa; }
 
-.logo-area {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:nowrap;
-}
+.container { max-width:1100px; margin:30px auto; padding:0 20px;}
 
-.logo-area img {
-  height:50px;
-}
+/* Slider */
+.slider { position:relative; height:350px; border-radius:20px; overflow:hidden; margin-bottom:30px; box-shadow:0 10px 30px rgba(0,0,0,0.15);}
+.slider img { width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:all 1s ease;}
+.slider img.active { opacity:1;}
+.slider-arrow { position:absolute; top:50%; transform:translateY(-50%); font-size:28px; color:white; background:rgba(0,0,0,0.3); padding:10px 15px; border-radius:50%; cursor:pointer; user-select:none;}
+.slider-arrow.left {left:10px;}
+.slider-arrow.right {right:10px;}
 
-.brand-text {
-  font-family:'Cinzel', serif;
-  font-size:22px;
-  font-weight:700;
-  color: var(--gold);
-  white-space:nowrap;
-}
-
-.tagline {
-  font-size:12px;
-  color:#aaa;
-  white-space:nowrap;
-}
-
+/* Orders Counter */
 .total-orders {
   border:1px solid var(--gold);
   padding:8px 22px;
@@ -188,46 +64,6 @@ body {
   font-weight:600;
   margin-top:10px;
 }
-
-.container { max-width:1100px; margin:30px auto; padding:0 20px;}
-
-/* Slider */
-.slider {
-  position:relative;
-  height:350px;
-  border-radius:20px;
-  overflow:hidden;
-  margin-bottom:30px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.15);
-}
-
-.slider img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  position:absolute;
-  top:0; left:0;
-  opacity:0;
-  transition:all 1s ease;
-}
-
-.slider img.active { opacity:1; }
-
-.slider-arrow {
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:28px;
-  color:white;
-  background:rgba(0,0,0,0.3);
-  padding:10px 15px;
-  border-radius:50%;
-  cursor:pointer;
-  user-select:none;
-}
-
-.slider-arrow.left { left:10px; }
-.slider-arrow.right { right:10px; }
 
 /* Currency Selector */
 .currency-select{
@@ -406,114 +242,24 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
   border:1px solid rgba(255,255,255,0.08);
   box-shadow:0 25px 60px rgba(0,0,0,0.6);
 }
-
-
-/* Gold Glow Animation */
-@keyframes glowPulse{
-  0%{ box-shadow:0 0 5px rgba(198,167,94,0.2); }
-  50%{ box-shadow:0 0 25px rgba(198,167,94,0.6); }
-  100%{ box-shadow:0 0 5px rgba(198,167,94,0.2); }
-}
-
-.footer-col h4{
-  color:var(--gold);
-  margin-bottom:18px;
-  font-size:16px;
-  letter-spacing:1px;
-}
-
-.footer-brand{
-  font-family:'Cinzel', serif;
-  color:var(--gold);
-  font-size:24px;
-  margin-bottom:10px;
-}
-
-.footer-col p,
-.footer-col ul li a{
-  color:#aaa;
-  font-size:14px;
-  transition:0.3s;
-}
-
-.footer-col ul{
-  list-style:none;
-  padding:0;
-}
-
-.footer-col ul li{
-  margin-bottom:10px;
-}
-
-/* Link Hover Glow */
-.footer-col ul li a:hover{
-  color:var(--gold);
-  text-shadow:0 0 10px rgba(198,167,94,0.8);
-}
-
-/* Social Icons */
-.social-icons{
-  display:flex;
-  gap:18px;
-  margin-top:15px;
-}
-
-.social-icon{
-  width:45px;
-  height:45px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  background:rgba(255,255,255,0.05);
-  color:var(--gold);
-  transition:0.4s;
-  position:relative;
-}
-
-.social-icon svg{
-  width:22px;
-  height:22px;
-}
-
-.social-icon:hover{
-  background:var(--gold);
-  color:#111;
-  transform:translateY(-5px) scale(1.1);
-  animation:glowPulse 1.5s infinite;
-}
-
-/* Google Map */
-.footer-map{
-  margin-top:15px;
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 15px 40px rgba(0,0,0,0.5);
-  border:1px solid rgba(255,255,255,0.1);
-}
-
-.footer-map iframe{
-  width:100%;
-  height:220px;
-  border:0;
-}
-
-/* Bottom */
-.footer-bottom{
-  text-align:center;
-  margin-top:50px;
-  padding-top:25px;
-  border-top:1px solid rgba(255,255,255,0.05);
-  color:#777;
-  font-size:13px;
-  letter-spacing:1px;
-}
-
+.footer-col h4{ color:var(--gold); margin-bottom:18px; font-size:16px; letter-spacing:1px; }
+.footer-brand{ font-family:'Cinzel', serif; color:var(--gold); font-size:24px; margin-bottom:10px; }
+.footer-col p, .footer-col ul li a{ color:#aaa; font-size:14px; transition:0.3s; }
+.footer-col ul{ list-style:none; padding:0; }
+.footer-col ul li{ margin-bottom:10px; }
+.footer-col ul li a:hover{ color:var(--gold); text-shadow:0 0 10px rgba(198,167,94,0.8); }
+.social-icons{ display:flex; gap:18px; margin-top:15px; }
+.social-icon{ width:45px; height:45px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(255,255,255,0.05); color:var(--gold); transition:0.4s; position:relative; }
+.social-icon svg{ width:22px; height:22px; }
+.social-icon:hover{ background:var(--gold); color:#111; transform:translateY(-5px) scale(1.1); animation:glowPulse 1.5s infinite; }
+.footer-map{ margin-top:15px; border-radius:20px; overflow:hidden; box-shadow:0 15px 40px rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); }
+.footer-map iframe{ width:100%; height:220px; border:0; }
+.footer-bottom{ text-align:center; margin-top:50px; padding-top:25px; border-top:1px solid rgba(255,255,255,0.05); color:#777; font-size:13px; letter-spacing:1px; }
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .hampers-grid { grid-template-columns: 1fr; padding:20px; gap:20px; }
-  .form-grid { grid-template-columns: 1fr; gap:15px; }
+  .form-grid { grid-template-columns: 1fr; }
   .payment-row { flex-direction: column; align-items: flex-start; }
   .slider { height:200px; }
   .slider-arrow { font-size:22px; padding:8px 12px; }
@@ -521,25 +267,19 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
   .footer-map iframe { height:180px; }
   .floating-cart { padding:12px 16px; bottom:15px; right:15px; }
   .cart-modal { width:90%; }
-
-  /* Header fix */
-  .logo-area img { height:45px; }
-  .brand-text { font-size:20px; }
-  .tagline { font-size:11px; }
 }
 
 @media (max-width: 480px) {
-  .brand-text { font-size:18px; }
-  .tagline { font-size:10px; }
+  .brand-text { font-size:22px; }
+  .tagline { font-size:11px; }
   .price { font-size:16px; }
   button { padding:10px 15px; font-size:14px; }
   .section-title { font-size:16px; }
   select,input,textarea { font-size:14px; }
-  .logo-area img { height:40px; }
 }
 </style>
+</style>
 </head>
-
 <body>
 
 <!-- Header -->
@@ -555,13 +295,12 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
 </div>
 
 <div class="container">
-
 <!-- Slider -->
 <div class="slider" id="slider">
   <span class="slider-arrow left" onclick="prevSlide()">❮</span>
   <span class="slider-arrow right" onclick="nextSlide()">❯</span>
   <img src="Slider_1.jpg" class="active">
-  <img src="Markitt_Slide.jpg">
+  <img src="Markitt_Slide.jpg" class="mrkit">
   <img src="Slider_1.jpg">
 </div>
 
@@ -582,6 +321,7 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
 
 <!-- Hamper Grid -->
 <div class="hampers-grid" id="hampersGrid"></div>
+
 
 
 <!-- Payment Box -->
@@ -626,6 +366,7 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
     </tfoot>
   </table>
 </div>
+
 
 <!-- Customer & Delivery Details -->
 <form id="orderForm" class="order-form">
@@ -715,22 +456,49 @@ Place Order
 </button>
 
 </form>
+
 <!-- Floating Cart -->
-<div class="floating-cart" onclick="openCart()">
-  🛒 View Cart
+<div class="floating-cart" onclick="toggleCart()">🛒 View Cart</div>
+
+<!-- Cart Drawer -->
+<div class="cart-modal" id="cartModal">
+<div class="cart-content">
+<span class="close" onclick="toggleCart()">X</span>
+<h3>Your Cart</h3>
+<div id="cartItems"></div>
+<p><strong>Total: <span id="cartTotal">₨ 0</span></strong></p>
+<button onclick="downloadPDF()">Download PDF</button>
+</div>
 </div>
 
 <script>
 // Slider
-let slides=document.querySelectorAll('.slider img');
-let current=0;
-function showSlide(i){
-  slides.forEach((s,index)=>{s.classList.remove('active'); if(index===i)s.classList.add('active');});
-}
-function nextSlide(){current=(current+1)%slides.length; showSlide(current);}
-function prevSlide(){current=(current-1+slides.length)%slides.length; showSlide(current);}
-setInterval(nextSlide,4000);
+const slides = document.querySelectorAll('.slider img');
+let current = 0;
 
+function showSlide(index) {
+  slides.forEach((img, i) => img.classList.toggle('active', i === index));
+}
+
+function nextSlide() {
+  current = (current + 1) % slides.length;
+  showSlide(current);
+}
+
+function prevSlide() {
+  current = (current - 1 + slides.length) % slides.length;
+  showSlide(current);
+}
+
+// Auto slide every 4 seconds
+setInterval(nextSlide, 4000);
+
+// Initialize
+showSlide(current);
+
+// Arrow buttons (if any)
+document.querySelector('.slider-arrow.left')?.addEventListener('click', prevSlide);
+document.querySelector('.slider-arrow.right')?.addEventListener('click', nextSlide);
 
 // Hamper Data
 // Dynamic Hamper Data (UPDATED)
@@ -843,61 +611,15 @@ card.querySelector(".price").textContent =
 
 card.dataset.price = data.price; // keep base PKR price stored
 
-    card.dataset.price = data.price;
+    
 
     updateSummary();
   });
 
-  // Update Summary
-function updateSummary(){
-  const summary = document.getElementById("summaryItems");
-  const totalEl = document.getElementById("totalPrice");
-  const cartTotal = document.getElementById("cartTotal");
+});
 
-  summary.innerHTML = "";
-  let total = 0;
-  const currency = currencySelect.value;
-
-  document.querySelectorAll(".hamper-card").forEach(card => {
-
-    const name = card.dataset.name;
-    const varietySelect = card.querySelector(".variety");
-    const variety = varietySelect.value;
-    const qty = parseInt(card.querySelector(".qty").value) || 0;
-
-    if (variety && qty > 0) {
-
-      const index = card.dataset.index;
-      const basePrice = hampers[index].varieties[variety].price;
-      
-
-      let convertedPrice = basePrice;
-
-      // Apply exchange rate only if not PKR
-      if (currency !== "PKR" && exchangeRates[currency]) {
-        convertedPrice = basePrice * exchangeRates[currency];
-      }
-
-      const amount = Math.round(convertedPrice * qty);
-      total += amount;
-
-      summary.innerHTML += `
-        <tr>
-          <td>${name}</td>
-          <td>${variety}</td>
-          <td>${qty}</td>
-          <td>${currency} ${Math.round(convertedPrice)}</td>
-          <td>${currency} ${amount}</td>
-        </tr>
-      `;
-    }
-  });
-
-  totalEl.textContent = `${currency} ${total}`;
-  cartTotal.textContent = `${currency} ${total}`;
-}
-
-
+const formatter = new Intl.NumberFormat('en-PK', { style: 'currency', currency: currency });
+priceEl.textContent = formatter.format(convertedPrice);
 
 // Orders Counter
 let ordersPlaced = localStorage.getItem("ordersPlaced") || 0;
@@ -950,76 +672,62 @@ currencySelect.addEventListener("change", function () {
       converted = basePrice * exchangeRates[selectedCurrency];
     }
 
-    priceEl.textContent = `${selectedCurrency} ${Math.round(converted)}`;
-  });
+    priceEl.textContent = `${currency} ${convertedPrice.toLocaleString()}`;  });
 
   updateSummary();
 });
 
 
-let cart = [];
-
-function addToCart(name,varietyId,qtyId){
-  const price = parseInt(document.getElementById(varietyId).value);
-  const qty = parseInt(document.getElementById(qtyId).value);
-  const amount = price * qty;
-
-  cart.push({name,price,qty,amount});
-  updateCart();
-  updateSummary();
-}
-
-function updateCart(){
-  const container = document.getElementById("cartItems");
-  container.innerHTML="";
-  let total=0;
-
-  cart.forEach(item=>{
-    total+=item.amount;
-    container.innerHTML+=`
-      <div class="cart-item">
-        <span>${item.name} x${item.qty}</span>
-        <span>${item.amount}</span>
-      </div>
-    `;
-  });
-
-  document.getElementById("cartTotal").innerText="PKR "+total;
-}
 
 
 // Update Summary
 function updateSummary(){
-  const summary=document.getElementById("summaryItems");
-  summary.innerHTML="";
-  let total=0;
+  const summary = document.getElementById("summaryItems");
+  const totalEl = document.getElementById("totalPrice");
+  const cartTotal = document.getElementById("cartTotal");
 
-  cart.forEach(item=>{
-    total+=item.amount;
-    summary.innerHTML+=`
-      <tr>
-        <td>${item.name}</td>
-        <td>${item.qty}</td>
-        <td>${item.amount}</td>
-      </tr>
-    `;
+  summary.innerHTML = "";
+  let total = 0;
+  const currency = currencySelect.value;
+
+  document.querySelectorAll(".hamper-card").forEach(card => {
+
+    const name = card.dataset.name;
+    const varietySelect = card.querySelector(".variety");
+    const variety = varietySelect.value;
+    const qty = parseInt(card.querySelector(".qty").value) || 0;
+
+    if (variety && qty > 0) {
+
+      const index = card.dataset.index;
+      const basePrice = hampers[index].varieties[variety].price;
+      
+
+      let convertedPrice = basePrice;
+
+      // Apply exchange rate only if not PKR
+      if (currency !== "PKR" && exchangeRates[currency]) {
+        convertedPrice = basePrice * exchangeRates[currency];
+      }
+
+      const amount = Math.round(convertedPrice * qty);
+      total += amount;
+
+      summary.innerHTML += `
+        <tr>
+          <td>${name}</td>
+          <td>${variety}</td>
+          <td>${qty}</td>
+          <td>${currency} ${Math.round(convertedPrice)}</td>
+          <td>${currency} ${amount}</td>
+        </tr>
+      `;
+    }
   });
 
-  document.getElementById("totalPrice").innerText="PKR "+total;
+  totalEl.textContent = `${currency} ${total}`;
+  cartTotal.textContent = `${currency} ${total}`;
 }
-
-function openCart(){
-  document.querySelector(".cart-drawer").classList.add("active");
-  document.querySelector(".cart-overlay").classList.add("active");
-}
-
-function closeCart(){
-  document.querySelector(".cart-drawer").classList.remove("active");
-  document.querySelector(".cart-overlay").classList.remove("active");
-}
-
-
-
 // Event Listeners
 document.querySelectorAll(".qty").forEach(el =>
   el.addEventListener("input", updateSummary)
@@ -1029,7 +737,10 @@ document.querySelectorAll(".variety").forEach(el =>
   el.addEventListener("change", updateSummary)
 );
 
-
+// Cart Drawer
+function toggleCart(){
+  document.getElementById("cartModal").classList.toggle("active");
+}
 function downloadPDF(){
 
   const { jsPDF } = window.jspdf;
@@ -1043,7 +754,7 @@ function downloadPDF(){
 
   // ADD LOGO
   const logo = new Image();
-  logo.src = "Logo_Markitt.png";
+  logo.src = "Logo.png";
 
   logo.onload = function(){
 
@@ -1204,6 +915,7 @@ function placeOrder(){
 
 
 </script>
+
 <!-- Footer -->
 <footer class="footer">
   <div class="footer-container">
@@ -1282,30 +994,6 @@ function placeOrder(){
     © 2026 Markitt Hamper Service. All Rights Reserved.
   </div>
 </footer>
-</div>
-
-<div class="mobile-total-bar">
-  <div>
-    <strong>Total:</strong> <span id="mobileTotal">Rs 0</span>
-  </div>
-  <button onclick="placeOrder()">Checkout</button>
-</div>
-
-<!-- CART -->
-<div class="cart-overlay" onclick="closeCart()"></div>
-
-<div class="cart-drawer">
-  <div class="cart-header">
-    <h3>Your Cart</h3>
-    <button onclick="closeCart()">X</button>
-  </div>
-
-  <div class="cart-items" id="cartItems"></div>
-
-  <div class="cart-footer">
-    <p>Total: <span id="cartTotal">PKR 0</span></p>
-    <button onclick="placeOrder()">Checkout via WhatsApp</button>
-  </div>
 </div>
 
 </body>
