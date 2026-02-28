@@ -10,248 +10,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 <style>
-/* ===================================================== */
-/* ===== MOBILE RESPONSIVE FIX START (DO NOT REMOVE) ==== */
-/* ===================================================== */
-
-/* Prevent horizontal scroll */
-body{
-  overflow-x:hidden;
-}
-
-/* Make all images responsive */
-img{
-  max-width:100%;
-  height:auto;
-}
-
-/* Slider mobile fix */
-@media(max-width:768px){
-
-  .slider{
-    height:240px;
-  }
-
-  .slider img{
-    object-fit:cover;
-  }
-
-  .slider img.mrkit{
-    height:100% !important;
-  }
-
-}
-
-/* Header mobile layout */
-@media (max-width:768px){
-
-  .header{
-    padding:15px 18px;
-  }
-
-  .logo-area{
-    gap:8px;
-  }
-  .logo-area img{
-    height:95px;
-  }
-
-  .brand-text{
-    font-size:18px;
-  }
-
-  .tagline{
-    font-size:11px;
-  }
-}
-
-
-/* Container spacing */
-@media(max-width:768px){
-  .container{
-    padding:0 12px;
-  }
-}
-
-/* Currency selector mobile */
-@media(max-width:768px){
-  .currency-select{
-    padding:15px 12px;
-  }
-
-  .currency-select select{
-    width:100%;
-    font-size:14px;
-  }
-}
-
-/* Hamper Grid mobile */
-@media(max-width:768px){
-
-  .hampers-grid{
-    padding:15px;
-    gap:20px;
-  }
-
-  .hamper-card img{
-    height:160px;
-    object-fit:cover;
-  }
-
-  .hamper-content h3{
-    font-size:18px;
-  }
-
-  .items-list{
-    font-size:13px;
-  }
-
-  .price{
-    font-size:16px;
-  }
-
-}
-
-/* Quantity & select fields better alignment */
-@media(max-width:768px){
-
-  select,
-  input{
-    font-size:14px;
-    padding:9px;
-  }
-
-}
-
-/* Live Summary Table scrollable on mobile */
-@media(max-width:768px){
-
-  .live-summary{
-    margin:15px;
-    padding:15px;
-  }
-
-  .summary-table{
-    display:block;
-    overflow-x:auto;
-    white-space:nowrap;
-  }
-
-}
-
-/* Payment box mobile */
-@media(max-width:768px){
-
-  .payment-box{
-    margin:15px;
-    padding:15px;
-  }
-
-  .payment-row{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:3px;
-    font-size:13px;
-  }
-
-}
-
-/* Order Form mobile fix */
-@media(max-width:768px){
-
-  .order-form{
-    margin:15px;
-    padding:15px;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr !important;
-    gap:15px;
-  }
-
-  .form-group.full-width{
-    grid-column:1/-1;
-  }
-
-  .order-form h2{
-    font-size:18px;
-  }
-
-  .section-title{
-    font-size:15px;
-  }
-
-}
-
-/* Cart Drawer full width on mobile */
-@media(max-width:768px){
-
-  .cart-modal{
-    width:100%;
-  }
-
-}
-
-/* Floating cart smaller on mobile */
-@media(max-width:768px){
-
-  .floating-cart{
-    padding:12px 16px;
-    font-size:14px;
-    bottom:15px;
-    right:15px;
-  }
-
-}
-
-/* Footer mobile fix */
-@media(max-width:768px){
-
-  .footer{
-    padding:40px 15px 20px;
-  }
-
-  .footer-container{
-    padding:20px;
-    gap:30px;
-  }
-
-  .footer-map iframe{
-    height:180px;
-  }
-
-}
-
-/* Extra small devices */
-@media(max-width:480px){
-
-  .slider{
-    height:200px;
-  }
-
-  .brand-text{
-    font-size:18px;
-  }
-
-  .tagline{
-    font-size:11px;
-  }
-
-  .hamper-card img{
-    height:140px;
-  }
-
-  button{
-    font-size:13px;
-    padding:10px 14px;
-  }
-
-}
-
-/* ===================================================== */
-/* ===== MOBILE RESPONSIVE FIX END ===================== */
-/* ===================================================== */
-
 
 
 :root {
@@ -272,49 +30,8 @@ body {
   color:#fff;
 }
 
-/* Header */
-.header {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:20px 40px;
-  background:linear-gradient(135deg,#0f0f0f,#1a1a1a);
-  border-bottom:1px solid rgba(212,175,55,0.3);
-}
 
-.logo-area{
-   display:flex;
-  align-items:center;
-  gap:16;            /* REMOVE GAP */
-}
-/* LOGO */
-.logo{
-  height:120px;           /* clearly larger */
-  width:auto;
-  display:block;
-}
 
-.brand{
-  display:flex;
-  align-items:center;     /* same vertical line */
-  gap:16px;               /* clean professional spacing */
-}
-.brand-text{
-  font-family:'Cinzel', serif;
-  font-size:32px;
-  font-weight:700;
-  color:var(--gold);
-  letter-spacing:0.5px;
-  margin:0;
-}
-
-.tagline{
-  margin:5px 0 0 0;
-  font-size:16px;
-  color:#ccc;
-}
-
-.tagline{ font-size:13px; color:#aaa; }
 
 .container { max-width:1100px; margin:30px auto; padding:0 20px;}
 
@@ -336,7 +53,7 @@ body {
 
 .total-orders {
   border:1px solid var(--gold);
-  padding:8px 22px;
+  padding:8px 20px;
   border-radius:40px;
   color:var(--gold-light);
   font-weight:600;
@@ -562,8 +279,27 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
 }
 /* Responsive */
 @media(max-width:768px){
-  .hamper-card img{ height:150px; }
-  .header{ flex-direction:column; gap:15px; }
+  .header{
+    flex-direction:column;
+    gap:12px;
+    text-align:center;
+  }
+   .logo-area{
+    gap:10px;
+  }
+
+  .logo-area img{
+    height:70px;
+  }
+
+  .brand-text{
+    font-size:18px;
+  }
+
+  .total-orders{
+    font-size:13px;
+    padding:6px 16px;
+  }
 }
 /* ============================= */
 /* ULTRA PREMIUM GLASS FOOTER   */
@@ -691,47 +427,30 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
   font-size:13px;
   letter-spacing:1px;
 }
-/* ========================================= */
-/* ===== FINAL PROFESSIONAL RESPONSIVE FIX ===== */
-/* ========================================= */
 
-/* Prevent horizontal scroll */
-body{
-  overflow-x:hidden;
-}
-
-/* Make all images responsive */
-img{
-  max-width:100%;
-  height:auto;
-  display:block;
-}
-
-/* ================= HEADER FIX ================= */
 
 /* ================= HEADER FIX ================= */
 
 .header{
-  display:flex;
-  justify-content:space-between;   /* left content + right button */
+   display:flex;
+  justify-content:space-between;
   align-items:center;
-  padding:12px 40px;
+  padding:20px 40px;
   background:linear-gradient(135deg,#0f0f0f,#1a1a1a);
   border-bottom:1px solid rgba(212,175,55,0.3);
 }
 
 /* LEFT SIDE (Logo + Text) */
 .logo-area{
-   display:flex;
+  display:flex;
   align-items:center;
-  gap:22px;              /* space between logo & text */
+  gap:18px;
 }
 
 /* LOGO */
 .logo-area img{
-  height:1S20px;
+   height:120px;
   width:auto;
-  object-fit:contain;
   display:block;
 }
 
@@ -744,18 +463,14 @@ img{
 /* BRAND NAME */
 .brand-text{
  font-family:'Cinzel', serif;
-  font-size:24px;
+  font-size:26px;
+  font-weight:600;
   margin:0;
-  line-height:1.1;
+  line-height:1;
   color:var(--gold);
 }
 
-/* TAGLINE */
-.tagline{
-   margin:4px 0 0 0;
-  font-size:13px;
-  color:#bfbfbf;
-}
+
 
 /* TEXT WRAPPER */
 .brand-wrapper{
@@ -828,67 +543,7 @@ input, select, textarea{
   border:1px solid #ccc;
 }
 
-/* ================= MOBILE RESPONSIVE ================= */
 
-
-@media (max-width:768px){
-
-  .header{
-    padding:14px 20px;
-  }
-
-  .logo-area{
-    gap:14px;
-  }
-
-  .logo-area img{
-    height:80px;
-  }
-
-  .brand-text{
-    font-size:18px;
-  }
-
-  .tagline{
-    font-size:11px;
-  }
-}
-
-  .slider{
-    height:230px;
-  }
-
-  .hamper-card img{
-    height:170px;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-}
-
-/* ================= EXTRA SMALL DEVICES ================= */
-
-@media(max-width:480px){
-
-  .slider{
-    height:200px;
-  }
-
-  .brand-text{
-    font-size:18px;
-  }
-
-  .hamper-card img{
-    height:150px;
-  }
-
-}
-
-/* ========================================= */
-/* ===== END PROFESSIONAL FIX ===== */
-/* ========================================= */
 
 </style>
 </head>
@@ -1596,5 +1251,6 @@ function placeOrder(){
 
 </body>
 </html>
+
 
 
