@@ -35,7 +35,7 @@
 @media(max-width:768px){
 
   .summary-table{
-    display:none;
+    display:table;
   }
 
   .live-summary{
@@ -1046,6 +1046,7 @@ function updateSummary(){
 
   totalEl.textContent = `${currency} ${total}`;
   cartTotal.textContent = `${currency} ${total}`;
+  document.getElementById("mobileTotal").textContent = `${currency} ${total}`;
 }
 // Event Listeners
 document.querySelectorAll(".qty").forEach(el =>
@@ -1321,8 +1322,7 @@ function placeOrder(){
   <div>
     <strong>Total:</strong> <span id="mobileTotal">Rs 0</span>
   </div>
-  <button onclick="sendOrder()">Checkout</button>
-</div>
+<button onclick="placeOrder()">Checkout</button></div>
 
 </body>
 </html>
