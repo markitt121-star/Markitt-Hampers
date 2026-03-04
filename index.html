@@ -901,7 +901,8 @@ const hampers = [
 
 // Render Hampers
 // Render Hampers (UPDATED)
-const grid = document.getElementById("hampersGrid");
+window.addEventListener("DOMContentLoaded", () => {
+  const grid = document.getElementById("hampersGrid");
 
 hampers.forEach((h, index) => {
 
@@ -929,6 +930,8 @@ hampers.forEach((h, index) => {
     </div>
   </div>`;
 });
+});
+
 
 document.querySelectorAll(".variety").forEach(select => {
 
