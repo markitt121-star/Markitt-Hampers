@@ -28,6 +28,20 @@
   letter-spacing:2px;
 }
 
+.summary-card{
+  animation:fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
 /* ========================================= */
 /* ===== MOBILE SUMMARY CARD STYLE ===== */
 /* ========================================= */
@@ -702,6 +716,8 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
       </tr>
     </tfoot>
   </table>
+   <!-- 🔥 ADD THIS RIGHT HERE -->
+  <div id="mobileSummary"></div>
 </div>
 
 
@@ -1001,30 +1017,32 @@ currencySelect.addEventListener("change", function () {
 
 // Update Summary
 function updateSummary(){
+
   const summary = document.getElementById("summaryItems");
+  const mobileSummary = document.getElementById("mobileSummary");
   const totalEl = document.getElementById("totalPrice");
   const cartTotal = document.getElementById("cartTotal");
+  const mobileTotal = document.getElementById("mobileTotal");
 
   summary.innerHTML = "";
+  mobileSummary.innerHTML = "";
+
   let total = 0;
   const currency = currencySelect.value;
 
   document.querySelectorAll(".hamper-card").forEach(card => {
 
     const name = card.dataset.name;
-    const varietySelect = card.querySelector(".variety");
-    const variety = varietySelect.value;
+    const variety = card.querySelector(".variety").value;
     const qty = parseInt(card.querySelector(".qty").value) || 0;
 
-    if (variety && qty > 0) {
+    if (qty > 0) {
 
       const index = card.dataset.index;
       const basePrice = hampers[index].varieties[variety].price;
-      
 
       let convertedPrice = basePrice;
 
-      // Apply exchange rate only if not PKR
       if (currency !== "PKR" && exchangeRates[currency]) {
         convertedPrice = basePrice * exchangeRates[currency];
       }
@@ -1032,6 +1050,7 @@ function updateSummary(){
       const amount = Math.round(convertedPrice * qty);
       total += amount;
 
+      // ===== DESKTOP TABLE =====
       summary.innerHTML += `
         <tr>
           <td>${name}</td>
@@ -1041,13 +1060,27 @@ function updateSummary(){
           <td>${currency} ${amount}</td>
         </tr>
       `;
+
+      // ===== MOBILE CARD =====
+      mobileSummary.innerHTML += `
+        <div class="summary-card">
+          <h4>${name} - ${variety}</h4>
+          <p>Quantity: ${qty}</p>
+          <p>Price: ${currency} ${Math.round(convertedPrice)}</p>
+          <p><strong>Total: ${currency} ${amount}</strong></p>
+        </div>
+      `;
     }
   });
 
+
+
   totalEl.textContent = `${currency} ${total}`;
   cartTotal.textContent = `${currency} ${total}`;
-  document.getElementById("mobileTotal").textContent = `${currency} ${total}`;
+  mobileTotal.textContent = `${currency} ${total}`;
 }
+
+
 // Event Listeners
 document.querySelectorAll(".qty").forEach(el =>
   el.addEventListener("input", updateSummary)
