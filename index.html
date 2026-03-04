@@ -901,8 +901,7 @@ const hampers = [
 
 // Render Hampers
 // Render Hampers (UPDATED)
-window.addEventListener("DOMContentLoaded", () => {
-  const grid = document.getElementById("hampersGrid");
+const grid = document.getElementById("hampersGrid");
 
 hampers.forEach((h, index) => {
 
@@ -930,8 +929,6 @@ hampers.forEach((h, index) => {
     </div>
   </div>`;
 });
-});
-
 
 document.querySelectorAll(".variety").forEach(select => {
 
@@ -1090,16 +1087,6 @@ function updateSummary(){
   mobileTotal.textContent = `${currency} ${total}`;
 }
 
-// ===== NEW SNIPPET: remove highlight on input =====
-document.querySelectorAll(".qty").forEach(input => {
-  input.addEventListener("input", function(){
-    const card = this.closest(".hamper-card");
-    if(parseInt(this.value) > 0){
-      card.classList.remove("highlight");
-    }
-  });
-});
-
 
 // Event Listeners
 document.querySelectorAll(".qty").forEach(el =>
@@ -1250,11 +1237,37 @@ function placeOrder(){
 
 
   
-   // Continue with order as usual
   const select = document.getElementById("sendMethodSelect");
   const method = select.value;
 
-    const orderText = document.getElementById("summaryItems").innerText.trim();
+  const form  = document.getElementById("orderForm");
+  const summaryRows = document.querySelectorAll("#summaryItems tr");
+
+  // Remove existing highlights
+  document.querySelectorAll(".hamper-card").forEach(card => {
+    card.classList.remove("highlight");
+  });
+  // If no hampers selected
+  if(summaryRows.length === 0){
+    alert("Please select at least one hamper.");
+
+    // Highlight all hamper cards that have qty=0
+    document.querySelectorAll(".hamper-card").forEach(card => {
+      const qty = parseInt(card.querySelector(".qty").value) || 0;
+      if(qty === 0){
+        card.classList.add("highlight");
+      }
+    });
+
+  // ❌ If no hampers selected, alert and scroll to form
+  if(!orderText){
+    alert("Please select at least one hamper.");
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  const total = document.getElementById("totalPrice").textContent;
+
   const msg =
     `New Hamper Order\n\n` +
     `Sender Phone: ${form.senderPhone.value}\n` +
@@ -1280,42 +1293,6 @@ function placeOrder(){
   updateSummary();
 }
 
-
-  const form  = document.getElementById("orderForm");
-  const summaryRows = document.querySelectorAll("#summaryItems tr");
-
-  // Remove existing highlights
-  document.querySelectorAll(".hamper-card").forEach(card => {
-    card.classList.remove("highlight");
-  });
-  // If no hampers selected
-  if(summaryRows.length === 0){
-    alert("Please select at least one hamper.");
-
-    // Highlight all hamper cards that have qty=0
-    document.querySelectorAll(".hamper-card").forEach(card => {
-      const qty = parseInt(card.querySelector(".qty").value) || 0;
-      if(qty === 0){
-        card.classList.add("highlight");
-      }
-    });
-
-      // Scroll to hampers section
-    const grid = document.getElementById("hampersGrid");
-    grid.scrollIntoView({ behavior: "smooth", block: "start" });
-    return;
-  }
-
-  // ❌ If no hampers selected, alert and scroll to form
-  if(!orderText){
-    alert("Please select at least one hamper.");
-    form.scrollIntoView({ behavior: "smooth", block: "start" });
-    return;
-  }
-
-  const total = document.getElementById("totalPrice").textContent;
-
-  
 
 function scrollToOrderForm() {
   const form = document.getElementById("orderForm");
