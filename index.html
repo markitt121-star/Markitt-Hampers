@@ -97,19 +97,12 @@
 
 .mobile-total-bar button{
   background:var(--gold);
-  color:#111;
-  font-weight:700;
-  padding:10px 20px;
-  border-radius:12px;
-  cursor:pointer;
   border:none;
-  transition:0.3s;
+  padding:10px 20px;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
 }
-.mobile-total-bar button:hover{
-  background:var(--gold-light);
-  transform:translateY(-2px);
-}
-
 
 @media(max-width:768px){
   .mobile-total-bar{
@@ -1235,34 +1228,14 @@ doc.text(`Total Amount: ${currencySelect.value} ${finalTotal.toFixed(2)}`, 140, 
 function placeOrder(){
   updateSummary();
 
-
-  
   const select = document.getElementById("sendMethodSelect");
   const method = select.value;
 
-  const form  = document.getElementById("orderForm");
-  const summaryRows = document.querySelectorAll("#summaryItems tr");
+  const form = document.getElementById("orderForm");
+  const orderText = document.getElementById("summaryItems").innerText;
 
-  // Remove existing highlights
-  document.querySelectorAll(".hamper-card").forEach(card => {
-    card.classList.remove("highlight");
-  });
-  // If no hampers selected
-  if(summaryRows.length === 0){
-    alert("Please select at least one hamper.");
-
-    // Highlight all hamper cards that have qty=0
-    document.querySelectorAll(".hamper-card").forEach(card => {
-      const qty = parseInt(card.querySelector(".qty").value) || 0;
-      if(qty === 0){
-        card.classList.add("highlight");
-      }
-    });
-
-  // ❌ If no hampers selected, alert and scroll to form
   if(!orderText){
     alert("Please select at least one hamper.");
-    form.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
   }
 
@@ -1293,11 +1266,6 @@ function placeOrder(){
   updateSummary();
 }
 
-
-function scrollToOrderForm() {
-  const form = document.getElementById("orderForm");
-  form.scrollIntoView({ behavior: "smooth", block: "start" });
-}
 
 </script>
 
@@ -1383,13 +1351,14 @@ function scrollToOrderForm() {
 
 
 
-<div class="mobile-total-bar" id="mobileTotalBar">
+<div class="mobile-total-bar">
   <div>
     <strong>Total:</strong> <span id="mobileTotal">Rs 0</span>
   </div>
-<button id="scrollToOrderForm()">Checkout</button></div>
+<button onclick="placeOrder()">Checkout</button></div>
 
 </body>
 </html>
+
 
 
