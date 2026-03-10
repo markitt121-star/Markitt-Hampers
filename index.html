@@ -1253,6 +1253,8 @@ async function placeOrder() {
     alert("Please select at least one hamper.");
     return;
   }
+ // Show loading overlay
+  document.getElementById("loadingScreen").style.display = "flex";
 
   const total = document.getElementById("totalPrice").textContent;
   const select = document.getElementById("sendMethodSelect");
@@ -1302,10 +1304,6 @@ async function placeOrder() {
         window.location.href = `mailto:markitt121@gmail.com?subject=New Hamper Order&body=${encodeURIComponent(msg)}`;
       }
 
-       // Show loading
-  document.getElementById("loadingScreen").style.display = "flex";
- 
-
       const orderNumber = "ORD" + Date.now().toString().slice(-6);
       showSuccessPage(orderNumber);
       form.reset();
@@ -1320,6 +1318,8 @@ async function placeOrder() {
     alert("Error connecting to Google Sheet. Please try again.");
     console.error("Fetch Error:", err);
   }
+   // Show loading overlay
+  document.getElementById("loadingScreen").style.display = "flex";
 }
 
   /* WHATSAPP / EMAIL */
@@ -1478,23 +1478,22 @@ catch (err) {
     <strong>Total:</strong> <span id="mobileTotal">Rs 0</span>
   </div>
 <button onclick="placeOrder()">Checkout</button></div>
+<!-- Loading Overlay -->
 <div id="loadingScreen" style="
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:white;
-z-index:9999;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-font-family:sans-serif;
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index:99999;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
 ">
 
 <div class="spinner"></div>
-<p>Processing your order...</p>
+<p style="color:#fff; margin-top:15px; font-size:16px;">Processing your order...</p>
 
 </div>
 
