@@ -1246,40 +1246,18 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwS2NM78obKdB
 // Order Form
 async function placeOrder(){
 
-  
-  document.getElementById("loadingScreen").style.display = "flex";
-  const orderNumber = "ORD" + Date.now().toString().slice(-6);
-  orderData.orderNumber = orderNumber;
-
-  const select = document.getElementById("sendMethodSelect");
-  const method = select.value;
-
   const form = document.getElementById("orderForm");
   const orderText = document.getElementById("summaryItems").innerText;
-
+  
   if(!orderText){
     alert("Please select at least one hamper.");
     return;
   }
-    document.getElementById("loadingScreen").style.display="none";
-
-
-  const total = document.getElementById("totalPrice").textContent;
-
-  const msg =
-    `New Hamper Order\n\n` +
-    `Sender Phone: ${form.senderPhone.value}\n` +
-    `Sender City: ${form.senderCity.value}\n\n` +
-    `Receiver: ${form.receiver.value}\n` +
-    `Phone: ${form.phone.value}\n` +
-    `Address: ${form.address.value}\n\n` +
-    `${orderText}\n` +
-    `Total: ${total}`;
-
-
-  /* SEND DATA TO GOOGLE SHEET */
-
-  const slipUrl = await uploadSlip();
+    document.getElementById("loadingScreen").style.display="flex";
+    const orderNumber = "ORD" + Date.now().toString().slice(-6);
+    const total = document.getElementById("totalPrice").textContent;
+  
+    const slipUrl = await uploadSlip();
 
 const orderData = {
 
@@ -1298,7 +1276,6 @@ const orderData = {
 
     slipUrl: slipUrl
   };
-
   try{
 
     await fetch(GOOGLE_SCRIPT_URL,{
@@ -1314,9 +1291,17 @@ const orderData = {
   }catch(err){
     console.error("Sheet Error:",err);
   }
-
-
-  /* WHATSAPP / EMAIL */
+  const select = document.getElementById("sendMethodSelect");
+  const method = select.value;
+ const msg =
+    `New Hamper Order\n\n` +
+    `Sender Phone: ${form.senderPhone.value}\n` +
+    `Sender City: ${form.senderCity.value}\n\n` +
+    `Receiver: ${form.receiver.value}\n` +
+    `Phone: ${form.phone.value}\n` +
+    `Address: ${form.address.value}\n\n` +
+    `${orderText}\n` +
+    `Total: ${total}`;
 
   if(method === "whatsapp"){
     window.open(
@@ -1379,6 +1364,10 @@ if(file.size > 2000000){
   document.getElementById("orderNumberDisplay").innerText = orderNumber;
 
 }
+
+  document.getElementById("loadingScreen").style.display = "flex";
+  orderData.orderNumber = orderNumber;
+
 </script>
 
 <!-- Footer -->
@@ -1505,10 +1494,3 @@ font-family:sans-serif;
   
 </body>
 </html>
-
-
-
-
-
-
-
