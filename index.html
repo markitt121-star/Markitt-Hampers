@@ -918,7 +918,7 @@ hampers.forEach((h, index) => {
   const defaultVariety = "Basic";
   const defaultData = h.varieties[defaultVariety];
 
-  grid.innerHTML += `
+  grid.insertAdjacentHTML("beforeend", `
   <div class="hamper-card" 
      data-index="${index}" 
      data-name="${h.name}"
@@ -937,8 +937,8 @@ hampers.forEach((h, index) => {
 
       <input type="number" class="qty" min="0" value="0">
     </div>
-  </div>`;
-});
+  </div>`
+);
 
 document.querySelectorAll(".variety").forEach(select => {
 
@@ -1249,7 +1249,7 @@ async function placeOrder(){
   
   document.getElementById("loadingScreen").style.display = "flex";
   const orderNumber = "ORD" + Date.now().toString().slice(-6);
-   updateSummary();
+  orderData.orderNumber = orderNumber;
 
   const select = document.getElementById("sendMethodSelect");
   const method = select.value;
@@ -1261,6 +1261,8 @@ async function placeOrder(){
     alert("Please select at least one hamper.");
     return;
   }
+    document.getElementById("loadingScreen").style.display="none";
+
 
   const total = document.getElementById("totalPrice").textContent;
 
@@ -1339,6 +1341,10 @@ async function uploadSlip(){
   alert("Please upload payment slip.");
   return;
 }
+if(file.size > 2000000){
+  alert("File must be under 2MB.");
+  return;
+}
 
   const formData = new FormData();
   formData.append("file", file);
@@ -1348,18 +1354,23 @@ async function uploadSlip(){
     "https://api.cloudinary.com/v1_1/dgxiobk7d/image/upload",
     {
       method:"POST",
-      body:formData
-    }
-  );
+  headers:{
+    "Content-Type":"application/json"
+  },
+  body:JSON.stringify(orderData)
+});
 
   const data = await response.json();
 
+   if(!data.secure_url){
+   alert("Slip upload failed");
+   return "";
+}
   return data.secure_url;
 }
 
   function showSuccessPage(orderNumber){
 
-  document.getElementById("loadingScreen").style.display="none";
 
   document.body.innerHTML =
     document.getElementById("successPage").outerHTML;
