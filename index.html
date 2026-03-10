@@ -792,7 +792,7 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
 
       <div class="form-group full-width">
         <label>Upload Payment Slip (Bank Transfer Proof)</label>
-        <input type="file" name="paymentSlip" accept=".pdf,.jpg,.png" required>
+        <input type="file" id="paymentSlip" name="paymentSlip" accept=".pdf,.jpg,.png" required>
       </div>
 
 
@@ -1278,7 +1278,7 @@ const orderData = {
     paymentRef: form.paymentConfirmation.value,
     email: form.email.value,
 
-    slipUrl: "slipUrl"
+    slipUrl: slipUrl
   };
 
   try{
@@ -1320,7 +1320,10 @@ async function uploadSlip(){
 
   const file = document.getElementById("paymentSlip").files[0];
 
-  if(!file) return "";
+ if(!file){
+  alert("Please upload payment slip.");
+  return;
+}
 
   const formData = new FormData();
   formData.append("file", file);
@@ -1430,6 +1433,7 @@ async function uploadSlip(){
 
 </body>
 </html>
+
 
 
 
