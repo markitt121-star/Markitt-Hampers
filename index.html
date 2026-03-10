@@ -918,7 +918,7 @@ hampers.forEach((h, index) => {
   const defaultVariety = "Basic";
   const defaultData = h.varieties[defaultVariety];
 
-  grid.insertAdjacentHTML("beforeend", `
+  grid.innerHTML += `
   <div class="hamper-card" 
      data-index="${index}" 
      data-name="${h.name}"
@@ -937,8 +937,8 @@ hampers.forEach((h, index) => {
 
       <input type="number" class="qty" min="0" value="0">
     </div>
-  </div>`
-);
+  </div>`;
+});
 
 document.querySelectorAll(".variety").forEach(select => {
 
@@ -1246,18 +1246,38 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwS2NM78obKdB
 // Order Form
 async function placeOrder(){
 
+  document.getElementById("loadingScreen").style.display = "flex";
+  document.getElementById("loadingScreen").style.display = "flex";
+  const orderNumber = "ORD" + Date.now().toString().slice(-6);
+   updateSummary();
+
+  const select = document.getElementById("sendMethodSelect");
+  const method = select.value;
+
   const form = document.getElementById("orderForm");
   const orderText = document.getElementById("summaryItems").innerText;
-  
+
   if(!orderText){
     alert("Please select at least one hamper.");
     return;
   }
-    document.getElementById("loadingScreen").style.display="flex";
-    const orderNumber = "ORD" + Date.now().toString().slice(-6);
-    const total = document.getElementById("totalPrice").textContent;
-  
-    const slipUrl = await uploadSlip();
+
+  const total = document.getElementById("totalPrice").textContent;
+
+  const msg =
+    `New Hamper Order\n\n` +
+    `Sender Phone: ${form.senderPhone.value}\n` +
+    `Sender City: ${form.senderCity.value}\n\n` +
+    `Receiver: ${form.receiver.value}\n` +
+    `Phone: ${form.phone.value}\n` +
+    `Address: ${form.address.value}\n\n` +
+    `${orderText}\n` +
+    `Total: ${total}`;
+
+
+  /* SEND DATA TO GOOGLE SHEET */
+
+  const slipUrl = await uploadSlip();
 
 const orderData = {
 
@@ -1276,6 +1296,7 @@ const orderData = {
 
     slipUrl: slipUrl
   };
+
   try{
 
     await fetch(GOOGLE_SCRIPT_URL,{
@@ -1291,17 +1312,9 @@ const orderData = {
   }catch(err){
     console.error("Sheet Error:",err);
   }
-  const select = document.getElementById("sendMethodSelect");
-  const method = select.value;
- const msg =
-    `New Hamper Order\n\n` +
-    `Sender Phone: ${form.senderPhone.value}\n` +
-    `Sender City: ${form.senderCity.value}\n\n` +
-    `Receiver: ${form.receiver.value}\n` +
-    `Phone: ${form.phone.value}\n` +
-    `Address: ${form.address.value}\n\n` +
-    `${orderText}\n` +
-    `Total: ${total}`;
+
+
+  /* WHATSAPP / EMAIL */
 
   if(method === "whatsapp"){
     window.open(
@@ -1326,10 +1339,6 @@ async function uploadSlip(){
   alert("Please upload payment slip.");
   return;
 }
-if(file.size > 2000000){
-  alert("File must be under 2MB.");
-  return;
-}
 
   const formData = new FormData();
   formData.append("file", file);
@@ -1339,23 +1348,18 @@ if(file.size > 2000000){
     "https://api.cloudinary.com/v1_1/dgxiobk7d/image/upload",
     {
       method:"POST",
-  headers:{
-    "Content-Type":"application/json"
-  },
-  body:JSON.stringify(orderData)
-});
+      body:formData
+    }
+  );
 
   const data = await response.json();
 
-   if(!data.secure_url){
-   alert("Slip upload failed");
-   return "";
-}
   return data.secure_url;
 }
 
   function showSuccessPage(orderNumber){
 
+  document.getElementById("loadingScreen").style.display="none";
 
   document.body.innerHTML =
     document.getElementById("successPage").outerHTML;
@@ -1364,10 +1368,6 @@ if(file.size > 2000000){
   document.getElementById("orderNumberDisplay").innerText = orderNumber;
 
 }
-
-  document.getElementById("loadingScreen").style.display = "flex";
-  orderData.orderNumber = orderNumber;
-
 </script>
 
 <!-- Footer -->
@@ -1494,3 +1494,10 @@ font-family:sans-serif;
   
 </body>
 </html>
+
+
+
+
+
+
+
