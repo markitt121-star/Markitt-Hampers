@@ -631,7 +631,18 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
 /* ========================================= */
 /* ===== END PROFESSIONAL FIX ===== */
 /* ========================================= */
+.spinner{
+  width:50px;
+  height:50px;
+  border:5px solid #eee;
+  border-top:5px solid #c6a75e;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
 
+@keyframes spin{
+  100%{transform:rotate(360deg);}
+}
 </style>
 </head>
 <body>
@@ -793,6 +804,9 @@ button:hover{ box-shadow:0 0 20px rgba(198,167,94,0.6); transform:translateY(-2p
       <div class="form-group full-width">
         <label>Upload Payment Slip (Bank Transfer Proof)</label>
         <input type="file" id="paymentSlip" name="paymentSlip" accept=".pdf,.jpg,.png" required>
+        <br><br>
+
+<img id="slipPreview" style="max-width:200px; display:none; border-radius:8px;">
       </div>
 
 
@@ -1231,8 +1245,10 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwS2NM78obKdB
 
 // Order Form
 async function placeOrder(){
-  updateSummary();
 
+  document.getElementById("loadingScreen").style.display = "flex";
+  document.getElementById("loadingScreen").style.display = "flex";
+  const orderNumber = "ORD" + Date.now().toString().slice(-6);
    updateSummary();
 
   const select = document.getElementById("sendMethodSelect");
@@ -1310,8 +1326,7 @@ const orderData = {
       `mailto:markitt121@gmail.com?subject=New Hamper Order&body=${encodeURIComponent(msg)}`;
   }
 
-  alert("Order Sent Successfully!");
-
+showSuccessPage(orderNumber);
   form.reset();
   updateSummary();
 }
@@ -1340,6 +1355,18 @@ async function uploadSlip(){
   const data = await response.json();
 
   return data.secure_url;
+}
+
+  function showSuccessPage(orderNumber){
+
+  document.getElementById("loadingScreen").style.display="none";
+
+  document.body.innerHTML =
+    document.getElementById("successPage").outerHTML;
+
+  document.getElementById("successPage").style.display="block";
+  document.getElementById("orderNumberDisplay").innerText = orderNumber;
+
 }
 </script>
 
@@ -1430,9 +1457,44 @@ async function uploadSlip(){
     <strong>Total:</strong> <span id="mobileTotal">Rs 0</span>
   </div>
 <button onclick="placeOrder()">Checkout</button></div>
+<div id="loadingScreen" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:white;
+z-index:9999;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+font-family:sans-serif;
+">
 
+<div class="spinner"></div>
+<p>Processing your order...</p>
+
+</div>
+
+  <div id="successPage" style="display:none;text-align:center;padding:50px;font-family:sans-serif;">
+
+<h1 style="color:#28a745;">Order Placed Successfully 🎉</h1>
+
+<p>Your Order Number</p>
+
+<h2 id="orderNumberDisplay"></h2>
+
+<p>Our team will contact you shortly.</p>
+
+<button onclick="location.reload()">Place Another Order</button>
+
+</div>
+
+  
 </body>
 </html>
+
 
 
 
