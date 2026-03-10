@@ -1224,9 +1224,13 @@ doc.text(`Total Amount: ${currencySelect.value} ${finalTotal.toFixed(2)}`, 140, 
   }
 }
 
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwS2NM78obKdB5BGH7XTKvdi5fRhcL6z8dB1s1hPS6bV9dSU7V8QaLti1ieoqTkuUrolQ/exec";
+
 // Order Form
-function placeOrder(){
+async function placeOrder(){
   updateSummary();
+
+   updateSummary();
 
   const select = document.getElementById("sendMethodSelect");
   const method = select.value;
@@ -1251,6 +1255,47 @@ function placeOrder(){
     `${orderText}\n` +
     `Total: ${total}`;
 
+
+  /* SEND DATA TO GOOGLE SHEET */
+
+  const orderData = {
+
+    senderPhone: form.senderPhone.value,
+    senderCity: form.senderCity.value,
+
+    receiver: form.receiver.value,
+    phone: form.phone.value,
+    address: form.address.value,
+
+    items: orderText,
+    total: total,
+
+    paymentRef: form.paymentConfirmation.value,
+    email: form.email.value,
+
+    slipUrl: "Uploaded manually"
+  };
+
+  try{
+
+    await fetch(https://script.google.com/macros/s/AKfycbwS2NM78obKdB5BGH7XTKvdi5fRhcL6z8dB1s1hPS6bV9dSU7V8QaLti1ieoqTkuUrolQ/exec,
+    {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(orderData)
+    });
+
+    console.log("Order saved to Google Sheet");
+
+  }catch(err){
+    console.error("Sheet Error:",err);
+  }
+
+
+  /* WHATSAPP / EMAIL */
+
   if(method === "whatsapp"){
     window.open(
       `https://wa.me/923422088395?text=${encodeURIComponent(msg)}`,
@@ -1262,11 +1307,10 @@ function placeOrder(){
   }
 
   alert("Order Sent Successfully!");
+
   form.reset();
   updateSummary();
 }
-
-
 </script>
 
 <!-- Footer -->
@@ -1359,6 +1403,7 @@ function placeOrder(){
 
 </body>
 </html>
+
 
 
 
